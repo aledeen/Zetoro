@@ -125,6 +125,8 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
 .ca{margin-top:6px;color:var(--ac);font-size:14px;font-style:italic}
 .wcard .ar2{display:none;color:var(--ac)}.wcard.open .ar2{display:block}
 .flbtn{background:none;border:1px solid var(--ac);color:var(--ac);border-radius:12px;padding:2px 9px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;letter-spacing:.5px;text-transform:none}
+.lis{display:flex;align-items:center;justify-content:center;gap:10px}
+.slow{width:46px;height:46px;border-radius:50%;background:var(--card2);border:1px solid var(--line);color:var(--ac);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}.slow:hover{border-color:var(--ac)}.slow:active{transform:scale(.94)}
 .proto{font-size:11px;text-align:center;color:var(--mu);padding:6px;border-bottom:1px solid var(--line);background:var(--card)}
 </style>
 </head>
@@ -147,7 +149,7 @@ id:{proto:"Prototipe — data contoh, akan reset saat halaman dimuat ulang",stud
 loginTitle:"Selamat datang",loginSub:"Masuk untuk melanjutkan hafalan",wrong:"Username atau PIN salah. Coba lagi.",wrongT:"Email atau password salah. Coba lagi.",fill:"Isi semua kolom dulu.",
 demo:"Akun contoh",hello:"Halo",yourBabs:"Bab kamu",words:"kata",mastered:"dikuasai",locked:"Terkunci",paket:"Paket",learn:"Belajar",score:"Penilaian",flash:"Flashcard",quiz:"Quiz",
 flashSub:"Ketuk kartu untuk melihat arti",quizSub:"10 soal acak, boleh diulang",tap:"Ketuk untuk melihat arti",listen:"Dengarkan",prev:"Sebelumnya",next:"Selanjutnya",back:"Kembali",
-q1:"Apa arti kata ini?",q2:"Bahasa Inggrisnya?",q3:"Dengarkan, lalu pilih katanya",play:"Putar suara",question:"Soal",result:"Hasil quiz",again:"Ulangi quiz",done:"Selesai",
+q1:"Apa arti kata ini?",q2:"Bahasa Inggrisnya?",q3:"Dengarkan, lalu pilih katanya",play:"Putar suara",slow:"Putar pelan",question:"Soal",result:"Hasil quiz",again:"Ulangi quiz",done:"Selesai",
 baru:"Baru",belum:"Belum lancar",hafal:"Hafal",last:"Nilai terakhir",best:"Tertinggi",tries:"Percobaan",progress:"Progress",
 summary:"Ringkasan",students:"Murid",material:"Materi",grade:"Nilai",activePkg:"Paket aktif",openNext:"Buka paket berikutnya",openBab:"Buka bab berikutnya",noMorePkg:"Belum ada paket berikutnya. Tambah kata di Materi dulu.",
 opened:"Dibuka untuk",addStudent:"Tambah murid",name:"Nama",save:"Simpan",resetPin:"Reset PIN",newPin:"PIN baru",added:"Murid ditambahkan",pinReset:"PIN direset",
@@ -160,7 +162,7 @@ en:{proto:"Prototype — sample data, resets on reload",student:"Student",teache
 loginTitle:"Welcome",loginSub:"Sign in to continue memorizing",wrong:"Wrong username or PIN. Try again.",wrongT:"Wrong email or password. Try again.",fill:"Fill in every field first.",
 demo:"Demo accounts",hello:"Hi",yourBabs:"Your chapters",words:"words",mastered:"mastered",locked:"Locked",paket:"Set",learn:"Learn",score:"Score",flash:"Flashcards",quiz:"Quiz",
 flashSub:"Tap the card to see the meaning",quizSub:"10 random questions, retry anytime",tap:"Tap to see the meaning",listen:"Listen",prev:"Previous",next:"Next",back:"Back",
-q1:"What does this word mean?",q2:"What's it in English?",q3:"Listen, then pick the word",play:"Play sound",question:"Question",result:"Quiz result",again:"Retry quiz",done:"Done",
+q1:"What does this word mean?",q2:"What's it in English?",q3:"Listen, then pick the word",play:"Play sound",slow:"Play slowly",question:"Question",result:"Quiz result",again:"Retry quiz",done:"Done",
 baru:"New",belum:"Not fluent",hafal:"Mastered",last:"Last score",best:"Best",tries:"Attempts",progress:"Progress",
 summary:"Overview",students:"Students",material:"Material",grade:"Grade",activePkg:"Active set",openNext:"Unlock next set",openBab:"Unlock next chapter",noMorePkg:"No next set yet. Add words in Material first.",
 opened:"Unlocked for",addStudent:"Add student",name:"Name",save:"Save",resetPin:"Reset PIN",newPin:"New PIN",added:"Student added",pinReset:"PIN reset",
@@ -226,7 +228,7 @@ function ring(pct,label,size=64){const r=size/2-5,C=2*Math.PI*r;
   <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--ac)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(C*Math.max(.02,pct)).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${size/2} ${size/2})"/>
   <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="${size/3.2}" font-weight="600" fill="var(--tx)">${label}</text></svg>`}
 function toast(m,ms=2200){const e=$('toast');e.textContent=m;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),ms)}
-function speak(txt){try{const u=new SpeechSynthesisUtterance(txt);u.lang='en-US';u.rate=.85;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){toast('Audio tidak tersedia')}}
+function speak(txt,rate=.85){try{const u=new SpeechSynthesisUtterance(txt);u.lang='en-US';u.rate=rate;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){toast('Audio tidak tersedia')}}
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const isNew=w=>Date.now()-new Date(w.created_at).getTime()<3*864e5;
 async function run(fn,savingMsg=true){if(S.busy)return;S.busy=true;if(savingMsg)toast(t('saving'),60000);
@@ -240,6 +242,7 @@ file:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1
 check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12l5 5L20 6"/></svg>',
 spk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>',
 lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>',
+turtle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 15.5h15a7.5 6.5 0 0 0-15 0z"/><path d="M6.5 10.5l3 5M13.5 10.5l-3 5M5 11.5h10"/><path d="M17.5 15.5c1 0 1.5-.8 1.5-1.8V13a2 2 0 0 1 2.5-1.9c.5.1.5.8 0 1.3l-1 1"/><path d="M5 15.5l-1 3M15 15.5l1 3"/></svg>',
 cards:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="6" width="13" height="15" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/></svg>'};
 const ic=(n,s=16)=>icon[n].replace('<svg',`<svg class="svi" width="${s}" height="${s}" aria-hidden="true"`);
 function eyeIcon(open){return open?'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3l18 18M10.6 6.1A9.9 9.9 0 0 1 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3 3.6M6.6 6.6A17 17 0 0 0 2.5 12S6 18 12 18a9.7 9.7 0 0 0 4.4-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>':'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="3"/></svg>'}
@@ -399,7 +402,7 @@ function vQuiz(b){const Q=S.quiz;
     <p class="mu">${t('best')}: ${r.best}/10 · ${t('tries')}: ${r.tries}</p></div>
     <button class="btn" onclick="startQuiz()">${t('again')}</button><div style="height:10px"></div><button class="btn ghost" onclick="S.mode='menu';render()">${t('done')}</button>`}
   const q=Q.qs[Q.i];const label={1:t('q1'),2:t('q2'),3:t('q3')}[q.type];
-  const prompt=q.type===1?esc(q.w.kata):q.type===2?esc(q.w.arti):`<button class="spk" style="font-size:16px;padding:12px 22px" onclick="speak('${jsq(q.w.kata)}')">${ic('spk',20)} ${t('play')}</button>`;
+  const prompt=q.type===1?esc(q.w.kata):q.type===2?esc(q.w.arti):`<div class="lis"><button class="spk" style="font-size:16px;padding:12px 22px" onclick="speak('${jsq(q.w.kata)}')">${ic('spk',20)} ${t('play')}</button><button class="slow" aria-label="${t('slow')}" title="${t('slow')}" onclick="speak('${jsq(q.w.kata)}',.45)">${ic('turtle',24)}</button></div>`;
   const opts=q.opts.map(o=>{const txt=q.type===1?o.arti:o.kata;let cls='';if(Q.picked){if(o.id===q.w.id)cls='ok';else if(o.id===Q.picked)cls='no'}
     return `<button class="opt ${cls}" ${Q.picked?'disabled':''} onclick="pick(${o.id})">${esc(txt)}</button>`}).join('');
   return `<button class="back" onclick="S.mode='menu';render()">‹ ${t('back')}</button>
