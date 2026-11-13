@@ -38,6 +38,27 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
 .demo{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}.demo button{background:var(--acs);color:var(--ac);border:1px solid var(--ac);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;flex-shrink:0}
 .wcard{cursor:pointer}.wcard .ar{display:none;color:var(--ac);font-weight:500}.wcard .hid{color:var(--mu);font-style:italic}.wcard.open .ar{display:inline}.wcard.open .hid{display:none}.ex{margin-top:2px}
 .mini{background:var(--card2);border:1px solid var(--line);border-radius:50%;width:32px;height:32px;cursor:pointer;flex-shrink:0;font-size:13px}
+.lsw{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:2px;margin:0 0 20px}.lsw button{background:none;border:none;color:var(--mu);font-size:12px;padding:5px 14px;border-radius:16px;cursor:pointer}.lsw button.on{background:var(--acs);color:var(--ac);font-weight:600}
+.ib{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:30px;transition:border-color .2s,color .2s}
+.ibl span{font-size:11.5px;font-weight:600;letter-spacing:.8px}
+#themeBtn{width:32px;padding:5px}#themeBtn:hover{color:var(--ac)}
+.tico{animation:tspin .45s ease}
+@keyframes tspin{from{transform:rotate(-90deg) scale(.6);opacity:0}to{transform:none;opacity:1}}
+.emb-orbit{transform-origin:44px 44px;animation:orbit 14s linear infinite}
+@keyframes orbit{to{transform:rotate(360deg)}}
+.anim .emb-arc{animation:arcIn 1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes arcIn{from{stroke-dasharray:0 258}to{stroke-dasharray:190 258}}
+.anim .emb-core{transform-origin:44px 44px;animation:popIn .5s cubic-bezier(.2,.9,.3,1.3) both}
+@keyframes popIn{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.anim .emb-z{stroke-dasharray:100;animation:zDraw .9s .25s ease-out both}
+@keyframes zDraw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+.anim .emb-dot{animation:fadeIn .4s .8s both}
+.anim h1{animation:fadeUp .55s .35s ease-out both}
+.anim p.mu{animation:fadeUp .55s .5s ease-out both}
+.anim .lsw{animation:fadeUp .55s .65s ease-out both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.emb-orbit,.tico,.anim *{animation:none!important}}
 .err{color:var(--bad);font-size:13px;margin:-4px 0 10px}
 .hint{font-size:12px;color:var(--mu);border:1px dashed var(--line);border-radius:8px;padding:10px;margin-top:16px}
 .lvl{display:flex;align-items:center;gap:14px}
@@ -104,7 +125,7 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
 <div class="app">
   <header>
     <div class="logo">ZETOR<span>O</span></div>
-    <button class="ib" onclick="toggleLang()" id="langBtn">EN</button>
+    <button class="ib ibl" onclick="toggleLang()" id="langBtn" aria-label="Bahasa">IND</button>
     <button class="ib" onclick="toggleTheme()" id="themeBtn" aria-label="Tema">☀</button>
     <button class="ib" onclick="logout()" id="outBtn" style="display:none"></button>
   </header>
@@ -249,9 +270,12 @@ async function enterApp(session){
 /* ---------- render ---------- */
 function render(){
   document.documentElement.lang=lang;
-  $('langBtn').textContent=lang==='id'?'EN':'ID';$('themeBtn').textContent=document.documentElement.dataset.theme==='dark'?'☀':'☾';
+  $('langBtn').innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg><span>${lang==='en'?'ENG':'IND'}</span>`;
+  const dark=document.documentElement.dataset.theme==='dark';$('themeBtn').setAttribute('aria-label',dark?'Mode terang':'Mode gelap');
+  $('themeBtn').innerHTML=dark?`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>`
+   :`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>`;
   $('outBtn').style.display=S.user?'':'none';$('outBtn').textContent=t('logout');
-  const v={boot:()=>`<div class="big mu">${t('loading')}</div>`,login:vLogin,home:vHome,bab:vBab,admin:vAdmin}[S.view];$('main').innerHTML=v();renderNav();
+  const v={boot:()=>`<div class="big mu">${t('loading')}</div>`,login:vLogin,home:vHome,bab:vBab,admin:vAdmin}[S.view];$('main').innerHTML=v();S.anim=false;renderNav();
   if(S.view==='bab'&&S.tab==='learn'&&S.mode==='quiz'&&S.quiz&&!S.quiz.done&&S.quiz.qs[S.quiz.i].type===3&&!S.quiz.played){S.quiz.played=true;setTimeout(()=>speak(S.quiz.qs[S.quiz.i].w.kata),300)}
 }
 function renderNav(){let items=[];
@@ -261,20 +285,26 @@ function renderNav(){let items=[];
   $('bnavIn').innerHTML=items.map(([ic,l,fn,on])=>`<button class="${on?'on':''}" onclick="${fn}">${icon[ic]}${l}</button>`).join('')}
 
 /* ---------- login ---------- */
-function emblem(){return `<svg width="88" height="88" viewBox="0 0 88 88" aria-label="Zetoro">
+function emblem(){return `<svg class="emb" width="88" height="88" viewBox="0 0 88 88" aria-label="Zetoro">
   <circle cx="44" cy="44" r="41" fill="none" stroke="var(--line)" stroke-width="2"/>
-  <circle cx="44" cy="44" r="41" fill="none" stroke="var(--ac)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="190 258" transform="rotate(-90 44 44)"/>
-  <circle cx="44" cy="44" r="31" fill="var(--card)" stroke="var(--line)"/>
-  <path d="M32 32h24L32 56h24" fill="none" stroke="var(--ac)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="44" cy="3" r="3" fill="var(--ac)"/></svg>`}
+  <g class="emb-orbit"><circle class="emb-arc" cx="44" cy="44" r="41" fill="none" stroke="var(--ac)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="190 258" transform="rotate(-90 44 44)"/>
+  <circle class="emb-dot" cx="44" cy="3" r="3" fill="var(--ac)"/></g>
+  <circle class="emb-core" cx="44" cy="44" r="31" fill="var(--card)" stroke="var(--line)"/>
+  <path class="emb-z" pathLength="100" d="M32 32h24L32 56h24" fill="none" stroke="var(--ac)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`}
+function loginSwitch(){const s=S.loginTab==='student';
+  return `<div class="lsw" role="tablist"><button type="button" class="${s?'on':''}" onclick="setLoginTab('student')">${t('student')}</button><button type="button" class="${!s?'on':''}" onclick="setLoginTab('teacher')">${t('teacher')}</button></div>`}
+async function setLoginTab(x){if(S.loginTab===x)return;S.loginTab=x;S.err='';S.anim=true;
+  try{history.replaceState(null,'',x==='teacher'?'#guru':location.pathname+location.search)}catch(e){}
+  if(x==='teacher'){try{const{data}=await sb.rpc('teacher_exists');S.needSetup=data===false}catch(e){}}
+  render()}
 function vLogin(){const s=S.loginTab==='student';
-  if(!s&&S.needSetup)return `<div style="padding-top:20px;text-align:center">${emblem()}<h1 style="margin-top:18px">${t('setupTitle')}</h1><p class="mu" style="margin:0 0 24px">${t('setupSub')}</p></div>
+  if(!s&&S.needSetup)return `<div class="lhead ${S.anim?'anim':''}" style="padding-top:20px;text-align:center">${emblem()}<h1 style="margin-top:18px">${t('setupTitle')}</h1><p class="mu" style="margin:0 0 14px">${t('setupSub')}</p>${loginSwitch()}</div>
    <div ${enter('doSetup')}><div class="field"><label>${t('name')}</label><input id="sn" placeholder="Ustadz Rangga"></div>
    <div class="field"><label>${t('email')}</label><input id="u" type="email" placeholder="nama@email.com"></div>
    <div class="field"><label>${t('password')}</label>${pwField('p',t('pwMin'),false)}</div>
    ${S.err?`<div class="err">${esc(S.err)}</div>`:''}<button class="btn" type="button" onclick="doSetup()">${t('create')}</button></div>`;
-  return `<div style="padding-top:28px;text-align:center">${emblem()}
-  <h1 style="margin-top:18px">${t('loginTitle')}</h1><p class="mu" style="margin:0 0 26px">${s?t('loginSub'):t('teacherHi')}</p></div>
+  return `<div class="lhead ${S.anim?'anim':''}" style="padding-top:28px;text-align:center">${emblem()}
+  <h1 style="margin-top:18px">${t('loginTitle')}</h1><p class="mu" style="margin:0 0 14px">${s?t('loginSub'):t('teacherHi')}</p>${loginSwitch()}</div>
   <div ${enter('doLogin')}>
    <div class="field"><label>${s?t('username'):t('email')}</label><input id="u" ${s?'autocapitalize="off" autocomplete="username"':'type="email" autocomplete="email"'} placeholder="${s?'username':'nama@email.com'}"></div>
    <div class="field"><label>${s?t('pin'):t('password')}</label>${pwField('p',s?'••••':'••••••••',s)}</div>
@@ -296,7 +326,7 @@ async function doSetup(){const n=$('sn').value.trim(),e=$('u').value.trim().toLo
     const{data,error}=await sb.auth.signInWithPassword({email:e,password:p});if(error)throw error;S.needSetup=false;await enterApp(data.session)});
   render()}
 async function doSignOut(){try{await sb.auth.signOut()}catch(e){}Object.assign(S,{user:null,role:null,view:'login'});DB.babs=[];DB.students=[]}
-async function logout(){try{speechSynthesis.cancel()}catch(e){}await doSignOut();S.err='';render()}
+async function logout(){try{speechSynthesis.cancel()}catch(e){}await doSignOut();S.err='';S.anim=true;render()}
 
 /* ---------- student home ---------- */
 function vHome(){const s=S.user,n=hafalCount(s),L=lvlOf(n);const list=DB.babs.filter(b=>b.words.length);
@@ -501,7 +531,7 @@ async function boot(){S.loginTab=readRole();
     const{data:{session}}=await sb.auth.getSession();
     if(session){await enterApp(session);render();return}
   }catch(e){console.error(e);await doSignOut()}
-  S.view='login';render()}
+  S.view='login';S.anim=true;render()}
 render();boot();
 
 </script>
