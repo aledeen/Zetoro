@@ -75,7 +75,7 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
 .chip{flex-shrink:0;border:1px solid var(--line);background:var(--card);border-radius:20px;padding:6px 12px;font-size:13px;cursor:pointer;white-space:nowrap}
 .chip.on{border-color:var(--ac);color:var(--ac);background:var(--acs)}
 .chip.lock{opacity:.45;cursor:default}
-.flash{perspective:1000px;height:260px;margin:6px 0 14px;cursor:pointer}
+.flash{perspective:1000px;height:290px;margin:6px 0 14px;cursor:pointer}
 .fi{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
 .flash.flip .fi{transform:rotateY(180deg)}
 .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
@@ -101,7 +101,7 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
 .st.hafal{color:var(--ok);border-color:var(--ok);background:var(--oks)}
 .st.belum{color:var(--warn);border-color:var(--warn);background:var(--warns)}
 .wi.hafal{background:var(--oks)}.wi.belum{background:var(--warns)}
-.pk{font-size:12px;letter-spacing:1px;color:var(--ac);text-transform:uppercase;margin:16px 0 6px;display:flex;justify-content:space-between}
+.pk{font-size:12px;letter-spacing:1px;color:var(--ac);text-transform:uppercase;margin:16px 0 6px;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .pksep{border-top:3px solid var(--tx);margin:14px 0 0}
 .wi select{width:auto;padding:5px 8px;font-size:12.5px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
@@ -118,6 +118,13 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
 .big{text-align:center;padding:24px 10px}
 .big .score{font-size:44px;font-weight:600;color:var(--ac)}
 .pill{display:inline-block;font-size:11px;border:1px solid var(--ac);color:var(--ac);border-radius:10px;padding:1px 7px;margin-left:6px}
+.svi{display:inline-block;vertical-align:-3px;flex-shrink:0}
+.spk,.mini{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.lk{color:var(--mu);display:flex}
+.chip .svi{vertical-align:-2px;margin-right:4px}
+.ca{margin-top:6px;color:var(--ac);font-size:14px;font-style:italic}
+.wcard .ar2{display:none;color:var(--ac)}.wcard.open .ar2{display:block}
+.flbtn{background:none;border:1px solid var(--ac);color:var(--ac);border-radius:12px;padding:2px 9px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;letter-spacing:.5px;text-transform:none}
 .proto{font-size:11px;text-align:center;color:var(--mu);padding:6px;border-bottom:1px solid var(--line);background:var(--card)}
 </style>
 </head>
@@ -126,7 +133,7 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
   <header>
     <div class="logo">ZETOR<span>O</span></div>
     <button class="ib ibl" onclick="toggleLang()" id="langBtn" aria-label="Bahasa">IND</button>
-    <button class="ib" onclick="toggleTheme()" id="themeBtn" aria-label="Tema">☀</button>
+    <button class="ib" onclick="toggleTheme()" id="themeBtn" aria-label="Tema"></button>
     <button class="ib" onclick="logout()" id="outBtn" style="display:none"></button>
   </header>
   <main id="main"></main>
@@ -145,7 +152,7 @@ baru:"Baru",belum:"Belum lancar",hafal:"Hafal",last:"Nilai terakhir",best:"Terti
 summary:"Ringkasan",students:"Murid",material:"Materi",grade:"Nilai",activePkg:"Paket aktif",openNext:"Buka paket berikutnya",openBab:"Buka bab berikutnya",noMorePkg:"Belum ada paket berikutnya. Tambah kata di Materi dulu.",
 opened:"Dibuka untuk",addStudent:"Tambah murid",name:"Nama",save:"Simpan",resetPin:"Reset PIN",newPin:"PIN baru",added:"Murid ditambahkan",pinReset:"PIN direset",
 babs:"Bab",newBab:"Bab baru",babName:"Nama bab",create:"Buat",addWord:"Tambah kata",word:"Kata (English)",meaning:"Arti",example:"Contoh kalimat",pasteTitle:"Paste dari AI",
-pasteHint:"Satu kata per baris: kata | arti | contoh (tab juga bisa)",copyPrompt:"Copy prompt",copied:"Prompt tersalin",wordsAdded:"kata ditambahkan",nothing:"Tidak ada baris yang terbaca.",
+pasteHint:"Satu kata per baris: kata | arti | contoh | arti contoh (tab juga bisa)",copyPrompt:"Copy prompt",copied:"Prompt tersalin",wordsAdded:"kata ditambahkan",nothing:"Tidak ada baris yang terbaca.",
 wordList:"Daftar kata",autoSplit:"Otomatis dipotong per 20 kata",viewOnly:"Hanya guru yang bisa mengubah status",noQuiz:"Belum pernah quiz",needWords:"Butuh minimal 4 kata untuk quiz.",
 gradeOf:"Penilaian",chooseBab:"Pilih bab",empty:"Belum ada kata",level:"Level",total:"total kata hafal",toNext:"kata lagi ke level berikutnya",maxLvl:"Level tertinggi",
 teacherHi:"Panel guru",newMark:"Baru",theme:"Tema",of:"dari",paketLocked:"Paket ini belum dibuka guru",allWords:"Semua kata",tapShort:"ketuk untuk arti",tapHint:"Ketuk kata untuk melihat artinya",needSentence:"Contoh kalimat wajib diisi.",skipped:"baris dilewati karena belum ada contoh kalimat",sentence:"Kalimat"},
@@ -158,7 +165,7 @@ baru:"New",belum:"Not fluent",hafal:"Mastered",last:"Last score",best:"Best",tri
 summary:"Overview",students:"Students",material:"Material",grade:"Grade",activePkg:"Active set",openNext:"Unlock next set",openBab:"Unlock next chapter",noMorePkg:"No next set yet. Add words in Material first.",
 opened:"Unlocked for",addStudent:"Add student",name:"Name",save:"Save",resetPin:"Reset PIN",newPin:"New PIN",added:"Student added",pinReset:"PIN reset",
 babs:"Chapters",newBab:"New chapter",babName:"Chapter name",create:"Create",addWord:"Add word",word:"Word (English)",meaning:"Meaning",example:"Example sentence",pasteTitle:"Paste from AI",
-pasteHint:"One word per line: word | meaning | example (tabs work too)",copyPrompt:"Copy prompt",copied:"Prompt copied",wordsAdded:"words added",nothing:"No readable lines.",
+pasteHint:"One word per line: word | meaning | example | example meaning (tabs work too)",copyPrompt:"Copy prompt",copied:"Prompt copied",wordsAdded:"words added",nothing:"No readable lines.",
 wordList:"Word list",autoSplit:"Split into sets of 20 automatically",viewOnly:"Only the teacher can change status",noQuiz:"No quiz yet",needWords:"Needs at least 4 words for a quiz.",
 gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",total:"total words mastered",toNext:"more words to next level",maxLvl:"Top level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
@@ -171,14 +178,14 @@ edit:"Ubah",cancel:"Batal",del:"Hapus",sureDel:"Yakin hapus?",wordSaved:"Kata di
 newPinFor:"PIN baru untuk",tellStudent:"Beri tahu murid PIN ini. PIN tidak bisa dilihat lagi setelah ditutup.",close:"Tutup",
 delStudent:"Hapus murid",studentDeleted:"Murid dihapus",noStudents:"Belum ada murid. Tambah di menu Murid.",noBabs:"Belum ada bab. Guru sedang menyiapkan materi.",
 pinHint:"4–6 angka",userHint:"huruf kecil, angka, titik",tapEdit:"Ketuk kata untuk mengubah atau menghapus",babCreated:"Bab dibuat",
-notTeacherUrl:"Akun ini akun guru. Masuk lewat link guru.",notStudent:"Akun ini bukan akun murid.",noMoreBab:"Tidak ada bab berikutnya."});
+notTeacherUrl:"Akun ini akun guru. Masuk lewat link guru.",notStudent:"Akun ini bukan akun murid.",noMoreBab:"Tidak ada bab berikutnya.",sentMeaning:"Arti kalimat (opsional)"});
 Object.assign(T.en,{setupTitle:"Create teacher account",setupSub:"No teacher account yet. Create it once to get started.",pwMin:"Password needs at least 8 characters",
 loading:"Loading…",saving:"Saving…",errGeneric:"Something went wrong. Try again shortly.",offline:"Can't connect. Check your internet.",
 edit:"Edit",cancel:"Cancel",del:"Delete",sureDel:"Delete for sure?",wordSaved:"Word saved",wordDeleted:"Word deleted",
 newPinFor:"New PIN for",tellStudent:"Tell the student this PIN. It can't be shown again after you close this.",close:"Close",
 delStudent:"Delete student",studentDeleted:"Student deleted",noStudents:"No students yet. Add one in Students.",noBabs:"No chapters yet. Your teacher is preparing them.",
 pinHint:"4–6 digits",userHint:"lowercase, numbers, dots",tapEdit:"Tap a word to edit or delete it",babCreated:"Chapter created",
-notTeacherUrl:"This is a teacher account. Use the teacher link.",notStudent:"This isn't a student account.",noMoreBab:"No next chapter."});
+notTeacherUrl:"This is a teacher account. Use the teacher link.",notStudent:"This isn't a student account.",noMoreBab:"No next chapter.",sentMeaning:"Sentence meaning (optional)"});
 
 /* ---------- supabase ---------- */
 const SB_URL="https://tblnlahjelbdhwntodwh.supabase.co";
@@ -230,7 +237,11 @@ chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="
 home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7v9H3z"/></svg>',
 users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6M17 11a3 3 0 1 0 0-6M22 20c0-2.5-1.5-4.5-4-5.5"/></svg>',
 file:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h8M9 17h8"/></svg>',
-check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12l5 5L20 6"/></svg>'};
+check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12l5 5L20 6"/></svg>',
+spk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>',
+lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>',
+cards:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="6" width="13" height="15" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/></svg>'};
+const ic=(n,s=16)=>icon[n].replace('<svg',`<svg class="svi" width="${s}" height="${s}" aria-hidden="true"`);
 function eyeIcon(open){return open?'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3l18 18M10.6 6.1A9.9 9.9 0 0 1 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3 3.6M6.6 6.6A17 17 0 0 0 2.5 12S6 18 12 18a9.7 9.7 0 0 0 4.4-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>':'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="3"/></svg>'}
 function togglePw(b){const i=b.previousElementSibling,show=i.type==='password';i.type=show?'text':'password';b.innerHTML=eyeIcon(show)}
 function pwField(id,ph,numeric){return `<div class="pw"><input id="${id}" type="password" ${numeric?'inputmode="numeric" maxlength="6"':''} placeholder="${ph}" autocomplete="current-password"><button type="button" class="eye" aria-label="Tampilkan" onclick="togglePw(this)">${eyeIcon(false)}</button></div>`}
@@ -244,7 +255,7 @@ document.documentElement.dataset.theme=safeStorage.getItem('zt-theme')||'dark';l
 /* ---------- data loading ---------- */
 async function loadData(){
   const uid=S.user.id;
-  const [babs,words]=await Promise.all([fetchAll('babs','id,nama'),fetchAll('words','id,bab_id,kata,arti,contoh,created_at')]);
+  const [babs,words]=await Promise.all([fetchAll('babs','id,nama'),fetchAll('words','id,bab_id,kata,arti,contoh,contoh_arti,created_at')]);
   DB.babs=babs.map(b=>({...b,words:words.filter(w=>w.bab_id===b.id)}));
   const [unl,sts,qz]=await Promise.all([fetchAll('unlocks','student_id,bab_id,paket','bab_id'),fetchAll('statuses','student_id,word_id,status','word_id'),fetchAll('quiz_results','student_id,bab_id,paket,last,best,tries','bab_id')]);
   let studs;
@@ -338,7 +349,7 @@ function vHome(){const s=S.user,n=hafalCount(s),L=lvlOf(n);const list=DB.babs.fi
     const h=open?b.words.slice(0,tot).filter(w=>st(s,w)==='hafal').length:0;
     return `<div class="card bab ${open?'':'lock'}" ${open?`onclick="openBab(${b.id})"`:''}><div class="n">${i+1}</div><div class="grow"><b>${esc(b.nama)}</b>
     <div class="sm mu">${open?`${t('paket')} ${Math.min(open,pakets(b))} ${t('of')} ${pakets(b)} · ${h}/${tot} ${t('mastered')}`:t('locked')}</div>
-    ${open?`<div class="bar"><i style="width:${tot?h/tot*100:0}%"></i></div>`:''}</div>${open?'<span class="mu">›</span>':'<span>🔒</span>'}</div>`}).join(''):`<div class="card mu">${t('noBabs')}</div>`}`}
+    ${open?`<div class="bar"><i style="width:${tot?h/tot*100:0}%"></i></div>`:''}</div>${open?'<span class="mu">›</span>':`<span class="lk">${ic('lock',18)}</span>`}</div>`}).join(''):`<div class="card mu">${t('noBabs')}</div>`}`}
 function goHome(){S.view='home';S.mode='menu';render()}
 function openBab(id){S.bab=id;S.paket=Math.min(S.user.unlocked[id],pakets(bab(id)));S.view='bab';S.tab='learn';S.mode='menu';render()}
 function setTab(x){S.tab=x;S.mode='menu';render()}
@@ -349,7 +360,7 @@ function curWords(b){return S.paket===0?b.words.slice(0,maxOpenOf(S.user,b)*20):
 function qKey(){return S.bab+'-'+(S.paket===0?'all':S.paket)}
 function pkLabel(){return S.paket===0?t('allWords'):t('paket')+' '+S.paket}
 function pkChips(b,maxOpen){let h=`<button class="chip ${S.paket===0?'on':''}" onclick="selPk(0)">${t('allWords')}</button>`;
-  for(let p=1;p<=pakets(b);p++){const lk=p>maxOpen;h+=`<button class="chip ${p===S.paket?'on':''} ${lk?'lock':''}" ${lk?'':`onclick="selPk(${p})"`}>${lk?'🔒 ':''}${t('paket')} ${p}</button>`}
+  for(let p=1;p<=pakets(b);p++){const lk=p>maxOpen;h+=`<button class="chip ${p===S.paket?'on':''} ${lk?'lock':''}" ${lk?'':`onclick="selPk(${p})"`}>${lk?ic('lock',13):''}${t('paket')} ${p}</button>`}
   return `<div class="chips">${h}</div>`}
 function selPk(p){S.paket=p;S.mode='menu';S.fi=0;S.flip=false;render()}
 function vBab(){const b=bab(S.bab),s=S.user;if(!b){S.view='home';return vHome()}const maxOpen=maxOpenOf(s,b);
@@ -363,17 +374,20 @@ function vBab(){const b=bab(S.bab),s=S.user;if(!b){S.view='home';return vHome()}
   <div class="card bab" onclick="startFlash()"><div class="n">${icon.book.replace('<svg','<svg width="18" height="18"')}</div><div class="grow"><b>${t('flash')}</b><div class="sm mu">${t('flashSub')}</div></div><span class="mu">›</span></div>
   <div class="card bab" onclick="startQuiz()"><div class="n">${icon.check.replace('<svg','<svg width="18" height="18"')}</div><div class="grow"><b>${t('quiz')}</b><div class="sm mu">${q?`${t('last')} ${q.last}/10 · ${t('best')} ${q.best}/10`:t('quizSub')}</div></div><span class="mu">›</span></div>`}
 function startFlash(){if(!curWords(bab(S.bab)).length){toast(t('empty'));return}S.mode='flash';S.fi=0;S.flip=false;render()}
-function vFlash(b){const ws=curWords(b),w=ws[S.fi];
-  return `<button class="back" onclick="S.mode='menu';render()">‹ ${t('back')}</button>
-  <div class="qhead"><span>${t('flash')} · ${pkLabel()}</span><span>${S.fi+1} / ${ws.length}</span></div>
+function vFlash(b){return flashView(curWords(b),pkLabel(),"S.mode='menu';render()")}
+function flashView(ws,label,exitJs){if(!ws.length)return `<button class="back" onclick="${exitJs}">‹ ${t('back')}</button><div class="card mu">${t('empty')}</div>`;
+  if(S.fi>=ws.length)S.fi=ws.length-1;const w=ws[S.fi];
+  return `<button class="back" onclick="${exitJs}">‹ ${t('back')}</button>
+  <div class="qhead"><span>${t('flash')} · ${label}</span><span>${S.fi+1} / ${ws.length}</span></div>
   <div class="bar" style="margin-bottom:12px"><i style="width:${(S.fi+1)/ws.length*100}%"></i></div>
   <div class="flash ${S.flip?'flip':''}" onclick="S.flip=!S.flip;this.classList.toggle('flip')">
    <div class="fi"><div class="face">${isNew(w)?`<div class="tag" style="color:var(--ac)">${t('newMark')}</div>`:''}<div class="k">${esc(w.kata)}</div><div class="c">“${esc(w.contoh)}”</div>
-    <button class="spk" onclick="event.stopPropagation();speak('${jsq(w.kata+'. '+w.contoh)}')">🔊 ${t('listen')}</button><div class="c sm">${t('tap')}</div></div>
+    <button class="spk" onclick="event.stopPropagation();speak('${jsq(w.kata+'. '+w.contoh)}')">${ic('spk')} ${t('listen')}</button><div class="c sm">${t('tap')}</div></div>
    <div class="face back"><div class="tag">${esc(w.kata)}</div><div class="a">${esc(w.arti)}</div><div class="c">“${esc(w.contoh)}”</div>
-    <button class="spk" onclick="event.stopPropagation();speak('${jsq(w.contoh)}')">🔊 ${t('listen')}</button></div></div></div>
+    ${w.contoh_arti?`<div class="ca">${esc(w.contoh_arti)}</div>`:''}
+    <button class="spk" onclick="event.stopPropagation();speak('${jsq(w.contoh)}')">${ic('spk')} ${t('listen')}</button></div></div></div>
   <div class="nav2"><button class="btn ghost" onclick="fNav(-1)" ${S.fi===0?'disabled style="opacity:.4"':''}>${t('prev')}</button>
-  <button class="btn" onclick="${S.fi===ws.length-1?"S.mode='menu';render()":'fNav(1)'}">${S.fi===ws.length-1?t('done'):t('next')}</button></div>`}
+  <button class="btn" onclick="${S.fi===ws.length-1?exitJs:'fNav(1)'}">${S.fi===ws.length-1?t('done'):t('next')}</button></div>`}
 function fNav(d){S.fi+=d;S.flip=false;render()}
 function startQuiz(){const b=bab(S.bab),ws=curWords(b);if(ws.length<4){toast(t('needWords'));return}
   const pool=shuffle(ws).slice(0,Math.min(10,ws.length));
@@ -385,11 +399,11 @@ function vQuiz(b){const Q=S.quiz;
     <p class="mu">${t('best')}: ${r.best}/10 · ${t('tries')}: ${r.tries}</p></div>
     <button class="btn" onclick="startQuiz()">${t('again')}</button><div style="height:10px"></div><button class="btn ghost" onclick="S.mode='menu';render()">${t('done')}</button>`}
   const q=Q.qs[Q.i];const label={1:t('q1'),2:t('q2'),3:t('q3')}[q.type];
-  const prompt=q.type===1?esc(q.w.kata):q.type===2?esc(q.w.arti):`<button class="spk" style="font-size:16px;padding:12px 22px" onclick="speak('${jsq(q.w.kata)}')">🔊 ${t('play')}</button>`;
+  const prompt=q.type===1?esc(q.w.kata):q.type===2?esc(q.w.arti):`<button class="spk" style="font-size:16px;padding:12px 22px" onclick="speak('${jsq(q.w.kata)}')">${ic('spk',20)} ${t('play')}</button>`;
   const opts=q.opts.map(o=>{const txt=q.type===1?o.arti:o.kata;let cls='';if(Q.picked){if(o.id===q.w.id)cls='ok';else if(o.id===Q.picked)cls='no'}
     return `<button class="opt ${cls}" ${Q.picked?'disabled':''} onclick="pick(${o.id})">${esc(txt)}</button>`}).join('');
   return `<button class="back" onclick="S.mode='menu';render()">‹ ${t('back')}</button>
-  <div class="qhead"><span>${t('question')} ${Q.i+1}/${Q.qs.length}</span><span>✓ ${Q.score}</span></div><div class="bar"><i style="width:${Q.i/Q.qs.length*100}%"></i></div>
+  <div class="qhead"><span>${t('question')} ${Q.i+1}/${Q.qs.length}</span><span>${ic('check',13)} ${Q.score}</span></div><div class="bar"><i style="width:${Q.i/Q.qs.length*100}%"></i></div>
   <p class="mu sm" style="text-align:center;margin-top:18px">${label}</p><div class="qq">${prompt}</div>${opts}
   ${Q.picked?`<button class="btn" style="margin-top:6px" onclick="nextQ()">${Q.i===Q.qs.length-1?t('result'):t('next')}</button>`:''}`}
 function pick(id){const Q=S.quiz;if(Q.picked)return;Q.picked=id;if(id===Q.qs[Q.i].w.id)Q.score++;render()}
@@ -410,10 +424,10 @@ function vScore(s,b,edit){const maxOpen=maxOpenOf(s,b);
   for(let p=1;p<=maxOpen;p++){const ws=pkWords(b,p);if(!ws.length)continue;const ph=ws.filter(w=>st(s,w)==='hafal').length,q=s.quiz[b.id+'-'+p];
     html+=`${p>1?'<div class="pksep"></div>':''}<div class="pk"><span>${t('paket')} ${p}</span><span>${ph}/${ws.length} · ${q?`${t('quiz')} ${q.last}/10 (${t('best')} ${q.best}, ${q.tries}x)`:t('noQuiz')}</span></div><div class="wl">`;
     ws.forEach((w,i)=>{const v=st(s,w);
-      html+=`<div class="wi ${v}"><span class="no">${(p-1)*20+i+1}</span>${edit?`<div class="grow"><b>${esc(w.kata)}</b> <span class="sm mu">· ${esc(w.arti)}</span><div class="sm mu ex">“${esc(w.contoh)}”</div></div>
+      html+=`<div class="wi ${v}"><span class="no">${(p-1)*20+i+1}</span>${edit?`<div class="grow"><b>${esc(w.kata)}</b> <span class="sm mu">· ${esc(w.arti)}</span><div class="sm mu ex">“${esc(w.contoh)}”</div>${w.contoh_arti?`<div class="sm" style="color:var(--ac)">${esc(w.contoh_arti)}</div>`:''}</div>
       <select onchange="setSt('${s.id}',${w.id},this.value,this)">${['baru','belum','hafal'].map(o=>`<option value="${o}" ${o===v?'selected':''}>${t(o)}</option>`).join('')}</select>`:
-      `<div class="grow wcard" onclick="this.classList.toggle('open')"><b>${esc(w.kata)}</b> <span class="sm hid">· ${t('tapShort')}</span><span class="sm ar">· ${esc(w.arti)}</span><div class="sm mu ex">“${esc(w.contoh)}”</div></div>
-      <button class="mini" aria-label="${t('listen')}" onclick="speak('${jsq(w.kata+'. '+w.contoh)}')">🔊</button><span class="st ${v}">${t(v)}</span>`}</div>`});
+      `<div class="grow wcard" onclick="this.classList.toggle('open')"><b>${esc(w.kata)}</b> <span class="sm hid">· ${t('tapShort')}</span><span class="sm ar">· ${esc(w.arti)}</span><div class="sm mu ex">“${esc(w.contoh)}”</div>${w.contoh_arti?`<div class="sm ar2">${esc(w.contoh_arti)}</div>`:''}</div>
+      <button class="mini" aria-label="${t('listen')}" onclick="speak('${jsq(w.kata+'. '+w.contoh)}')">${ic('spk',15)}</button><span class="st ${v}">${t(v)}</span>`}</div>`});
     html+='</div>'}
   return html}
 async function setSt(sid,wid,v,el){const s=DB.students.find(x=>x.id===sid),prev=s.status[wid]||'baru';s.status[wid]=v;
@@ -422,7 +436,7 @@ async function setSt(sid,wid,v,el){const s=DB.students.find(x=>x.id===sid),prev=
   if(!ok){s.status[wid]=prev}render()}
 
 /* ---------- admin ---------- */
-function aTab(x){S.aTab=x;S.editWord=null;S.confirm=null;S.err='';render()}
+function aTab(x){S.aTab=x;S.editWord=null;S.mFlash=null;S.confirm=null;S.err='';render()}
 function vAdmin(){return {sum:aSum,grade:aGrade,stu:aStu,mat:aMat}[S.aTab]()}
 function aSum(){return `<div class="mu sm">${t('teacherHi')}</div><h1>${t('summary')}</h1><div style="height:12px"></div>
   ${DB.students.length?DB.students.map(s=>{const n=hafalCount(s),L=lvlOf(n),ids=Object.keys(s.unlocked).map(Number).sort((a,b)=>a-b),
@@ -436,7 +450,7 @@ function aGrade(){const s=DB.students.find(x=>x.id===S.gStudent);const b=bab(S.g
   const nb=DB.babs[DB.babs.indexOf(b)+1];
   return `<button class="back" onclick="aTab('sum')">‹ ${t('summary')}</button><h1>${t('gradeOf')}</h1><div style="display:flex;gap:8px;margin:12px 0">
   <select onchange="S.gStudent=this.value;render()">${DB.students.map(x=>`<option value="${x.id}" ${x.id===s.id?'selected':''}>${esc(x.nama)}</option>`).join('')}</select>
-  <select onchange="S.gBab=+this.value;render()">${DB.babs.map(x=>`<option value="${x.id}" ${x.id===b.id?'selected':''}>${esc(x.nama)}${s.unlocked[x.id]?'':' 🔒'}</option>`).join('')}</select></div>
+  <select onchange="S.gBab=+this.value;render()">${DB.babs.map(x=>`<option value="${x.id}" ${x.id===b.id?'selected':''}>${esc(x.nama)}${s.unlocked[x.id]?'':` · ${t('locked')}`}</option>`).join('')}</select></div>
   ${maxOpen?vScore(s,b,true):`<div class="card mu" style="margin-bottom:12px">${t('locked')}</div>`}
   <div style="height:14px"></div>
   ${maxOpen?`<button class="btn" onclick="unlockPk('${s.id}',${b.id})" ${canNext?'':'style="opacity:.5"'}>${t('openNext')} (${t('paket')} ${maxOpen+1})</button>`:
@@ -475,51 +489,56 @@ async function delStudent(id){if(S.confirm!=='s'+id){S.confirm='s'+id;render();r
   S.confirm=null;const ok=await run(async()=>{await invokeAdmin({action:'delete_student',student_id:id})});
   if(ok){DB.students=DB.students.filter(x=>x.id!==id);toast(t('studentDeleted'))}render()}
 
+function openMFlash(p){S.mFlash=p;S.fi=0;S.flip=false;S.editWord=null;render();scrollTo(0,0)}
 function aMat(){const b=bab(S.mBab)||DB.babs[0];
+  if(b&&S.mFlash!=null)return `<div class="tag">${esc(b.nama)}</div>`+flashView(S.mFlash===0?b.words:pkWords(b,S.mFlash),S.mFlash===0?t('allWords'):t('paket')+' '+S.mFlash,"S.mFlash=null;render()");
   return `<h1>${t('material')}</h1>
-  ${DB.babs.length?`<div style="margin:12px 0"><select onchange="S.mBab=+this.value;S.editWord=null;render()">${DB.babs.map(x=>`<option value="${x.id}" ${b&&x.id===b.id?'selected':''}>${esc(x.nama)} (${x.words.length})</option>`).join('')}</select></div>`:''}
+  ${DB.babs.length?`<div style="margin:12px 0"><select onchange="S.mBab=+this.value;S.editWord=null;S.mFlash=null;render()">${DB.babs.map(x=>`<option value="${x.id}" ${b&&x.id===b.id?'selected':''}>${esc(x.nama)} (${x.words.length})</option>`).join('')}</select></div>`:''}
   <div class="card" style="margin-bottom:14px;display:flex;gap:8px" ${enter('addBab')}><input id="bn" placeholder="${t('babName')}"><button class="btn sm2" type="button" onclick="addBab()">${t('create')}</button></div>
   ${b?`<h2>${t('addWord')}</h2><div class="card" ${enter('addWord')}>
   <div class="field"><label>${t('word')}</label><input id="wk" placeholder="wake up"></div>
   <div class="field"><label>${t('meaning')}</label><input id="wa" placeholder="bangun tidur"></div>
   <div class="field"><label>${t('example')} *</label><input id="wc" placeholder="I wake up at 5 a.m."></div>
+  <div class="field"><label>${t('sentMeaning')}</label><input id="wca" placeholder="Aku bangun jam 5 pagi."></div>
   <button class="btn" type="button" onclick="addWord()">${t('save')}</button></div>
   <h2>${t('pasteTitle')}</h2><div class="card"><p class="sm mu" style="margin:0 0 8px">${t('pasteHint')}</p>
   <button class="btn ghost sm2" style="margin-bottom:10px" onclick="copyPrompt()">${t('copyPrompt')}</button>
-  <textarea id="pb" placeholder="sweep | menyapu | I sweep the floor."></textarea><div style="height:10px"></div>
+  <textarea id="pb" placeholder="sweep | menyapu | I sweep the floor. | Aku menyapu lantai."></textarea><div style="height:10px"></div>
   <button class="btn" type="button" onclick="pasteWords()">${t('save')}</button></div>
   <h2>${t('wordList')} <span class="sm mu" style="font-weight:400">· ${t('autoSplit')}</span></h2><p class="sm mu" style="margin:-4px 0 8px">${t('tapEdit')}</p>
-  ${b.words.length?Array.from({length:pakets(b)},(_,i)=>{const ws=pkWords(b,i+1);return `${i?'<div class="pksep"></div>':''}<div class="pk"><span>${t('paket')} ${i+1}</span><span>${ws.length}/20</span></div><div class="wl">${ws.map((w,j)=>
+  ${b.words.length?`<div class="card bab" onclick="openMFlash(0)"><div class="n">${ic('cards',18)}</div><div class="grow"><b>${t('flash')} · ${t('allWords')}</b><div class="sm mu">${b.words.length} ${t('words')}</div></div><span class="mu">›</span></div>`:''}
+  ${b.words.length?Array.from({length:pakets(b)},(_,i)=>{const ws=pkWords(b,i+1);return `${i?'<div class="pksep"></div>':''}<div class="pk"><span>${t('paket')} ${i+1} · ${ws.length}/20</span><button class="flbtn" onclick="openMFlash(${i+1})">${ic('cards',12)} ${t('flash')}</button></div><div class="wl">${ws.map((w,j)=>
     S.editWord===w.id?`<div class="wi" style="display:block" ${enter('saveWord')}>
       <div class="field"><label>${t('word')}</label><input id="ek" value="${esc(w.kata)}"></div>
       <div class="field"><label>${t('meaning')}</label><input id="ea" value="${esc(w.arti)}"></div>
       <div class="field"><label>${t('example')} *</label><input id="ec" value="${esc(w.contoh)}"></div>
+      <div class="field"><label>${t('sentMeaning')}</label><input id="eca" value="${esc(w.contoh_arti)}"></div>
       <div style="display:flex;gap:8px"><button class="btn sm2" type="button" onclick="saveWord()">${t('save')}</button><button class="btn ghost sm2" type="button" onclick="S.editWord=null;S.confirm=null;render()">${t('cancel')}</button>
       <span class="grow"></span><button class="btn ghost sm2" style="color:var(--bad)" type="button" onclick="delWord()">${S.confirm==='w'+w.id?t('sureDel'):t('del')}</button></div></div>`:
-    `<div class="wi" style="cursor:pointer" onclick="S.editWord=${w.id};S.confirm=null;render()"><span class="no">${i*20+j+1}</span><div class="grow"><b>${esc(w.kata)}</b> <span class="sm mu">· ${esc(w.arti)}</span>${isNew(w)?`<span class="pill">${t('newMark')}</span>`:''}<div class="sm mu">“${esc(w.contoh)}”</div></div><span class="mu sm">${t('edit')}</span></div>`).join('')}</div>`}).join(''):`<div class="card mu">${t('empty')}</div>`}`:''}`}
+    `<div class="wi" style="cursor:pointer" onclick="S.editWord=${w.id};S.confirm=null;render()"><span class="no">${i*20+j+1}</span><div class="grow"><b>${esc(w.kata)}</b> <span class="sm mu">· ${esc(w.arti)}</span>${isNew(w)?`<span class="pill">${t('newMark')}</span>`:''}<div class="sm mu">“${esc(w.contoh)}”</div>${w.contoh_arti?`<div class="sm" style="color:var(--ac)">${esc(w.contoh_arti)}</div>`:''}</div><span class="mu sm">${t('edit')}</span></div>`).join('')}</div>`}).join(''):`<div class="card mu">${t('empty')}</div>`}`:''}`}
 async function addBab(){const n=$('bn').value.trim();if(!n){toast(t('fill'));return}
   const ok=await run(async()=>{const{data,error}=await sb.from('babs').insert({nama:n.slice(0,80)}).select('id,nama').single();if(error)throw error;DB.babs.push({...data,words:[]});S.mBab=data.id});
   if(ok)toast(t('babCreated'));render()}
-async function addWord(){const k=$('wk').value.trim(),a=$('wa').value.trim(),c=$('wc').value.trim();if(!k||!a){toast(t('fill'));return}if(!c){toast(t('needSentence'));return}
-  const ok=await run(async()=>{const{data,error}=await sb.from('words').insert({bab_id:S.mBab,kata:k,arti:a,contoh:c}).select('id,bab_id,kata,arti,contoh,created_at').single();if(error)throw error;bab(S.mBab).words.push(data)});
+async function addWord(){const k=$('wk').value.trim(),a=$('wa').value.trim(),c=$('wc').value.trim(),ca=$('wca').value.trim();if(!k||!a){toast(t('fill'));return}if(!c){toast(t('needSentence'));return}
+  const ok=await run(async()=>{const{data,error}=await sb.from('words').insert({bab_id:S.mBab,kata:k,arti:a,contoh:c,contoh_arti:ca.slice(0,400)}).select('id,bab_id,kata,arti,contoh,contoh_arti,created_at').single();if(error)throw error;bab(S.mBab).words.push(data)});
   if(ok)toast('1 '+t('wordsAdded'));render()}
 function parse(txt){return txt.split(/\r?\n/).map(l=>l.trim()).filter(l=>l&&!/^\|?\s*:?-{2,}/.test(l)).map(l=>{l=l.replace(/^\|/,'').replace(/\|$/,'');
   let p=(l.includes('\t')?l.split('\t'):l.split('|')).map(x=>x.trim().replace(/^\*\*|\*\*$/g,''));if(/^\d+\.?$/.test(p[0])&&p.length>=4)p.shift();return p}).filter(p=>p.length>=2&&p[0]&&!/^(kata|word|no)$/i.test(p[0]))}
 async function pasteWords(){const rows=parse($('pb').value);if(!rows.length){toast(t('nothing'));return}
-  const ok=rows.filter(p=>p.slice(2).join('').trim()&&p[1]),skip=rows.length-ok.length;
+  const ok=rows.filter(p=>(p[2]||'').trim()&&p[1]),skip=rows.length-ok.length;
   if(!ok.length){toast(`${skip} ${t('skipped')}`,3500);return}
-  const payload=ok.map(p=>({bab_id:S.mBab,kata:p[0].slice(0,120),arti:p[1].slice(0,200),contoh:p.slice(2).join(' | ').slice(0,400)}));
-  const done=await run(async()=>{const{data,error}=await sb.from('words').insert(payload).select('id,bab_id,kata,arti,contoh,created_at');if(error)throw error;
+  const payload=ok.map(p=>({bab_id:S.mBab,kata:p[0].slice(0,120),arti:p[1].slice(0,200),contoh:p[2].slice(0,400),contoh_arti:p.slice(3).join(' | ').trim().slice(0,400)}));
+  const done=await run(async()=>{const{data,error}=await sb.from('words').insert(payload).select('id,bab_id,kata,arti,contoh,contoh_arti,created_at');if(error)throw error;
     data.sort((x,y)=>x.id-y.id).forEach(w=>bab(S.mBab).words.push(w))});
   if(done)toast(ok.length+' '+t('wordsAdded')+(skip?` · ${skip} ${t('skipped')}`:''),3500);render()}
-async function saveWord(){const k=$('ek').value.trim(),a=$('ea').value.trim(),c=$('ec').value.trim();if(!k||!a){toast(t('fill'));return}if(!c){toast(t('needSentence'));return}
-  const id=S.editWord;const ok=await run(async()=>{const{error}=await sb.from('words').update({kata:k,arti:a,contoh:c}).eq('id',id);if(error)throw error;
-    const w=bab(S.mBab).words.find(x=>x.id===id);Object.assign(w,{kata:k,arti:a,contoh:c})});
+async function saveWord(){const k=$('ek').value.trim(),a=$('ea').value.trim(),c=$('ec').value.trim(),ca=$('eca').value.trim().slice(0,400);if(!k||!a){toast(t('fill'));return}if(!c){toast(t('needSentence'));return}
+  const id=S.editWord;const ok=await run(async()=>{const{error}=await sb.from('words').update({kata:k,arti:a,contoh:c,contoh_arti:ca}).eq('id',id);if(error)throw error;
+    const w=bab(S.mBab).words.find(x=>x.id===id);Object.assign(w,{kata:k,arti:a,contoh:c,contoh_arti:ca})});
   if(ok){S.editWord=null;toast(t('wordSaved'))}render()}
 async function delWord(){const id=S.editWord;if(S.confirm!=='w'+id){S.confirm='w'+id;render();return}
   S.confirm=null;const ok=await run(async()=>{const{error}=await sb.from('words').delete().eq('id',id);if(error)throw error;const b=bab(S.mBab);b.words=b.words.filter(x=>x.id!==id)});
   if(ok){S.editWord=null;toast(t('wordDeleted'))}render()}
-function copyPrompt(){const txt='Buatkan 20 vocabulary bahasa Inggris tentang [TOPIK] untuk pemula. Tampilkan dalam bentuk tabel 3 kolom TANPA header: Kata Inggris | Arti Indonesia | Contoh kalimat sangat sederhana.';
+function copyPrompt(){const txt='Buatkan 20 vocabulary bahasa Inggris tentang [TOPIK] untuk pemula. Tampilkan dalam bentuk tabel 4 kolom TANPA header: Kata Inggris | Arti Indonesia | Contoh kalimat sangat sederhana | Arti contoh kalimat dalam bahasa Indonesia.';
   try{navigator.clipboard.writeText(txt).then(()=>toast(t('copied')),()=>toast(txt,6000))}catch(e){toast(txt,6000)}}
 
 /* ---------- boot ---------- */
