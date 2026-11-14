@@ -101,6 +101,18 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
 .tile{background:var(--card);border:1px solid var(--line);border-bottom-width:3px;border-radius:8px;padding:9px 13px;font-size:15px;cursor:pointer;transition:transform .12s}
 .tile:hover:not(:disabled){border-color:var(--ac)}.tile:active{transform:scale(.95)}
 .tile.on{background:var(--acs);border-color:var(--ac);color:var(--ac);font-weight:600}
+.hi{display:flex;align-items:center;gap:14px}.av{width:52px;height:52px;border-radius:50%;background:var(--acs);color:var(--ac);border:1.5px solid var(--ac);display:grid;place-items:center;font-size:22px;font-weight:600;flex-shrink:0}
+.avbtn{background:none;border:none;padding:0;cursor:pointer;border-radius:50%;display:inline-flex;flex-shrink:0}
+.avi{border-radius:50%;object-fit:cover;display:inline-block;flex-shrink:0;border:1.5px solid var(--ac)}
+.avt{display:inline-grid;place-items:center;background:var(--acs);color:var(--ac);font-weight:600}
+header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw - 228px));z-index:30;width:240px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px;box-shadow:0 10px 30px rgba(0,0,0,.35);animation:fadeIn .15s}
+.me-hd{display:flex;align-items:center;gap:10px;padding:8px 8px 12px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.me-it{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;padding:10px 8px;border-radius:8px;cursor:pointer;text-align:left;font-size:14px}
+.me-it:hover{background:var(--card2)}.me-it.out{color:var(--bad)}
+.me-ed{display:flex;gap:6px;padding:4px 0 8px}.me-ed input{padding:7px 10px}
+.rav{position:relative;flex-shrink:0}.rav>svg{position:absolute;inset:0}.rav-in{position:absolute;inset:7px;display:grid;place-items:center}
+.rav-in .avi{border:none}.rav-lv{position:absolute;right:-3px;bottom:-3px;background:var(--ac);color:var(--on);font-size:10px;font-weight:700;border-radius:9px;min-width:18px;height:18px;display:grid;place-items:center;padding:0 4px;border:2px solid var(--card)}
+.lnk{background:none;border:none;color:var(--mu);cursor:pointer;padding:2px;vertical-align:middle}.lnk:hover{color:var(--ac)}
 .err{color:var(--bad);font-size:13px;margin:-4px 0 10px}
 .hint{font-size:12px;color:var(--mu);border:1px dashed var(--line);border-radius:8px;padding:10px;margin-top:16px}
 .lvl{display:flex;align-items:center;gap:14px}
@@ -178,8 +190,10 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
     <div class="logo">ZETOR<span>O</span></div>
     <button class="ib ibl" onclick="toggleLang()" id="langBtn" aria-label="Bahasa">IND</button>
     <button class="ib" onclick="toggleTheme()" id="themeBtn" aria-label="Tema"></button>
-    <button class="ib" onclick="logout()" id="outBtn" style="display:none"></button>
+    <button class="avbtn" onclick="toggleMe(event)" id="meBtn" aria-label="Profil" style="display:none"></button>
+    <input type="file" id="fotoIn" accept="image/*" style="display:none" onchange="fotoPicked(this)">
   </header>
+  <div id="meMenu" class="memenu" style="display:none" onclick="event.stopPropagation()"></div>
   <main id="main"></main>
 </div>
 <nav class="bnav" id="bnav" style="display:none"><div id="bnavIn"></div></nav>
@@ -215,11 +229,11 @@ gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
 let lang='id';const t=k=>T[lang][k]||k;
-Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",qOrder:"Susun kalimat ini dalam bahasa Inggris",orderHint:"Ketuk kata di bawah sesuai urutan",check:"Cek",correctSent:"Kalimat yang benar",
+Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",qOrder:"Susun kalimat ini dalam bahasa Inggris",changePhoto:"Ganti foto",removePhoto:"Hapus foto",editName:"Ubah nama",photoSaved:"Foto disimpan",photoRemoved:"Foto dihapus",nameSaved:"Nama disimpan",photoErr:"File harus berupa gambar.",orderHint:"Ketuk kata di bawah sesuai urutan",check:"Cek",correctSent:"Kalimat yang benar",
 review:"Ulangi soal salah",toReview:"Ulangi soal yang salah",fixed:"soal sudah diperbaiki",correctAns:"Jawaban yang benar",mistakes:"Salah",right:"Benar!",wrongAns:"Belum tepat",
 micTap:"Tekan lalu bacakan",micListening:"Mendengarkan… bacakan sekarang",micHeard:"Terdengar",micNo:"Suara tidak terdengar. Coba lagi.",micErr:"Mikrofon tidak bisa dipakai di perangkat ini.",swapQ:"Ganti soal",
 searchWord:"Cari kata, arti, atau kalimat",found:"kata ditemukan",notFound:"Kata tidak ditemukan"});
-Object.assign(T.en,{qMatch:"Match each word with its meaning",qCloze:"Pick the right word for this sentence",qSent:"What does this sentence mean?",qRead:"Read this sentence out loud",qOrder:"Build this sentence in English",orderHint:"Tap the words below in order",check:"Check",correctSent:"Correct sentence",
+Object.assign(T.en,{qMatch:"Match each word with its meaning",qCloze:"Pick the right word for this sentence",qSent:"What does this sentence mean?",qRead:"Read this sentence out loud",qOrder:"Build this sentence in English",changePhoto:"Change photo",removePhoto:"Remove photo",editName:"Edit name",photoSaved:"Photo saved",photoRemoved:"Photo removed",nameSaved:"Name saved",photoErr:"The file must be an image.",orderHint:"Tap the words below in order",check:"Check",correctSent:"Correct sentence",
 review:"Retry wrong answers",toReview:"Retry wrong answers",fixed:"answers fixed",correctAns:"Correct answer",mistakes:"Mistakes",right:"Correct!",wrongAns:"Not quite",
 micTap:"Tap, then read aloud",micListening:"Listening… read now",micHeard:"Heard",micNo:"Didn't catch that. Try again.",micErr:"The microphone can't be used on this device.",swapQ:"Swap question",
 searchWord:"Search word, meaning or sentence",found:"words found",notFound:"No words found"});
@@ -273,6 +287,44 @@ const hafalCount=s=>Object.values(s.status).filter(v=>v==='hafal').length;
 const LEVELS=[[0,'Starter'],[20,'Foundation'],[50,'Elementary'],[100,'Intermediate'],[200,'Upper'],[400,'Fluent']];
 function lvlOf(n){let i=0;LEVELS.forEach((l,j)=>{if(n>=l[0])i=j});const nx=LEVELS[i+1];
   return{i:i+1,name:LEVELS[i][1],pct:nx?(n-LEVELS[i][0])/(nx[0]-LEVELS[i][0]):1,left:nx?nx[0]-n:0}}
+const FOTO={};
+async function signFotos(){const ppl=[S.user,...DB.students].filter(p=>p&&p.foto&&!FOTO[p.foto]);const paths=[...new Set(ppl.map(p=>p.foto))];if(!paths.length)return;
+  try{const{data}=await sb.storage.from('avatars').createSignedUrls(paths,60*60*24);(data||[]).forEach(d=>{if(d.signedUrl)FOTO[d.path]=d.signedUrl})}catch(e){console.warn(e)}}
+function avatar(p,size=32){const url=p&&p.foto&&FOTO[p.foto];const ch=esc(((p&&p.nama)||'?').trim().charAt(0).toUpperCase());
+  return url?`<img class="avi" src="${esc(url)}" alt="" width="${size}" height="${size}" style="width:${size}px;height:${size}px">`:`<span class="avi avt" style="width:${size}px;height:${size}px;font-size:${Math.round(size*.42)}px">${ch}</span>`}
+function ringAv(p,pct,lvl,size=52){return `<div class="rav" style="width:${size}px;height:${size}px">${ring(pct,'',size)}<div class="rav-in">${avatar(p,size-14)}</div><span class="rav-lv">${lvl}</span></div>`}
+function toggleMe(e){e.stopPropagation();S.me=!S.me;S.meEdit=false;renderMe()}
+document.addEventListener('click',e=>{if(S.me&&!e.target.closest('#meMenu')&&!e.target.closest('#meBtn')){S.me=false;S.meEdit=false;renderMe()}});
+function renderMe(){const m=$('meMenu');if(!S.user||!S.me){m.style.display='none';return}const u=S.user,tch=S.role==='teacher';
+  m.style.display='';m.innerHTML=`<div class="me-hd">${avatar(u,44)}<div><b>${esc(u.nama)}</b><div class="sm mu">${u.username?'@'+esc(u.username):t('teacher')}</div></div></div>
+  ${S.meEdit?`<div class="me-ed" ${enter('saveMyName')}><input id="myName" value="${esc(u.nama)}" maxlength="60"><button class="btn sm2" onclick="saveMyName()">${t('save')}</button></div>`:''}
+  <button class="me-it" onclick="pickFoto('${u.id}')">${ic('cam',16)} ${t('changePhoto')}</button>
+  ${u.foto?`<button class="me-it" onclick="delFoto('${u.id}')">${ic('trash',16)} ${t('removePhoto')}</button>`:''}
+  ${tch&&!S.meEdit?`<button class="me-it" onclick="S.meEdit=true;renderMe();setTimeout(()=>$('myName')&&$('myName').focus(),30)">${ic('pen',16)} ${t('editName')}</button>`:''}
+  <button class="me-it out" onclick="S.me=false;logout()">${ic('out',16)} ${t('logout')}</button>`}
+function personById(id){return S.user&&S.user.id===id?S.user:DB.students.find(x=>x.id===id)}
+function pickFoto(id){S.fotoFor=id;const i=$('fotoIn');i.value='';i.click()}
+async function shrink(file){const img=await new Promise((ok,no)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>ok(im);im.onerror=no;im.src=u});
+  const s=Math.min(img.width,img.height),c=document.createElement('canvas');c.width=c.height=256;
+  c.getContext('2d').drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,256,256);return await new Promise(ok=>c.toBlob(ok,'image/jpeg',.85))}
+async function fotoPicked(inp){const f=inp.files&&inp.files[0],id=S.fotoFor;if(!f||!id)return;const p=personById(id);if(!p)return;
+  if(!/^image\//.test(f.type)){toast(t('photoErr'));return}
+  const ok=await run(async()=>{const blob=await shrink(f);const path=`${id}/${Date.now()}.jpg`;
+    const{error:e1}=await sb.storage.from('avatars').upload(path,blob,{contentType:'image/jpeg',upsert:false});if(e1)throw e1;
+    const{error:e2}=await sb.from('profiles').update({foto:path}).eq('id',id);if(e2)throw e2;
+    const old=p.foto;p.foto=path;const twin=DB.students.find(x=>x.id===id);if(twin&&twin!==p)twin.foto=path;if(S.user.id===id)S.user.foto=path;
+    await signFotos();if(old)sb.storage.from('avatars').remove([old]).catch(()=>{})});
+  if(ok)toast(t('photoSaved'));render()}
+async function delFoto(id){const p=personById(id);if(!p||!p.foto)return;const old=p.foto;
+  const ok=await run(async()=>{const{error}=await sb.from('profiles').update({foto:null}).eq('id',id);if(error)throw error;
+    p.foto=null;const twin=DB.students.find(x=>x.id===id);if(twin)twin.foto=null;if(S.user.id===id)S.user.foto=null;sb.storage.from('avatars').remove([old]).catch(()=>{})});
+  if(ok)toast(t('photoRemoved'));render()}
+async function saveMyName(){const v=($('myName').value||'').trim();if(!v){toast(t('fill'));return}
+  const ok=await run(async()=>{const{error}=await sb.from('profiles').update({nama:v.slice(0,60)}).eq('id',S.user.id);if(error)throw error;S.user.nama=v.slice(0,60)});
+  if(ok){S.meEdit=false;toast(t('nameSaved'))}render()}
+async function saveStuName(id){const v=($('sn_'+id).value||'').trim();if(!v){toast(t('fill'));return}const p=DB.students.find(x=>x.id===id);
+  const ok=await run(async()=>{const{error}=await sb.from('profiles').update({nama:v.slice(0,60)}).eq('id',id);if(error)throw error;p.nama=v.slice(0,60)});
+  if(ok){S.stuEdit=null;toast(t('nameSaved'))}render()}
 function ring(pct,label,size=64){const r=size/2-5,C=2*Math.PI*r;
   return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--line)" stroke-width="5"/>
   <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--ac)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(C*Math.max(.02,pct)).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${size/2} ${size/2})"/>
@@ -302,6 +354,10 @@ turtle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=
 cards:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="6" width="13" height="15" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/></svg>'};
 Object.assign(icon,{search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
 mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>',
+cam:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>',
+pen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>',
+out:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9"/></svg>',
 refresh:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg>'});
 const ic=(n,s=16)=>icon[n].replace('<svg',`<svg class="svi" width="${s}" height="${s}" aria-hidden="true"`);
 function eyeIcon(open){return open?'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3l18 18M10.6 6.1A9.9 9.9 0 0 1 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3 3.6M6.6 6.6A17 17 0 0 0 2.5 12S6 18 12 18a9.7 9.7 0 0 0 4.4-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>':'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="3"/></svg>'}
@@ -321,8 +377,8 @@ async function loadData(){
   DB.babs=babs.map(b=>({...b,words:words.filter(w=>w.bab_id===b.id)}));
   const [unl,sts,qz]=await Promise.all([fetchAll('unlocks','student_id,bab_id,paket','bab_id'),fetchAll('statuses','student_id,word_id,status','word_id'),fetchAll('quiz_results','student_id,bab_id,paket,last,best,tries','bab_id')]);
   let studs;
-  if(S.role==='teacher'){const{data,error}=await sb.from('profiles').select('id,nama,username,created_at').eq('role','student').order('created_at');if(error)throw error;studs=data}
-  else studs=[{id:uid,nama:S.user.nama,username:S.user.username}];
+  if(S.role==='teacher'){const{data,error}=await sb.from('profiles').select('id,nama,username,foto,created_at').eq('role','student').order('created_at');if(error)throw error;studs=data}
+  else studs=[{id:uid,nama:S.user.nama,username:S.user.username,foto:S.user.foto}];
   DB.students=studs.map(p=>({...p,unlocked:{},status:{},quiz:{}}));
   const byId=Object.fromEntries(DB.students.map(s=>[s.id,s]));
   unl.forEach(u=>{if(byId[u.student_id])byId[u.student_id].unlocked[u.bab_id]=u.paket});
@@ -330,9 +386,10 @@ async function loadData(){
   qz.forEach(q=>{if(byId[q.student_id])byId[q.student_id].quiz[q.bab_id+'-'+q.paket]={last:q.last,best:q.best,tries:q.tries}});
   if(S.role==='student')S.user=byId[uid];
   if(!S.mBab&&DB.babs[0])S.mBab=DB.babs[0].id;
+  await signFotos();
 }
 async function enterApp(session){
-  const{data:prof,error}=await sb.from('profiles').select('id,role,nama,username').eq('id',session.user.id).maybeSingle();
+  const{data:prof,error}=await sb.from('profiles').select('id,role,nama,username,foto').eq('id',session.user.id).maybeSingle();
   if(error)throw error;
   if(!prof){await sb.auth.signOut();throw new Error(t('notStudent'))}
   S.role=prof.role;S.user=prof;
@@ -347,7 +404,7 @@ function render(){
   const dark=document.documentElement.dataset.theme==='dark';$('themeBtn').setAttribute('aria-label',dark?'Mode terang':'Mode gelap');
   $('themeBtn').innerHTML=dark?`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>`
    :`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>`;
-  $('outBtn').style.display=S.user?'':'none';$('outBtn').textContent=t('logout');
+  $('meBtn').style.display=S.user?'':'none';if(S.user)$('meBtn').innerHTML=avatar(S.user,30);renderMe();
   const v={boot:()=>`<div class="big mu">${t('loading')}</div>`,login:vLogin,home:vHome,bab:vBab,admin:vAdmin}[S.view];$('main').innerHTML=v();S.anim=false;renderNav();
   if(S.view==='bab'&&S.tab==='learn'&&S.mode==='quiz'&&S.quiz&&!S.quiz.done){const q=curQ();if(q.type==='listen'&&!q.played){q.played=true;setTimeout(()=>speak(q.w.kata,.85,document.querySelector('.lis .spk')),300)}}
 }
@@ -403,8 +460,7 @@ async function logout(){stopAudio();S.open={};S.mq='';await doSignOut();S.err=''
 
 /* ---------- student home ---------- */
 function vHome(){const s=S.user,n=hafalCount(s),L=lvlOf(n);const list=DB.babs.filter(b=>b.words.length);
-  return `<div class="mu sm">${t('hello')},</div><h1>${esc(s.nama)}</h1>
-  <div class="card lvl" style="margin-top:14px">${ring(L.pct,L.i)}<div class="grow"><div class="t1">${t('level')} ${L.i}</div><div class="t2">${L.name}</div>
+  return `  <div class="card lvl">${ring(L.pct,L.i)}<div class="grow"><div class="t1">${t('level')} ${L.i}</div><div class="t2">${L.name}</div>
   <div class="sm mu">${n} ${t('total')}${L.left?` · ${L.left} ${t('toNext')}`:` · ${t('maxLvl')}`}</div></div></div>
   <h2>${t('yourBabs')}</h2>
   ${list.length?list.map((b,i)=>{const open=s.unlocked[b.id];const tot=open?Math.min(b.words.length,open*20):b.words.length;
@@ -590,17 +646,17 @@ async function setSt(sid,wid,v,el){const s=DB.students.find(x=>x.id===sid),prev=
 /* ---------- admin ---------- */
 function aTab(x){S.aTab=x;S.editWord=null;S.mFlash=null;S.confirm=null;S.err='';render()}
 function vAdmin(){return {sum:aSum,grade:aGrade,stu:aStu,mat:aMat}[S.aTab]()}
-function aSum(){return `<div class="mu sm">${t('teacherHi')}</div><h1>${t('summary')}</h1><div style="height:12px"></div>
+function aSum(){return `<h1>${t('summary')}</h1><div style="height:12px"></div>
   ${DB.students.length?DB.students.map(s=>{const n=hafalCount(s),L=lvlOf(n),ids=Object.keys(s.unlocked).map(Number).sort((a,b)=>a-b),
    act=ids.map(bid=>bab(bid)?`${esc(bab(bid).nama)} · ${t('paket')} ${s.unlocked[bid]}`:'').filter(Boolean).join(', ')||'—';
-   return `<div class="card bab" onclick="openGrade('${s.id}',${ids.length?ids[ids.length-1]:(DB.babs[0]?.id||0)})">${ring(L.pct,L.i,48)}<div class="grow"><b>${esc(s.nama)}</b> <span class="sm mu">@${esc(s.username)}</span>
+   return `<div class="card bab" onclick="openGrade('${s.id}',${ids.length?ids[ids.length-1]:(DB.babs[0]?.id||0)})">${ringAv(s,L.pct,L.i,54)}<div class="grow"><b>${esc(s.nama)}</b> <span class="sm mu">@${esc(s.username)}</span>
    <div class="sm mu">${t('activePkg')}: ${act}</div><div class="sm mu">${n} ${t('total')}</div></div><span class="mu">›</span></div>`}).join(''):`<div class="card mu">${t('noStudents')}</div>`}`}
 function openGrade(sid,bid){S.gStudent=sid;S.gBab=bid;S.aTab='grade';render()}
 function aGrade(){const s=DB.students.find(x=>x.id===S.gStudent);const b=bab(S.gBab)||DB.babs[0];
   if(!s||!b)return `<button class="back" onclick="aTab('sum')">‹ ${t('summary')}</button><div class="card mu">${t('noStudents')}</div>`;
   const maxOpen=s.unlocked[b.id]||0,canNext=maxOpen&&b.words.length>maxOpen*20;
   const nb=DB.babs[DB.babs.indexOf(b)+1];
-  return `<button class="back" onclick="aTab('sum')">‹ ${t('summary')}</button><h1>${t('gradeOf')}</h1><div style="display:flex;gap:8px;margin:12px 0">
+  const L=lvlOf(hafalCount(s));return `<button class="back" onclick="aTab('sum')">‹ ${t('summary')}</button><div class="row">${ringAv(s,L.pct,L.i,54)}<div><h1 style="margin:0">${esc(s.nama)}</h1><div class="sm mu">${t('gradeOf')} · @${esc(s.username)}</div></div></div><div style="display:flex;gap:8px;margin:12px 0">
   <select onchange="S.gStudent=this.value;render()">${DB.students.map(x=>`<option value="${x.id}" ${x.id===s.id?'selected':''}>${esc(x.nama)}</option>`).join('')}</select>
   <select onchange="S.gBab=+this.value;render()">${DB.babs.map(x=>`<option value="${x.id}" ${x.id===b.id?'selected':''}>${esc(x.nama)}${s.unlocked[x.id]?'':` · ${t('locked')}`}</option>`).join('')}</select></div>
   ${maxOpen?vScore(s,b,true):`<div class="card mu" style="margin-bottom:12px">${t('locked')}</div>`}
@@ -620,9 +676,10 @@ function aStu(){return `<h1>${t('students')}</h1><div style="height:12px"></div>
   ${S.pinShow?`<div class="card" style="border-color:var(--ac);margin-bottom:12px"><div class="sm mu">${t('newPinFor')} ${esc(S.pinShow.nama)} (@${esc(S.pinShow.username)})</div>
    <div style="font-size:32px;font-weight:600;letter-spacing:6px;color:var(--ac);margin:6px 0">${esc(S.pinShow.pin)}</div><p class="sm mu" style="margin:0 0 10px">${t('tellStudent')}</p>
    <button class="btn ghost sm2" onclick="S.pinShow=null;render()">${t('close')}</button></div>`:''}
-  ${DB.students.length?DB.students.map(s=>`<div class="card" style="margin-bottom:10px"><div class="row"><div class="grow"><b>${esc(s.nama)}</b><div class="sm mu">@${esc(s.username)}</div></div>
+  ${DB.students.length?DB.students.map(s=>`<div class="card" style="margin-bottom:10px"><div class="row"><button class="avbtn" title="${t('changePhoto')}" onclick="S.stuPhoto=S.stuPhoto==='${s.id}'?null:'${s.id}';render()">${avatar(s,40)}</button><div class="grow">${S.stuEdit===s.id?`<div class="me-ed"><input id="sn_${s.id}" value="${esc(s.nama)}" maxlength="60"><button class="btn sm2" onclick="saveStuName('${s.id}')">${t('save')}</button></div>`:`<b>${esc(s.nama)}</b> <button class="lnk" onclick="S.stuEdit='${s.id}';render()">${ic('pen',13)}</button>`}<div class="sm mu">@${esc(s.username)}</div></div>
    <button class="btn ghost sm2" onclick="resetPin('${s.id}')">${t('resetPin')}</button>
-   <button class="btn ghost sm2" style="color:var(--bad)" onclick="delStudent('${s.id}')">${S.confirm==='s'+s.id?t('sureDel'):t('del')}</button></div></div>`).join(''):`<div class="card mu">${t('noStudents')}</div>`}
+   <button class="btn ghost sm2" style="color:var(--bad)" onclick="delStudent('${s.id}')">${S.confirm==='s'+s.id?t('sureDel'):t('del')}</button></div>
+   ${S.stuPhoto===s.id?`<div class="row" style="margin-top:10px;gap:8px"><button class="btn ghost sm2" onclick="pickFoto('${s.id}')">${ic('cam',14)} ${t('changePhoto')}</button>${s.foto?`<button class="btn ghost sm2" onclick="delFoto('${s.id}')">${ic('trash',14)} ${t('removePhoto')}</button>`:''}</div>`:''}</div>`).join(''):`<div class="card mu">${t('noStudents')}</div>`}
   <h2>${t('addStudent')}</h2><div class="card" ${enter('addStu')}>
   <div class="field"><label>${t('name')}</label><input id="sn" placeholder="Budi"></div>
   <div class="field"><label>${t('username')} <span class="mu">(${t('userHint')})</span></label><input id="su" autocapitalize="off" placeholder="budi"></div>
