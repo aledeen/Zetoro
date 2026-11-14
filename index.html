@@ -470,7 +470,7 @@ async function logout(){stopAudio();S.open={};S.mq='';await doSignOut();S.err=''
 function vHome(){const s=S.user,n=hafalCount(s),L=lvlOf(n);const list=DB.babs.filter(b=>b.words.length);
   return `<div class="nm">${esc(s.nama||'')}</div><div class="card lvl">${ring(L.pct,L.i)}<div class="grow"><div class="t1">${t('level')} ${L.i}</div><div class="t2">${L.name}</div>
   <div class="sm mu">${n} ${t('total')}${L.left?` · ${L.left} ${t('toNext')}`:` · ${t('maxLvl')}`}</div></div></div>
-  <h2>${t('yourBabs')}</h2>
+  <h2 style="margin-top:14px">${t('yourBabs')}</h2>
   ${list.length?list.map((b,i)=>{const open=s.unlocked[b.id];const tot=open?Math.min(b.words.length,open*20):b.words.length;
     const h=open?b.words.slice(0,tot).filter(w=>st(s,w)==='hafal').length:0;
     return `<div class="card bab ${open?'':'lock'}" ${open?`onclick="openBab(${b.id})"`:''}><div class="n">${i+1}</div><div class="grow"><b>${esc(b.nama)}</b>
