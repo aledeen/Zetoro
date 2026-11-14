@@ -94,6 +94,13 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
 .pkrow{display:flex;align-items:center;gap:8px}.pkrow .pkh{flex:1}
 .msearch{position:relative;margin:4px 0 10px}.msearch .svi{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--mu)}.msearch input{padding-left:38px}
 @media (prefers-reduced-motion:reduce){.wave i,.btn.mic.on,.mt.no{animation:none}}
+.ctr{text-align:center;color:var(--ac);font-size:14px;margin:-8px 0 14px}
+.oans{min-height:56px;border:1.5px dashed var(--line);border-radius:10px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;margin-bottom:14px}
+.oans.okb{border-color:var(--ok);border-style:solid;background:var(--oks)}.oans.nob{border-color:var(--bad);border-style:solid}
+.opool{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:14px;min-height:44px}
+.tile{background:var(--card);border:1px solid var(--line);border-bottom-width:3px;border-radius:8px;padding:9px 13px;font-size:15px;cursor:pointer;transition:transform .12s}
+.tile:hover:not(:disabled){border-color:var(--ac)}.tile:active{transform:scale(.95)}
+.tile.on{background:var(--acs);border-color:var(--ac);color:var(--ac);font-weight:600}
 .err{color:var(--bad);font-size:13px;margin:-4px 0 10px}
 .hint{font-size:12px;color:var(--mu);border:1px dashed var(--line);border-radius:8px;padding:10px;margin-top:16px}
 .lvl{display:flex;align-items:center;gap:14px}
@@ -208,11 +215,11 @@ gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
 let lang='id';const t=k=>T[lang][k]||k;
-Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",
+Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",qOrder:"Susun kalimat ini dalam bahasa Inggris",orderHint:"Ketuk kata di bawah sesuai urutan",check:"Cek",correctSent:"Kalimat yang benar",
 review:"Ulangi soal salah",toReview:"Ulangi soal yang salah",fixed:"soal sudah diperbaiki",correctAns:"Jawaban yang benar",mistakes:"Salah",right:"Benar!",wrongAns:"Belum tepat",
 micTap:"Tekan lalu bacakan",micListening:"Mendengarkan… bacakan sekarang",micHeard:"Terdengar",micNo:"Suara tidak terdengar. Coba lagi.",micErr:"Mikrofon tidak bisa dipakai di perangkat ini.",swapQ:"Ganti soal",
 searchWord:"Cari kata, arti, atau kalimat",found:"kata ditemukan",notFound:"Kata tidak ditemukan"});
-Object.assign(T.en,{qMatch:"Match each word with its meaning",qCloze:"Pick the right word for this sentence",qSent:"What does this sentence mean?",qRead:"Read this sentence out loud",
+Object.assign(T.en,{qMatch:"Match each word with its meaning",qCloze:"Pick the right word for this sentence",qSent:"What does this sentence mean?",qRead:"Read this sentence out loud",qOrder:"Build this sentence in English",orderHint:"Tap the words below in order",check:"Check",correctSent:"Correct sentence",
 review:"Retry wrong answers",toReview:"Retry wrong answers",fixed:"answers fixed",correctAns:"Correct answer",mistakes:"Mistakes",right:"Correct!",wrongAns:"Not quite",
 micTap:"Tap, then read aloud",micListening:"Listening… read now",micHeard:"Heard",micNo:"Didn't catch that. Try again.",micErr:"The microphone can't be used on this device.",swapQ:"Swap question",
 searchWord:"Search word, meaning or sentence",found:"words found",notFound:"No words found"});
@@ -446,8 +453,12 @@ function flashView(ws,label,exitJs){if(!ws.length)return `<button class="back" o
 function fNav(d){S.fi+=d;S.flip=false;render()}
 function startQuiz(){const b=bab(S.bab),ws=curWords(b);if(ws.length<4){toast(t('needWords'));return}
   stopAudio();const n=Math.min(10,ws.length),pool=shuffle(ws).slice(0,n);let reads=0;const qs=[];
-  pool.forEach(w=>{const el=eligibleTypes(w,ws,reads);const type=el[Math.floor(Math.random()*el.length)];if(type==='read')reads++;qs.push(makeQ(type,w,ws))});
+  const ordIdx=shuffle(pool.map((w,i)=>orderOk(w)?i:-1).filter(i=>i>=0)).slice(0,1+Math.floor(Math.random()*2)).sort((a,b)=>a-b);
+  pool.forEach((w,i)=>{if(ordIdx.includes(i)){qs.push(makeQ('order',w,ws,{distract:ordIdx.indexOf(i)===1}));return}
+    const el=eligibleTypes(w,ws,reads);const type=el[Math.floor(Math.random()*el.length)];if(type==='read')reads++;qs.push(makeQ(type,w,ws))});
   S.quiz={qs,i:0,phase:'main',wrong:[],review:[],ri:0,score:0,fixed:0,done:false,saved:null,final:0};S.mode='quiz';render()}
+const orderToks=w=>w.contoh.trim().split(/\s+/).map(x=>{x=x.replace(/^[^\w']+/,'').replace(/[^\w'.]+$/,'');return /^([a-z]\.){2,}$/i.test(x)?x:x.replace(/\.+$/,'')}).filter(Boolean);
+const orderOk=w=>!!(w.contoh_arti&&w.contoh_arti.trim())&&orderToks(w).length>=3&&orderToks(w).length<=10;
 const SRClass=()=>window.SpeechRecognition||window.webkitSpeechRecognition;
 function clozeOf(w){const parts=w.kata.trim().split(/\s+/).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
   const re=new RegExp('\\b'+parts.join('\\w*\\s+')+'\\w*','i');return re.test(w.contoh)?w.contoh.replace(re,'_____'):null}
@@ -456,7 +467,12 @@ function eligibleTypes(w,ws,reads){const el=['match','en','listen'];
   if(w.contoh_arti&&ws.filter(x=>x.id!==w.id&&x.contoh_arti&&x.contoh_arti!==w.contoh_arti).length>=3)el.push('sent');
   if(SRClass()&&reads<2&&w.contoh.trim().split(/\s+/).length>=2)el.push('read');
   return el}
-function makeQ(type,w,ws){const q={type,w,answered:false,correct:null,picked:null};
+function makeQ(type,w,ws,opt={}){const q={type,w,answered:false,correct:null,picked:null};
+  if(type==='order'){const toks=orderToks(w);q.target=toks.map(x=>x.toLowerCase());q.distract=!!opt.distract;
+    let tiles=toks.map((x,i)=>({id:i,txt:x}));
+    if(q.distract){const have=new Set(q.target);const pool=shuffle(ws.filter(x=>x.id!==w.id).flatMap(x=>orderToks(x))).filter(x=>!have.has(x.toLowerCase()));if(pool.length)tiles.push({id:99,txt:pool[0]})}
+    let sh=shuffle(tiles);for(let k=0;k<6&&sh.slice(0,toks.length).every((x,i)=>x.id===i);k++)sh=shuffle(tiles);
+    q.tiles=sh;q.ans=[];return q}
   if(type==='match'){const others=shuffle(ws.filter(x=>x.id!==w.id&&x.kata!==w.kata&&x.arti!==w.arti)).slice(0,3);const set=[w,...others];
     q.left=shuffle(set).map(x=>x.id);q.right=shuffle(set).map(x=>x.id);q.words=Object.fromEntries(set.map(x=>[x.id,x]));q.matched=[];q.sel=null;q.errors=0;q.flash=null}
   else if(type==='sent'){const others=shuffle(ws.filter(x=>x.id!==w.id&&x.contoh_arti&&x.contoh_arti!==w.contoh_arti)).slice(0,3);q.opts=shuffle([w,...others])}
@@ -466,6 +482,10 @@ function makeQ(type,w,ws){const q={type,w,answered:false,correct:null,picked:nul
 function curQ(){const Q=S.quiz;return Q.phase==='main'?Q.qs[Q.i]:Q.review[Q.ri]}
 function answerQ(ok){const Q=S.quiz,q=curQ();if(q.answered)return;q.answered=true;q.correct=ok;
   if(Q.phase==='main'){if(ok)Q.score++;else Q.wrong.push(q)}else if(ok)Q.fixed++}
+function oTap(id){const q=curQ();if(q.answered||q.ans.includes(id))return;q.ans.push(id);render()}
+function oBack(id){const q=curQ();if(q.answered)return;q.ans=q.ans.filter(x=>x!==id);render()}
+function oCheck(){const q=curQ();if(q.answered||q.ans.length<q.target.length)return;
+  const got=q.ans.map(id=>q.tiles.find(x=>x.id===id).txt.toLowerCase()).join(' ');answerQ(got===q.target.join(' '));render()}
 function pick(id){const q=curQ();if(q.answered)return;q.picked=id;answerQ(id===q.w.id);render()}
 function mLeft(id){const q=curQ();if(q.answered||q.matched.includes(id))return;q.sel=id;q.flash=null;render()}
 function mRight(id){const q=curQ();if(q.answered||q.matched.includes(id)||q.sel==null)return;
@@ -485,7 +505,7 @@ function startRec(){const q=curQ(),SR=SRClass();if(!SR||q.answered)return;stopAu
     q.rec='listening';render();r.start()}catch(e){q.rec='error';render()}}
 function swapRead(){const Q=S.quiz,b=bab(S.bab),ws=curWords(b),q=curQ();const nq=makeQ(clozeOf(q.w)?'cloze':'en',q.w,ws);
   if(Q.phase==='main')Q.qs[Q.i]=nq;else Q.review[Q.ri]=nq;render()}
-function qLabel(type){return{match:t('qMatch'),en:t('q2'),listen:t('q3'),cloze:t('qCloze'),sent:t('qSent'),read:t('qRead')}[type]}
+function qLabel(type){return{match:t('qMatch'),en:t('q2'),listen:t('q3'),cloze:t('qCloze'),sent:t('qSent'),read:t('qRead'),order:t('qOrder')}[type]}
 function vQuiz(b){const Q=S.quiz;
   if(Q.done){const r=Q.saved||S.user.quiz[qKey()]||{best:Q.final,tries:1};
     return `<div class="big"><div class="tag">${t('result')}</div><div class="score">${Q.score}/${Q.qs.length}</div>
@@ -507,11 +527,17 @@ function vQuiz(b){const Q=S.quiz;
     ${q.rec==='error'?`<div class="card" style="text-align:center"><p class="sm mu" style="margin:0 0 10px">${t('micErr')}</p><button class="btn" onclick="swapRead()">${t('swapQ')}</button></div>`:
      q.answered?`<p class="sm mu" style="text-align:center">${t('micHeard')}: “${esc(q.heard||'')}”</p>`:
      `<button class="btn mic ${q.rec==='listening'?'on':''}" onclick="startRec()">${ic('mic',18)} ${q.rec==='listening'?t('micListening'):t('micTap')}</button>`}`}
+  else if(q.type==='order'){const T=id=>q.tiles.find(x=>x.id===id);
+    body=`<div class="qq qs2">“${esc(q.w.contoh_arti)}”</div>
+    <div class="oans ${q.answered?(q.correct?'okb':'nob'):''}">${q.ans.length?q.ans.map(id=>`<button class="tile on" ${q.answered?'disabled':''} onclick="oBack(${id})">${esc(T(id).txt)}</button>`).join(''):`<span class="sm mu">${t('orderHint')}</span>`}</div>
+    <div class="opool">${q.tiles.filter(x=>!q.ans.includes(x.id)).map(x=>`<button class="tile" ${q.answered?'disabled':''} onclick="oTap(${x.id})">${esc(x.txt)}</button>`).join('')}</div>
+    ${q.answered?(q.correct?'':`<div class="card reveal"><div class="tag">${t('correctSent')}</div><b>${esc(q.w.contoh)}</b> <button class="mini" aria-label="${t('listen')}" onclick="speak('${jsq(q.w.contoh)}',.85,this)">${ic('spk',15)}</button></div>`)
+     :`<button class="btn" ${q.ans.length<q.target.length?'disabled style="opacity:.45"':''} onclick="oCheck()">${t('check')}</button>`}`}
   else{const prompt=q.type==='en'?esc(q.w.arti):q.type==='cloze'?esc(clozeOf(q.w)):q.type==='sent'?`“${esc(q.w.contoh)}”`:
       `<div class="lis"><button class="spk big2" onclick="speak('${jsq(q.w.kata)}',.85,this)">${ic('spk',20)} ${t('play')}</button><button class="slow" aria-label="${t('slow')}" title="${t('slow')}" onclick="speak('${jsq(q.w.kata)}',.3,this)">${ic('turtle',24)}</button></div>`;
     const opts=q.opts.map(o=>{const txt=q.type==='sent'?o.contoh_arti:o.kata;let cls='';if(q.answered){if(o.id===q.w.id)cls='ok';else if(o.id===q.picked)cls='no'}
       return `<button class="opt ${cls}" ${q.answered?'disabled':''} onclick="pick(${o.id})">${esc(txt)}</button>`}).join('');
-    body=`<div class="qq ${q.type==='cloze'||q.type==='sent'?'qs2':''}">${prompt}</div>${opts}`}
+    body=`<div class="qq ${q.type==='cloze'||q.type==='sent'?'qs2':''}">${prompt}</div>${q.type==='cloze'&&q.w.contoh_arti?`<p class="ctr">${esc(q.w.contoh_arti)}</p>`:''}${opts}`}
   const reveal=rev&&q.answered&&!q.correct?`<div class="card reveal"><div class="tag">${t('correctAns')}</div><b>${esc(q.w.kata)}</b> · ${esc(q.w.arti)}
     <div class="sm mu" style="margin-top:4px">“${esc(q.w.contoh)}”</div>${q.w.contoh_arti?`<div class="sm" style="color:var(--ac)">${esc(q.w.contoh_arti)}</div>`:''}
     <button class="mini" style="margin-top:8px" aria-label="${t('listen')}" onclick="speak('${jsq(q.w.kata+'. '+q.w.contoh)}',.85,this)">${ic('spk',15)}</button></div>`:'';
@@ -525,7 +551,7 @@ function vQuiz(b){const Q=S.quiz;
 async function nextQ(){const Q=S.quiz;stopAudio();
   if(Q.phase==='main'){if(Q.i<Q.qs.length-1){Q.i++;render();scrollTo(0,0);return}
     Q.final=Math.round(Q.score/Q.qs.length*10);submitQuiz();
-    if(Q.wrong.length){const b=bab(S.bab),ws=curWords(b);Q.review=Q.wrong.map(o=>makeQ(o.type==='read'&&!SRClass()?'en':o.type,o.w,ws));Q.phase='review';Q.ri=0;render();scrollTo(0,0);return}
+    if(Q.wrong.length){const b=bab(S.bab),ws=curWords(b);Q.review=Q.wrong.map(o=>makeQ(o.type==='read'&&!SRClass()?'en':o.type,o.w,ws,{distract:o.distract}));Q.phase='review';Q.ri=0;render();scrollTo(0,0);return}
     Q.done=true;render();return}
   if(Q.ri<Q.review.length-1){Q.ri++;render();scrollTo(0,0);return}
   Q.done=true;render()}
