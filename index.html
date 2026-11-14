@@ -113,6 +113,7 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .rav{position:relative;flex-shrink:0}.rav>svg{position:absolute;inset:0}.rav-in{position:absolute;inset:7px;display:grid;place-items:center}
 .rav-in .avi{border:none}.rav-lv{position:absolute;right:-3px;bottom:-3px;background:var(--ac);color:var(--on);font-size:10px;font-weight:700;border-radius:9px;min-width:18px;height:18px;display:grid;place-items:center;padding:0 4px;border:2px solid var(--card)}
 .lnk{background:none;border:none;color:var(--mu);cursor:pointer;padding:2px;vertical-align:middle}.lnk:hover{color:var(--ac)}
+.nm{margin:0 0 10px;font-size:15px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .err{color:var(--bad);font-size:13px;margin:-4px 0 10px}
 .hint{font-size:12px;color:var(--mu);border:1px dashed var(--line);border-radius:8px;padding:10px;margin-top:16px}
 .lvl{display:flex;align-items:center;gap:14px}
@@ -460,7 +461,7 @@ async function logout(){stopAudio();S.open={};S.mq='';await doSignOut();S.err=''
 
 /* ---------- student home ---------- */
 function vHome(){const s=S.user,n=hafalCount(s),L=lvlOf(n);const list=DB.babs.filter(b=>b.words.length);
-  return `  <div class="card lvl">${ring(L.pct,L.i)}<div class="grow"><div class="t1">${t('level')} ${L.i}</div><div class="t2">${L.name}</div>
+  return `<div class="nm">${esc(s.nama||'')}</div><div class="card lvl">${ring(L.pct,L.i)}<div class="grow"><div class="t1">${t('level')} ${L.i}</div><div class="t2">${L.name}</div>
   <div class="sm mu">${n} ${t('total')}${L.left?` · ${L.left} ${t('toNext')}`:` · ${t('maxLvl')}`}</div></div></div>
   <h2>${t('yourBabs')}</h2>
   ${list.length?list.map((b,i)=>{const open=s.unlocked[b.id];const tot=open?Math.min(b.words.length,open*20):b.words.length;
