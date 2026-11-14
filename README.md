@@ -22,4 +22,4 @@ Web belajar vocabulary bahasa Inggris yang mobile-friendly: murid belajar lewat 
 
 ## Backend
 
-Supabase project `zetoro` (ap-southeast-1). Kunci yang ada di `index.html` adalah publishable key, aman untuk publik; keamanan data dijaga oleh Row Level Security.
+Supabase project `Zetoro` (ap-northeast-1, organisasi Zetoro). Kunci yang ada di `index.html` adalah publishable key, aman untuk publik; keamanan data dijaga oleh Row Level Security.
