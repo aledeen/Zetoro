@@ -113,6 +113,10 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .rav{position:relative;flex-shrink:0}.rav>svg{position:absolute;inset:0}.rav-in{position:absolute;inset:7px;display:grid;place-items:center}
 .rav-in .avi{border:none}.rav-lv{position:absolute;right:-3px;bottom:-3px;background:var(--ac);color:var(--on);font-size:10px;font-weight:700;border-radius:9px;min-width:18px;height:18px;display:grid;place-items:center;padding:0 4px;border:2px solid var(--card)}
 .lnk{background:none;border:none;color:var(--mu);cursor:pointer;padding:2px;vertical-align:middle}.lnk:hover{color:var(--ac)}
+.lbx{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;animation:fadeIn .16s;cursor:zoom-out}
+.lbx img{width:min(78vw,320px);height:min(78vw,320px);border-radius:50%;object-fit:cover;animation:lbxIn .2s ease-out}
+.lbx-n{color:#fff;font-weight:600;font-size:16px}.lbx.out{opacity:0;transition:opacity .15s}
+@keyframes lbxIn{from{transform:scale(.6);opacity:.4}to{transform:scale(1);opacity:1}}
 .nm{margin:0 0 10px;font-size:15px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .err{color:var(--bad);font-size:13px;margin:-4px 0 10px}
 .hint{font-size:12px;color:var(--mu);border:1px dashed var(--line);border-radius:8px;padding:10px;margin-top:16px}
@@ -297,13 +301,16 @@ function ringAv(p,pct,lvl,size=52){return `<div class="rav" style="width:${size}
 function toggleMe(e){e.stopPropagation();S.me=!S.me;S.meEdit=false;renderMe()}
 document.addEventListener('click',e=>{if(S.me&&!e.target.closest('#meMenu')&&!e.target.closest('#meBtn')){S.me=false;S.meEdit=false;renderMe()}});
 function renderMe(){const m=$('meMenu');if(!S.user||!S.me){m.style.display='none';return}const u=S.user,tch=S.role==='teacher';
-  m.style.display='';m.innerHTML=`<div class="me-hd">${avatar(u,44)}<div><b>${esc(u.nama)}</b><div class="sm mu">${u.username?'@'+esc(u.username):t('teacher')}</div></div></div>
+  m.style.display='';m.innerHTML=`<div class="me-hd"><button class="avbtn" onclick="viewFoto('${u.id}')">${avatar(u,44)}</button><div><b>${esc(u.nama)}</b><div class="sm mu">${u.username?'@'+esc(u.username):t('teacher')}</div></div></div>
   ${S.meEdit?`<div class="me-ed" ${enter('saveMyName')}><input id="myName" value="${esc(u.nama)}" maxlength="60"><button class="btn sm2" onclick="saveMyName()">${t('save')}</button></div>`:''}
   <button class="me-it" onclick="pickFoto('${u.id}')">${ic('cam',16)} ${t('changePhoto')}</button>
   ${u.foto?`<button class="me-it" onclick="delFoto('${u.id}')">${ic('trash',16)} ${t('removePhoto')}</button>`:''}
   ${tch&&!S.meEdit?`<button class="me-it" onclick="S.meEdit=true;renderMe();setTimeout(()=>$('myName')&&$('myName').focus(),30)">${ic('pen',16)} ${t('editName')}</button>`:''}
   <button class="me-it out" onclick="S.me=false;logout()">${ic('out',16)} ${t('logout')}</button>`}
 function personById(id){return S.user&&S.user.id===id?S.user:DB.students.find(x=>x.id===id)}
+function viewFoto(id){const p=personById(id);if(!p||!p.foto||!FOTO[p.foto])return;S.me=false;renderMe();
+  const o=document.createElement('div');o.className='lbx';o.onclick=()=>{o.classList.add('out');setTimeout(()=>o.remove(),160)};
+  o.innerHTML=`<img src="${esc(FOTO[p.foto])}" alt=""><div class="lbx-n">${esc(p.nama)}</div>`;document.body.appendChild(o)}
 function pickFoto(id){S.fotoFor=id;const i=$('fotoIn');i.value='';i.click()}
 async function shrink(file){const img=await new Promise((ok,no)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>ok(im);im.onerror=no;im.src=u});
   const s=Math.min(img.width,img.height),c=document.createElement('canvas');c.width=c.height=256;
@@ -657,7 +664,7 @@ function aGrade(){const s=DB.students.find(x=>x.id===S.gStudent);const b=bab(S.g
   if(!s||!b)return `<button class="back" onclick="aTab('sum')">‹ ${t('summary')}</button><div class="card mu">${t('noStudents')}</div>`;
   const maxOpen=s.unlocked[b.id]||0,canNext=maxOpen&&b.words.length>maxOpen*20;
   const nb=DB.babs[DB.babs.indexOf(b)+1];
-  const L=lvlOf(hafalCount(s));return `<button class="back" onclick="aTab('sum')">‹ ${t('summary')}</button><div class="row">${ringAv(s,L.pct,L.i,54)}<div><h1 style="margin:0">${esc(s.nama)}</h1><div class="sm mu">${t('gradeOf')} · @${esc(s.username)}</div></div></div><div style="display:flex;gap:8px;margin:12px 0">
+  const L=lvlOf(hafalCount(s));return `<button class="back" onclick="aTab('sum')">‹ ${t('summary')}</button><div class="row"><button class="avbtn" onclick="viewFoto('${s.id}')">${ringAv(s,L.pct,L.i,54)}</button><div><h1 style="margin:0">${esc(s.nama)}</h1><div class="sm mu">${t('gradeOf')} · @${esc(s.username)}</div></div></div><div style="display:flex;gap:8px;margin:12px 0">
   <select onchange="S.gStudent=this.value;render()">${DB.students.map(x=>`<option value="${x.id}" ${x.id===s.id?'selected':''}>${esc(x.nama)}</option>`).join('')}</select>
   <select onchange="S.gBab=+this.value;render()">${DB.babs.map(x=>`<option value="${x.id}" ${x.id===b.id?'selected':''}>${esc(x.nama)}${s.unlocked[x.id]?'':` · ${t('locked')}`}</option>`).join('')}</select></div>
   ${maxOpen?vScore(s,b,true):`<div class="card mu" style="margin-bottom:12px">${t('locked')}</div>`}
