@@ -902,7 +902,7 @@ function gTip(e,key){e.stopPropagation();const g=GB[key];if(!g)return;closeTip()
   document.body.appendChild(d);const vw=innerWidth,w=Math.min(320,vw-24);d.style.width=w+'px';const rc=el.getBoundingClientRect(),h=d.offsetHeight;
   d.style.left=Math.max(12,Math.min(vw-w-12,rc.left+rc.width/2-w/2))+'px';d.style.top=(rc.bottom+8+h<innerHeight?rc.bottom+8:Math.max(12,rc.top-h-8))+'px'}
 document.addEventListener('click',e=>{if(!e.target.closest('#gtip'))closeTip()});addEventListener('scroll',closeTip,{passive:true});
-function openGram(key){if(S.role==='teacher'){aTab('gram');S.gOpen=key;render()}else{const b=bab(S.bab);if(S.mode!=='gram')S.gPrev=S.mode;S.mode='gram';S.gOpen=key;S.gAll=!b||!bGrams(b).some(g=>g.key===key);render()}
+function openGram(key){if(S.role==='teacher'){aTab('gram');S.gOpen=key;render()}else{const b=bab(S.bab);if(S.tab!=='learn'){S.gPrevTab=S.tab;S.tab='learn';S.gPrev='menu'}else if(S.mode!=='gram')S.gPrev=S.mode;S.mode='gram';S.gOpen=key;S.gAll=!b||!bGrams(b).some(g=>g.key===key);render()}
   setTimeout(()=>{const x=$('g_'+key);if(x)x.scrollIntoView({block:'center',behavior:'smooth'})},60)}
 function bGrams(b){const ks=new Set();curWords(b).forEach(w=>(w.tanda||[]).forEach(m=>ks.add(m.g)));return DB.grammars.filter(g=>ks.has(g.key))}
 function gUse(key){let n=0;DB.babs.forEach(b=>b.words.forEach(w=>{if((w.tanda||[]).some(m=>m.g===key))n++}));return n}
@@ -914,7 +914,7 @@ function gCard(g,b,teacher,locked){if(locked)return `<div class="card gcard g-${
   return `<div class="card gcard g-${g.grup} ${op?'op':''}" id="g_${g.key}"><button class="gch" onclick="S.gOpen=S.gOpen==='${g.key}'?null:'${g.key}';render()"><i class="gdot"></i><b class="grow">${esc(g.judul)}</b>${teacher?`<span class="sm mu">${gUse(g.key)} ${t('sentences')}</span>`:''}<span class="chev">›</span></button>${body}</div>`}
 function gramList(list,b,teacher,open){return [1,2,3].map(l=>{const L=list.filter(g=>g.level===l);return L.length?`<h2>${t('lv'+l)}${!teacher&&l>myGL()?' 🔒':''}</h2>`+L.map(g=>gCard(g,b,teacher,!teacher&&g.level>myGL()&&!(open&&open.has(g.key)))).join(''):''}).join('')}
 function vGram(b){const inB=bGrams(b),list=S.gAll?DB.grammars:inB;
-  return `<button class="back" onclick="S.mode=S.gPrev||'menu';S.gPrev=null;render()">‹ ${t('back')}</button><h1>${t('grammar')}</h1><div class="sm mu">${t('glYour')} <b style="color:var(--ac)">${t('lv'+myGL())}</b></div>
+  return `<button class="back" onclick="S.mode=S.gPrev||'menu';S.gPrev=null;if(S.gPrevTab){S.tab=S.gPrevTab;S.gPrevTab=null}render()">‹ ${t('back')}</button><h1>${t('grammar')}</h1><div class="sm mu">${t('glYour')} <b style="color:var(--ac)">${t('lv'+myGL())}</b></div>
   <div class="seg" style="margin:10px 0 4px"><button class="${!S.gAll?'on':''}" onclick="S.gAll=false;render()">${t('thisBab')} (${inB.length})</button><button class="${S.gAll?'on':''}" onclick="S.gAll=true;render()">${t('allGram')} (${DB.grammars.length})</button></div>
   ${legend()}${list.length?gramList(list,b,false,new Set(inB.map(g=>g.key))):`<div class="card mu" style="margin-top:12px">${t('noGramBab')}</div>`}`}
 /* --- tag grammar widget (add / edit forms) --- */
