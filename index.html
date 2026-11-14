@@ -117,6 +117,10 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .lbx img{width:min(78vw,320px);height:min(78vw,320px);border-radius:50%;object-fit:cover;animation:lbxIn .2s ease-out}
 .lbx-n{color:#fff;font-weight:600;font-size:16px}.lbx.out{opacity:0;transition:opacity .15s}
 @keyframes lbxIn{from{transform:scale(.6);opacity:.4}to{transform:scale(1);opacity:1}}
+.mdl{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);display:grid;place-items:center;padding:20px;animation:fadeIn .15s}
+.mdl-b{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;width:min(100%,340px);box-shadow:0 14px 40px rgba(0,0,0,.4)}
+.mdl-b b{font-size:16px}.mdl-b p{margin:8px 0 0;line-height:1.5}.mdl-b p b{font-size:inherit}.mdl-a{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.btn.dng{background:var(--bad);color:#fff}
 .nm{margin:0 0 10px;font-size:15px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .err{color:var(--bad);font-size:13px;margin:-4px 0 10px}
 .hint{font-size:12px;color:var(--mu);border:1px dashed var(--line);border-radius:8px;padding:10px;margin-top:16px}
@@ -245,14 +249,14 @@ searchWord:"Search word, meaning or sentence",found:"words found",notFound:"No w
 /* ---------- extra i18n ---------- */
 Object.assign(T.id,{setupTitle:"Buat akun guru",setupSub:"Belum ada akun guru. Buat sekali saja untuk mulai.",pwMin:"Password minimal 8 karakter",
 loading:"Memuat…",saving:"Menyimpan…",errGeneric:"Ada masalah. Coba lagi sebentar.",offline:"Tidak bisa terhubung. Cek internet kamu.",
-edit:"Ubah",cancel:"Batal",del:"Hapus",sureDel:"Yakin hapus?",wordSaved:"Kata disimpan",wordDeleted:"Kata dihapus",
+edit:"Ubah",cancel:"Batal",del:"Hapus",askReset:"Reset PIN?",askResetMsg:"akan dapat PIN baru. PIN lama tidak bisa dipakai lagi.",askDelStu:"Hapus murid?",askDelStuMsg:"beserta semua progres dan nilainya akan dihapus permanen. Tidak bisa dibatalkan.",askDelWord:"Hapus kata?",askDelWordMsg:"akan dihapus dari materi, termasuk status hafalannya di semua murid. Tidak bisa dibatalkan.",askSave:"Simpan perubahan?",askSaveMsg:"Perubahan langsung terlihat oleh murid.",dupIn:"sudah ada di bab",dupSkip:"dilewati karena sudah ada",sureDel:"Yakin hapus?",wordSaved:"Kata disimpan",wordDeleted:"Kata dihapus",
 newPinFor:"PIN baru untuk",tellStudent:"Beri tahu murid PIN ini. PIN tidak bisa dilihat lagi setelah ditutup.",close:"Tutup",
 delStudent:"Hapus murid",studentDeleted:"Murid dihapus",noStudents:"Belum ada murid. Tambah di menu Murid.",noBabs:"Belum ada bab. Guru sedang menyiapkan materi.",
 pinHint:"4–6 angka",userHint:"huruf kecil, angka, titik",tapEdit:"Ketuk kata untuk mengubah atau menghapus",babCreated:"Bab dibuat",
 notTeacherUrl:"Akun ini akun guru. Masuk lewat link guru.",notStudent:"Akun ini bukan akun murid.",noMoreBab:"Tidak ada bab berikutnya.",sentMeaning:"Arti kalimat (opsional)"});
 Object.assign(T.en,{setupTitle:"Create teacher account",setupSub:"No teacher account yet. Create it once to get started.",pwMin:"Password needs at least 8 characters",
 loading:"Loading…",saving:"Saving…",errGeneric:"Something went wrong. Try again shortly.",offline:"Can't connect. Check your internet.",
-edit:"Edit",cancel:"Cancel",del:"Delete",sureDel:"Delete for sure?",wordSaved:"Word saved",wordDeleted:"Word deleted",
+edit:"Edit",cancel:"Cancel",del:"Delete",askReset:"Reset PIN?",askResetMsg:"will get a new PIN. The old PIN will stop working.",askDelStu:"Delete student?",askDelStuMsg:"and all their progress and scores will be deleted permanently. This cannot be undone.",askDelWord:"Delete word?",askDelWordMsg:"will be removed from the material, including every student's status for it. This cannot be undone.",askSave:"Save changes?",askSaveMsg:"Students will see the change right away.",dupIn:"already exists in chapter",dupSkip:"skipped because they already exist",sureDel:"Delete for sure?",wordSaved:"Word saved",wordDeleted:"Word deleted",
 newPinFor:"New PIN for",tellStudent:"Tell the student this PIN. It can't be shown again after you close this.",close:"Close",
 delStudent:"Delete student",studentDeleted:"Student deleted",noStudents:"No students yet. Add one in Students.",noBabs:"No chapters yet. Your teacher is preparing them.",
 pinHint:"4–6 digits",userHint:"lowercase, numbers, dots",tapEdit:"Tap a word to edit or delete it",babCreated:"Chapter created",
@@ -337,6 +341,10 @@ function ring(pct,label,size=64){const r=size/2-5,C=2*Math.PI*r;
   return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--line)" stroke-width="5"/>
   <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--ac)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(C*Math.max(.02,pct)).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${size/2} ${size/2})"/>
   <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="${size/3.2}" font-weight="600" fill="var(--tx)">${label}</text></svg>`}
+function ask(title,msg,okLabel,danger){return new Promise(res=>{const o=document.createElement('div');o.className='mdl';
+  o.innerHTML=`<div class="mdl-b"><b>${esc(title)}</b>${msg?`<p class="sm mu">${msg}</p>`:''}<div class="mdl-a"><button class="btn ghost sm2" data-v="0">${t('cancel')}</button><button class="btn sm2 ${danger?'dng':''}" data-v="1">${esc(okLabel)}</button></div></div>`;
+  const done=v=>{o.remove();document.removeEventListener('keydown',kd);res(v)};const kd=e=>{if(e.key==='Escape')done(false)};document.addEventListener('keydown',kd);
+  o.onclick=e=>{const b=e.target.closest('[data-v]');if(b)done(b.dataset.v==='1');else if(e.target===o)done(false)};document.body.appendChild(o);o.querySelector('[data-v="1"]').focus()})}
 function toast(m,ms=2200){const e=$('toast');e.textContent=m;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),ms)}
 function speak(txt,rate=.85,el){try{const was=!!(el&&el.classList.contains('talking'));stopAudio();if(was)return;
   const u=new SpeechSynthesisUtterance(txt);u.lang='en-US';u.rate=rate;
@@ -686,7 +694,7 @@ function aStu(){return `<h1>${t('students')}</h1><div style="height:12px"></div>
    <button class="btn ghost sm2" onclick="S.pinShow=null;render()">${t('close')}</button></div>`:''}
   ${DB.students.length?DB.students.map(s=>`<div class="card" style="margin-bottom:10px"><div class="row"><button class="avbtn" title="${t('changePhoto')}" onclick="S.stuPhoto=S.stuPhoto==='${s.id}'?null:'${s.id}';render()">${avatar(s,40)}</button><div class="grow">${S.stuEdit===s.id?`<div class="me-ed"><input id="sn_${s.id}" value="${esc(s.nama)}" maxlength="60"><button class="btn sm2" onclick="saveStuName('${s.id}')">${t('save')}</button></div>`:`<b>${esc(s.nama)}</b> <button class="lnk" onclick="S.stuEdit='${s.id}';render()">${ic('pen',13)}</button>`}<div class="sm mu">@${esc(s.username)}</div></div>
    <button class="btn ghost sm2" onclick="resetPin('${s.id}')">${t('resetPin')}</button>
-   <button class="btn ghost sm2" style="color:var(--bad)" onclick="delStudent('${s.id}')">${S.confirm==='s'+s.id?t('sureDel'):t('del')}</button></div>
+   <button class="btn ghost sm2" style="color:var(--bad)" onclick="delStudent('${s.id}')">${t('del')}</button></div>
    ${S.stuPhoto===s.id?`<div class="row" style="margin-top:10px;gap:8px"><button class="btn ghost sm2" onclick="pickFoto('${s.id}')">${ic('cam',14)} ${t('changePhoto')}</button>${s.foto?`<button class="btn ghost sm2" onclick="delFoto('${s.id}')">${ic('trash',14)} ${t('removePhoto')}</button>`:''}</div>`:''}</div>`).join(''):`<div class="card mu">${t('noStudents')}</div>`}
   <h2>${t('addStudent')}</h2><div class="card" ${enter('addStu')}>
   <div class="field"><label>${t('name')}</label><input id="sn" placeholder="Budi"></div>
@@ -699,16 +707,13 @@ async function addStu(){const n=$('sn').value.trim(),u=$('su').value.trim().toLo
   if(!/^\d{4,6}$/.test(p)){S.err='PIN harus 4–6 angka.';return render()}
   S.err='';const ok=await run(async()=>{await invokeAdmin({action:'create_student',nama:n,username:u,pin:p});await loadData()});
   if(ok)toast(t('added'));render()}
-async function resetPin(id){const s=DB.students.find(x=>x.id===id),pin=String(Math.floor(1000+Math.random()*9000));
+async function resetPin(id){const s=DB.students.find(x=>x.id===id);if(!await ask(t('askReset'),`${esc(s.nama)} (@${esc(s.username)}) ${t('askResetMsg')}`,t('resetPin')))return;const pin=String(Math.floor(1000+Math.random()*9000));
   const ok=await run(async()=>{await invokeAdmin({action:'reset_pin',student_id:id,pin})});
   if(ok){S.pinShow={nama:s.nama,username:s.username,pin};toast(t('pinReset'))}render()}
-async function delStudent(id){if(S.confirm!=='s'+id){S.confirm='s'+id;render();return}
-  S.confirm=null;const ok=await run(async()=>{await invokeAdmin({action:'delete_student',student_id:id})});
+async function delStudent(id){const s=DB.students.find(x=>x.id===id);if(!await ask(t('askDelStu'),`<b>${esc(s.nama)}</b> (@${esc(s.username)}) ${t('askDelStuMsg')}`,t('del'),true))return;const ok=await run(async()=>{await invokeAdmin({action:'delete_student',student_id:id})});
   if(ok){DB.students=DB.students.filter(x=>x.id!==id);toast(t('studentDeleted'))}render()}
 
-function openMFlash(p){S.mFlash=p;S.fi=0;S.flip=false;S.editWord=null;render();scrollTo(0,0)}
 function aMat(){const b=bab(S.mBab)||DB.babs[0];
-  if(b&&S.mFlash!=null)return `<div class="tag">${esc(b.nama)}</div>`+flashView(S.mFlash===0?b.words:pkWords(b,S.mFlash),S.mFlash===0?t('allWords'):t('paket')+' '+S.mFlash,"S.mFlash=null;render()");
   return `<h1>${t('material')}</h1>
   ${DB.babs.length?`<div style="margin:12px 0"><select onchange="S.mBab=+this.value;S.editWord=null;S.mFlash=null;render()">${DB.babs.map(x=>`<option value="${x.id}" ${b&&x.id===b.id?'selected':''}>${esc(x.nama)} (${x.words.length})</option>`).join('')}</select></div>`:''}
   <div class="card" style="margin-bottom:14px;display:flex;gap:8px" ${enter('addBab')}><input id="bn" placeholder="${t('babName')}"><button class="btn sm2" type="button" onclick="addBab()">${t('create')}</button></div>
@@ -723,7 +728,6 @@ function aMat(){const b=bab(S.mBab)||DB.babs[0];
   <textarea id="pb" placeholder="sweep | menyapu | I sweep the floor. | Aku menyapu lantai."></textarea><div style="height:10px"></div>
   <button class="btn" type="button" onclick="pasteWords()">${t('save')}</button></div>
   <h2>${t('wordList')} <span class="sm mu" style="font-weight:400">· ${t('autoSplit')}</span></h2><p class="sm mu" style="margin:-4px 0 8px">${t('tapEdit')}</p>
-  ${b.words.length?`<div class="card bab" onclick="openMFlash(0)"><div class="n">${ic('cards',18)}</div><div class="grow"><b>${t('flash')} · ${t('allWords')}</b><div class="sm mu">${b.words.length} ${t('words')}</div></div><span class="mu">›</span></div>`:''}
   ${b.words.length?`<div class="msearch">${ic('search',16)}<input id="mq" type="search" placeholder="${t('searchWord')}" value="${esc(S.mq||'')}" oninput="S.mq=this.value;$('mlist').innerHTML=matList(bab(S.mBab))"></div><div id="mlist">${matList(b)}</div>`:`<div class="card mu">${t('empty')}</div>`}`:''}`}
 function mRow(w,idx){return S.editWord===w.id?`<div class="wi" style="display:block" ${enter('saveWord')}>
       <div class="field"><label>${t('word')}</label><input id="ek" value="${esc(w.kata)}"></div>
@@ -731,37 +735,45 @@ function mRow(w,idx){return S.editWord===w.id?`<div class="wi" style="display:bl
       <div class="field"><label>${t('example')} *</label><input id="ec" value="${esc(w.contoh)}"></div>
       <div class="field"><label>${t('sentMeaning')}</label><input id="eca" value="${esc(w.contoh_arti)}"></div>
       <div style="display:flex;gap:8px"><button class="btn sm2" type="button" onclick="saveWord()">${t('save')}</button><button class="btn ghost sm2" type="button" onclick="S.editWord=null;S.confirm=null;render()">${t('cancel')}</button>
-      <span class="grow"></span><button class="btn ghost sm2" style="color:var(--bad)" type="button" onclick="delWord()">${S.confirm==='w'+w.id?t('sureDel'):t('del')}</button></div></div>`:
+      <span class="grow"></span><button class="btn ghost sm2" style="color:var(--bad)" type="button" onclick="delWord()">${t('del')}</button></div></div>`:
     `<div class="wi" style="cursor:pointer" onclick="S.editWord=${w.id};S.confirm=null;render()"><span class="no">${idx+1}</span><div class="grow"><b>${esc(w.kata)}</b> <span class="sm mu">· ${esc(w.arti)}</span>${isNew(w)?`<span class="pill">${t('newMark')}</span>`:''}<div class="sm mu">“${esc(w.contoh)}”</div>${w.contoh_arti?`<div class="sm" style="color:var(--ac)">${esc(w.contoh_arti)}</div>`:''}</div><span class="mu sm">${t('edit')}</span></div>`}
 function matList(b){const q=(S.mq||'').trim().toLowerCase();
   if(q){const hits=b.words.map((w,i)=>[w,i]).filter(([w])=>(w.kata+' '+w.arti+' '+w.contoh+' '+(w.contoh_arti||'')).toLowerCase().includes(q));
     return hits.length?`<p class="sm mu" style="margin:4px 0 8px">${hits.length} ${t('found')}</p><div class="wl">${hits.map(([w,i])=>mRow(w,i)).join('')}</div>`:`<div class="card mu">${t('notFound')}</div>`}
   const n=pakets(b);return Array.from({length:n},(_,i)=>{const p=i+1,ws=pkWords(b,p),key=`m-${b.id}-${p}`,hasEdit=ws.some(w=>w.id===S.editWord),open=hasEdit||(S.open[key]??(p===n));
-    return `${i?'<div class="pksep"></div>':''}<div class="pkrow"><button class="pkh ${open?'op':''}" onclick="togPk('${key}',${p===n})"><span class="chev">›</span><span class="pkt">${t('paket')} ${p}</span><span class="pks">${ws.length}/20</span></button>
-    <button class="flbtn" onclick="openMFlash(${p})">${ic('cards',12)} ${t('flash')}</button></div>${open?`<div class="wl">${ws.map((w,j)=>mRow(w,i*20+j)).join('')}</div>`:''}`}).join('')}
+    return `${i?'<div class="pksep"></div>':''}<div class="pkrow"><button class="pkh ${open?'op':''}" onclick="togPk('${key}',${p===n})"><span class="chev">›</span><span class="pkt">${t('paket')} ${p}</span><span class="pks">${ws.length}/20</span></button></div>${open?`<div class="wl">${ws.map((w,j)=>mRow(w,i*20+j)).join('')}</div>`:''}`}).join('')}
 async function addBab(){const n=$('bn').value.trim();if(!n){toast(t('fill'));return}
   const ok=await run(async()=>{const{data,error}=await sb.from('babs').insert({nama:n.slice(0,80)}).select('id,nama').single();if(error)throw error;DB.babs.push({...data,words:[]});S.mBab=data.id});
   if(ok)toast(t('babCreated'));render()}
 async function addWord(){const k=$('wk').value.trim(),a=$('wa').value.trim(),c=$('wc').value.trim(),ca=$('wca').value.trim();if(!k||!a){toast(t('fill'));return}if(!c){toast(t('needSentence'));return}
+  const d=dupOf(k);if(d){toast(`"${k}" ${t('dupIn')} ${d}`,3500);return}
   const ok=await run(async()=>{const{data,error}=await sb.from('words').insert({bab_id:S.mBab,kata:k,arti:a,contoh:c,contoh_arti:ca.slice(0,400)}).select('id,bab_id,kata,arti,contoh,contoh_arti,created_at').single();if(error)throw error;bab(S.mBab).words.push(data)});
   if(ok)toast('1 '+t('wordsAdded'));render()}
+const norm=x=>String(x||'').toLowerCase().replace(/\s+/g,' ').replace(/[.!?,]+$/,'').trim();
+function dupOf(kata,exceptId){const k=norm(kata);for(const b of DB.babs){const w=b.words.find(x=>x.id!==exceptId&&norm(x.kata)===k);if(w)return b.nama}return null}
 function parse(txt){return txt.split(/\r?\n/).map(l=>l.trim()).filter(l=>l&&!/^\|?\s*:?-{2,}/.test(l)).map(l=>{l=l.replace(/^\|/,'').replace(/\|$/,'');
   let p=(l.includes('\t')?l.split('\t'):l.split('|')).map(x=>x.trim().replace(/^\*\*|\*\*$/g,''));if(/^\d+\.?$/.test(p[0])&&p.length>=4)p.shift();return p}).filter(p=>p.length>=2&&p[0]&&!/^(kata|word|no)$/i.test(p[0]))}
 async function pasteWords(){const rows=parse($('pb').value);if(!rows.length){toast(t('nothing'));return}
-  const ok=rows.filter(p=>(p[2]||'').trim()&&p[1]),skip=rows.length-ok.length;
-  if(!ok.length){toast(`${skip} ${t('skipped')}`,3500);return}
+  const valid=rows.filter(p=>(p[2]||'').trim()&&p[1]),skip=rows.length-valid.length,seen=new Set(),dups=[];
+  const ok=valid.filter(p=>{const k=norm(p[0]);if(seen.has(k)||dupOf(p[0])){dups.push(p[0]);return false}seen.add(k);return true});
+  const dmsg=dups.length?` · ${dups.length} ${t('dupSkip')}: ${dups.slice(0,5).join(', ')}${dups.length>5?'…':''}`:'';
+  if(!ok.length){toast((skip?`${skip} ${t('skipped')}`:'')+dmsg.replace(/^ · /,skip?' · ':''),5000);return}
   const payload=ok.map(p=>({bab_id:S.mBab,kata:p[0].slice(0,120),arti:p[1].slice(0,200),contoh:p[2].slice(0,400),contoh_arti:p.slice(3).join(' | ').trim().slice(0,400)}));
   const done=await run(async()=>{const{data,error}=await sb.from('words').insert(payload).select('id,bab_id,kata,arti,contoh,contoh_arti,created_at');if(error)throw error;
     data.sort((x,y)=>x.id-y.id).forEach(w=>bab(S.mBab).words.push(w))});
-  if(done)toast(ok.length+' '+t('wordsAdded')+(skip?` · ${skip} ${t('skipped')}`:''),3500);render()}
+  if(done)toast(ok.length+' '+t('wordsAdded')+(skip?` · ${skip} ${t('skipped')}`:'')+dmsg,dups.length?5000:3500);render()}
 async function saveWord(){const k=$('ek').value.trim(),a=$('ea').value.trim(),c=$('ec').value.trim(),ca=$('eca').value.trim().slice(0,400);if(!k||!a){toast(t('fill'));return}if(!c){toast(t('needSentence'));return}
-  const id=S.editWord;const ok=await run(async()=>{const{error}=await sb.from('words').update({kata:k,arti:a,contoh:c,contoh_arti:ca}).eq('id',id);if(error)throw error;
+  const id=S.editWord,w0=bab(S.mBab).words.find(x=>x.id===id);const d=dupOf(k,id);if(d){toast(`"${k}" ${t('dupIn')} ${d}`,3500);return}
+  if(w0.kata===k&&w0.arti===a&&w0.contoh===c&&(w0.contoh_arti||'')===ca){S.editWord=null;render();return}
+  if(!await ask(t('askSave'),`<b>${esc(w0.kata)}</b>${w0.kata!==k?' → <b>'+esc(k)+'</b>':''}. ${t('askSaveMsg')}`,t('save')))return;
+  const ok=await run(async()=>{const{error}=await sb.from('words').update({kata:k,arti:a,contoh:c,contoh_arti:ca}).eq('id',id);if(error)throw error;
     const w=bab(S.mBab).words.find(x=>x.id===id);Object.assign(w,{kata:k,arti:a,contoh:c,contoh_arti:ca})});
   if(ok){S.editWord=null;toast(t('wordSaved'))}render()}
-async function delWord(){const id=S.editWord;if(S.confirm!=='w'+id){S.confirm='w'+id;render();return}
-  S.confirm=null;const ok=await run(async()=>{const{error}=await sb.from('words').delete().eq('id',id);if(error)throw error;const b=bab(S.mBab);b.words=b.words.filter(x=>x.id!==id)});
+async function delWord(){const id=S.editWord,w0=bab(S.mBab).words.find(x=>x.id===id);if(!await ask(t('askDelWord'),`<b>${esc(w0.kata)}</b> ${t('askDelWordMsg')}`,t('del'),true))return;const ok=await run(async()=>{const{error}=await sb.from('words').delete().eq('id',id);if(error)throw error;const b=bab(S.mBab);b.words=b.words.filter(x=>x.id!==id)});
   if(ok){S.editWord=null;toast(t('wordDeleted'))}render()}
-function copyPrompt(){const txt='Buatkan 20 vocabulary bahasa Inggris tentang [TOPIK] untuk pemula. Tampilkan dalam bentuk tabel 4 kolom TANPA header: Kata Inggris | Arti Indonesia | Contoh kalimat sangat sederhana | Arti contoh kalimat dalam bahasa Indonesia.';
+function copyPrompt(){const all=[...new Set(DB.babs.flatMap(b=>b.words.map(w=>w.kata.trim())))];
+  const txt='Buatkan 20 vocabulary bahasa Inggris tentang [TOPIK] untuk pemula. Tampilkan dalam bentuk tabel 4 kolom TANPA header: Kata Inggris | Arti Indonesia | Contoh kalimat sangat sederhana | Arti contoh kalimat dalam bahasa Indonesia.'
+    +(all.length?`\n\nJANGAN gunakan kata-kata berikut karena sudah pernah dipelajari (${all.length} kata):\n${all.join(', ')}`:'');
   try{navigator.clipboard.writeText(txt).then(()=>toast(t('copied')),()=>toast(txt,6000))}catch(e){toast(txt,6000)}}
 
 /* ---------- boot ---------- */
