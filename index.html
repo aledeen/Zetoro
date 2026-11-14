@@ -59,6 +59,41 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.emb-orbit,.tico,.anim *{animation:none!important}}
+.talking{background:var(--ac)!important;color:var(--on)!important;border-color:var(--ac)!important}
+.talking .svi{display:none}
+.wave{display:inline-flex;align-items:center;gap:2px;height:16px}
+.wave i{display:block;width:3px;height:100%;background:currentColor;border-radius:2px;animation:wv .9s ease-in-out infinite}
+.wave i:nth-child(2){animation-delay:.15s}.wave i:nth-child(3){animation-delay:.3s}.wave i:nth-child(4){animation-delay:.45s}
+@keyframes wv{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.mini.talking .wave{height:12px}.mini.talking .wave i{width:2px}
+.lis .spk{margin-top:0}.spk.big2{font-size:16px;padding:12px 22px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.mgrid>div{display:flex;flex-direction:column;gap:8px}
+.mt{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 8px;cursor:pointer;min-height:48px;transition:all .2s;font-size:14px}
+.mt:hover:not(:disabled){border-color:var(--ac)}
+.mt.sel{border-color:var(--ac);background:var(--acs);color:var(--ac);font-weight:600}
+.mt.ok{border-color:var(--ok);background:var(--oks);color:var(--ok);opacity:.85}
+.mt.no{border-color:var(--bad);color:var(--bad);animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.qq.qs2{font-size:18px;line-height:1.5}
+.qq.rd{font-size:20px;line-height:1.6}.rok{color:var(--ok)}.rno{color:var(--bad);text-decoration:underline wavy}
+.btn.mic{display:flex;align-items:center;justify-content:center;gap:8px}
+.btn.mic.on{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--acs)}50%{box-shadow:0 0 0 8px transparent}}
+.fb{text-align:center;font-weight:600;margin:6px 0}.fb.g{color:var(--ok)}.fb.r{color:var(--bad)}
+.reveal{margin-top:10px;border-color:var(--ac)}
+.revh{display:flex;align-items:center;gap:6px;justify-content:center;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ac);background:var(--acs);border-radius:8px;padding:6px;margin-bottom:10px}
+.fixd{color:var(--ok);font-weight:600;display:flex;align-items:center;gap:6px;justify-content:center}
+.pkh{display:flex;align-items:center;gap:8px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:10px 0 6px;cursor:pointer;text-align:left;font-size:13px}
+.pkh:hover{border-color:var(--ac)}
+.pkh .chev{display:inline-block;transition:transform .2s;color:var(--ac);font-size:16px;line-height:1}
+.pkh.op .chev{transform:rotate(90deg)}
+.pkh .pkt{font-weight:600;color:var(--ac);letter-spacing:.5px}
+.pkh .pks{margin-left:auto;color:var(--mu);font-size:12px;display:inline-flex;align-items:center;gap:4px}
+.pkh .pks.full{color:var(--ok)}
+.pkrow{display:flex;align-items:center;gap:8px}.pkrow .pkh{flex:1}
+.msearch{position:relative;margin:4px 0 10px}.msearch .svi{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--mu)}.msearch input{padding-left:38px}
+@media (prefers-reduced-motion:reduce){.wave i,.btn.mic.on,.mt.no{animation:none}}
 .err{color:var(--bad);font-size:13px;margin:-4px 0 10px}
 .hint{font-size:12px;color:var(--mu);border:1px dashed var(--line);border-radius:8px;padding:10px;margin-top:16px}
 .lvl{display:flex;align-items:center;gap:14px}
@@ -173,6 +208,14 @@ gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
 let lang='id';const t=k=>T[lang][k]||k;
+Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",
+review:"Ulangi soal salah",toReview:"Ulangi soal yang salah",fixed:"soal sudah diperbaiki",correctAns:"Jawaban yang benar",mistakes:"Salah",right:"Benar!",wrongAns:"Belum tepat",
+micTap:"Tekan lalu bacakan",micListening:"Mendengarkan… bacakan sekarang",micHeard:"Terdengar",micNo:"Suara tidak terdengar. Coba lagi.",micErr:"Mikrofon tidak bisa dipakai di perangkat ini.",swapQ:"Ganti soal",
+searchWord:"Cari kata, arti, atau kalimat",found:"kata ditemukan",notFound:"Kata tidak ditemukan"});
+Object.assign(T.en,{qMatch:"Match each word with its meaning",qCloze:"Pick the right word for this sentence",qSent:"What does this sentence mean?",qRead:"Read this sentence out loud",
+review:"Retry wrong answers",toReview:"Retry wrong answers",fixed:"answers fixed",correctAns:"Correct answer",mistakes:"Mistakes",right:"Correct!",wrongAns:"Not quite",
+micTap:"Tap, then read aloud",micListening:"Listening… read now",micHeard:"Heard",micNo:"Didn't catch that. Try again.",micErr:"The microphone can't be used on this device.",swapQ:"Swap question",
+searchWord:"Search word, meaning or sentence",found:"words found",notFound:"No words found"});
 /* ---------- extra i18n ---------- */
 Object.assign(T.id,{setupTitle:"Buat akun guru",setupSub:"Belum ada akun guru. Buat sekali saja untuk mulai.",pwMin:"Password minimal 8 karakter",
 loading:"Memuat…",saving:"Menyimpan…",errGeneric:"Ada masalah. Coba lagi sebentar.",offline:"Tidak bisa terhubung. Cek internet kamu.",
@@ -209,7 +252,7 @@ async function invokeAdmin(body){const{data,error}=await sb.functions.invoke('ze
 /* ---------- state ---------- */
 const DB={babs:[],students:[]};
 const S={user:null,role:null,view:'boot',loginTab:'student',err:'',bab:null,paket:1,tab:'learn',mode:'menu',fi:0,flip:false,quiz:null,
-  aTab:'sum',gStudent:null,gBab:null,mBab:null,editWord:null,confirm:null,pinShow:null,needSetup:false,busy:false};
+  aTab:'sum',open:{},mq:'',talkEl:null,rec:null,gStudent:null,gBab:null,mBab:null,editWord:null,confirm:null,pinShow:null,needSetup:false,busy:false};
 
 /* ---------- helpers ---------- */
 const $=id=>document.getElementById(id);
@@ -228,7 +271,13 @@ function ring(pct,label,size=64){const r=size/2-5,C=2*Math.PI*r;
   <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--ac)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(C*Math.max(.02,pct)).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${size/2} ${size/2})"/>
   <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="${size/3.2}" font-weight="600" fill="var(--tx)">${label}</text></svg>`}
 function toast(m,ms=2200){const e=$('toast');e.textContent=m;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),ms)}
-function speak(txt,rate=.85){try{const u=new SpeechSynthesisUtterance(txt);u.lang='en-US';u.rate=rate;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){toast('Audio tidak tersedia')}}
+function speak(txt,rate=.85,el){try{const was=!!(el&&el.classList.contains('talking'));stopAudio();if(was)return;
+  const u=new SpeechSynthesisUtterance(txt);u.lang='en-US';u.rate=rate;
+  if(el){el.classList.add('talking');el.insertAdjacentHTML('afterbegin','<span class="wave"><i></i><i></i><i></i><i></i></span>');S.talkEl=el;
+    const off=()=>{if(S.talkEl===el)clearTalk()};u.onend=off;u.onerror=off;clearTimeout(S.talkT);S.talkT=setTimeout(off,Math.max(4000,txt.length*180/rate))}
+  speechSynthesis.speak(u)}catch(e){clearTalk();toast('Audio tidak tersedia')}}
+function clearTalk(){const el=S.talkEl;if(el){el.classList.remove('talking');const w=el.querySelector('.wave');if(w)w.remove()}S.talkEl=null}
+function stopAudio(){try{speechSynthesis.cancel()}catch(e){}clearTalk();try{if(S.rec)S.rec.abort()}catch(e){}S.rec=null}
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const isNew=w=>Date.now()-new Date(w.created_at).getTime()<3*864e5;
 async function run(fn,savingMsg=true){if(S.busy)return;S.busy=true;if(savingMsg)toast(t('saving'),60000);
@@ -244,6 +293,9 @@ spk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.
 lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>',
 turtle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 15.5h15a7.5 6.5 0 0 0-15 0z"/><path d="M6.5 10.5l3 5M13.5 10.5l-3 5M5 11.5h10"/><path d="M17.5 15.5c1 0 1.5-.8 1.5-1.8V13a2 2 0 0 1 2.5-1.9c.5.1.5.8 0 1.3l-1 1"/><path d="M5 15.5l-1 3M15 15.5l1 3"/></svg>',
 cards:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="6" width="13" height="15" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/></svg>'};
+Object.assign(icon,{search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
+mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>',
+refresh:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg>'});
 const ic=(n,s=16)=>icon[n].replace('<svg',`<svg class="svi" width="${s}" height="${s}" aria-hidden="true"`);
 function eyeIcon(open){return open?'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3l18 18M10.6 6.1A9.9 9.9 0 0 1 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3 3.6M6.6 6.6A17 17 0 0 0 2.5 12S6 18 12 18a9.7 9.7 0 0 0 4.4-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>':'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="3"/></svg>'}
 function togglePw(b){const i=b.previousElementSibling,show=i.type==='password';i.type=show?'text':'password';b.innerHTML=eyeIcon(show)}
@@ -290,7 +342,7 @@ function render(){
    :`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>`;
   $('outBtn').style.display=S.user?'':'none';$('outBtn').textContent=t('logout');
   const v={boot:()=>`<div class="big mu">${t('loading')}</div>`,login:vLogin,home:vHome,bab:vBab,admin:vAdmin}[S.view];$('main').innerHTML=v();S.anim=false;renderNav();
-  if(S.view==='bab'&&S.tab==='learn'&&S.mode==='quiz'&&S.quiz&&!S.quiz.done&&S.quiz.qs[S.quiz.i].type===3&&!S.quiz.played){S.quiz.played=true;setTimeout(()=>speak(S.quiz.qs[S.quiz.i].w.kata),300)}
+  if(S.view==='bab'&&S.tab==='learn'&&S.mode==='quiz'&&S.quiz&&!S.quiz.done){const q=curQ();if(q.type==='listen'&&!q.played){q.played=true;setTimeout(()=>speak(q.w.kata,.85,document.querySelector('.lis .spk')),300)}}
 }
 function renderNav(){let items=[];
   if(S.role==='student'&&S.view==='bab')items=[['home',t('yourBabs'),"goHome()",false],['book',t('learn'),"setTab('learn')",S.tab==='learn'],['chart',t('score'),"setTab('score')",S.tab==='score']];
@@ -340,7 +392,7 @@ async function doSetup(){const n=$('sn').value.trim(),e=$('u').value.trim().toLo
     const{data,error}=await sb.auth.signInWithPassword({email:e,password:p});if(error)throw error;S.needSetup=false;await enterApp(data.session)});
   render()}
 async function doSignOut(){try{await sb.auth.signOut()}catch(e){}Object.assign(S,{user:null,role:null,view:'login'});DB.babs=[];DB.students=[]}
-async function logout(){try{speechSynthesis.cancel()}catch(e){}await doSignOut();S.err='';S.anim=true;render()}
+async function logout(){stopAudio();S.open={};S.mq='';await doSignOut();S.err='';S.anim=true;render()}
 
 /* ---------- student home ---------- */
 function vHome(){const s=S.user,n=hafalCount(s),L=lvlOf(n);const list=DB.babs.filter(b=>b.words.length);
@@ -353,9 +405,9 @@ function vHome(){const s=S.user,n=hafalCount(s),L=lvlOf(n);const list=DB.babs.fi
     return `<div class="card bab ${open?'':'lock'}" ${open?`onclick="openBab(${b.id})"`:''}><div class="n">${i+1}</div><div class="grow"><b>${esc(b.nama)}</b>
     <div class="sm mu">${open?`${t('paket')} ${Math.min(open,pakets(b))} ${t('of')} ${pakets(b)} · ${h}/${tot} ${t('mastered')}`:t('locked')}</div>
     ${open?`<div class="bar"><i style="width:${tot?h/tot*100:0}%"></i></div>`:''}</div>${open?'<span class="mu">›</span>':`<span class="lk">${ic('lock',18)}</span>`}</div>`}).join(''):`<div class="card mu">${t('noBabs')}</div>`}`}
-function goHome(){S.view='home';S.mode='menu';render()}
+function goHome(){stopAudio();S.view='home';S.mode='menu';render()}
 function openBab(id){S.bab=id;S.paket=Math.min(S.user.unlocked[id],pakets(bab(id)));S.view='bab';S.tab='learn';S.mode='menu';render()}
-function setTab(x){S.tab=x;S.mode='menu';render()}
+function setTab(x){stopAudio();S.tab=x;S.mode='menu';render()}
 
 /* ---------- learn ---------- */
 function maxOpenOf(s,b){return Math.min(s.unlocked[b.id]||0,pakets(b))}
@@ -385,36 +437,102 @@ function flashView(ws,label,exitJs){if(!ws.length)return `<button class="back" o
   <div class="bar" style="margin-bottom:12px"><i style="width:${(S.fi+1)/ws.length*100}%"></i></div>
   <div class="flash ${S.flip?'flip':''}" onclick="S.flip=!S.flip;this.classList.toggle('flip')">
    <div class="fi"><div class="face">${isNew(w)?`<div class="tag" style="color:var(--ac)">${t('newMark')}</div>`:''}<div class="k">${esc(w.kata)}</div><div class="c">“${esc(w.contoh)}”</div>
-    <button class="spk" onclick="event.stopPropagation();speak('${jsq(w.kata+'. '+w.contoh)}')">${ic('spk')} ${t('listen')}</button><div class="c sm">${t('tap')}</div></div>
+    <button class="spk" onclick="event.stopPropagation();speak('${jsq(w.kata+'. '+w.contoh)}',.85,this)">${ic('spk')} ${t('listen')}</button><div class="c sm">${t('tap')}</div></div>
    <div class="face back"><div class="tag">${esc(w.kata)}</div><div class="a">${esc(w.arti)}</div><div class="c">“${esc(w.contoh)}”</div>
     ${w.contoh_arti?`<div class="ca">${esc(w.contoh_arti)}</div>`:''}
-    <button class="spk" onclick="event.stopPropagation();speak('${jsq(w.contoh)}')">${ic('spk')} ${t('listen')}</button></div></div></div>
+    <button class="spk" onclick="event.stopPropagation();speak('${jsq(w.contoh)}',.85,this)">${ic('spk')} ${t('listen')}</button></div></div></div>
   <div class="nav2"><button class="btn ghost" onclick="fNav(-1)" ${S.fi===0?'disabled style="opacity:.4"':''}>${t('prev')}</button>
   <button class="btn" onclick="${S.fi===ws.length-1?exitJs:'fNav(1)'}">${S.fi===ws.length-1?t('done'):t('next')}</button></div>`}
 function fNav(d){S.fi+=d;S.flip=false;render()}
 function startQuiz(){const b=bab(S.bab),ws=curWords(b);if(ws.length<4){toast(t('needWords'));return}
-  const pool=shuffle(ws).slice(0,Math.min(10,ws.length));
-  const qs=pool.map(w=>{const type=1+Math.floor(Math.random()*3);const others=shuffle(ws.filter(x=>x.id!==w.id&&x.kata!==w.kata&&x.arti!==w.arti)).slice(0,3);return{w,type,opts:shuffle([w,...others])}});
-  S.quiz={qs,i:0,score:0,picked:null,done:false,played:false,saved:null};S.mode='quiz';render()}
+  stopAudio();const n=Math.min(10,ws.length),pool=shuffle(ws).slice(0,n);let reads=0;const qs=[];
+  pool.forEach(w=>{const el=eligibleTypes(w,ws,reads);const type=el[Math.floor(Math.random()*el.length)];if(type==='read')reads++;qs.push(makeQ(type,w,ws))});
+  S.quiz={qs,i:0,phase:'main',wrong:[],review:[],ri:0,score:0,fixed:0,done:false,saved:null,final:0};S.mode='quiz';render()}
+const SRClass=()=>window.SpeechRecognition||window.webkitSpeechRecognition;
+function clozeOf(w){const parts=w.kata.trim().split(/\s+/).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  const re=new RegExp('\\b'+parts.join('\\w*\\s+')+'\\w*','i');return re.test(w.contoh)?w.contoh.replace(re,'_____'):null}
+function eligibleTypes(w,ws,reads){const el=['match','en','listen'];
+  if(clozeOf(w))el.push('cloze');
+  if(w.contoh_arti&&ws.filter(x=>x.id!==w.id&&x.contoh_arti&&x.contoh_arti!==w.contoh_arti).length>=3)el.push('sent');
+  if(SRClass()&&reads<2&&w.contoh.trim().split(/\s+/).length>=2)el.push('read');
+  return el}
+function makeQ(type,w,ws){const q={type,w,answered:false,correct:null,picked:null};
+  if(type==='match'){const others=shuffle(ws.filter(x=>x.id!==w.id&&x.kata!==w.kata&&x.arti!==w.arti)).slice(0,3);const set=[w,...others];
+    q.left=shuffle(set).map(x=>x.id);q.right=shuffle(set).map(x=>x.id);q.words=Object.fromEntries(set.map(x=>[x.id,x]));q.matched=[];q.sel=null;q.errors=0;q.flash=null}
+  else if(type==='sent'){const others=shuffle(ws.filter(x=>x.id!==w.id&&x.contoh_arti&&x.contoh_arti!==w.contoh_arti)).slice(0,3);q.opts=shuffle([w,...others])}
+  else if(type==='read'){q.rec='idle';q.heard=null;q.marks=null}
+  else{const others=shuffle(ws.filter(x=>x.id!==w.id&&x.kata!==w.kata&&x.arti!==w.arti)).slice(0,3);q.opts=shuffle([w,...others])}
+  return q}
+function curQ(){const Q=S.quiz;return Q.phase==='main'?Q.qs[Q.i]:Q.review[Q.ri]}
+function answerQ(ok){const Q=S.quiz,q=curQ();if(q.answered)return;q.answered=true;q.correct=ok;
+  if(Q.phase==='main'){if(ok)Q.score++;else Q.wrong.push(q)}else if(ok)Q.fixed++}
+function pick(id){const q=curQ();if(q.answered)return;q.picked=id;answerQ(id===q.w.id);render()}
+function mLeft(id){const q=curQ();if(q.answered||q.matched.includes(id))return;q.sel=id;q.flash=null;render()}
+function mRight(id){const q=curQ();if(q.answered||q.matched.includes(id)||q.sel==null)return;
+  if(q.sel===id){q.matched.push(id);q.sel=null;if(q.matched.length===q.left.length)answerQ(q.errors<=1);render()}
+  else{q.errors++;q.flash=[q.sel,id];q.sel=null;render();setTimeout(()=>{if(q.flash){q.flash=null;render()}},650)}}
+const NUMW={zero:'0',one:'1',two:'2',three:'3',four:'4',five:'5',six:'6',seven:'7',eight:'8',nine:'9',ten:'10',eleven:'11',twelve:'12'};
+function normTok(s){return s.toLowerCase().replace(/\b([ap])\.\s?m\.?/g,'$1m').replace(/[^a-z0-9'\s]/g,' ').split(/\s+/).filter(Boolean).map(x=>NUMW[x]||x)}
+function scoreRead(target,alts){const tgt=normTok(target);let best=null;
+  alts.forEach(a=>{const pool=normTok(a);const marks=tgt.map(tk=>{const k=pool.indexOf(tk);if(k>=0){pool.splice(k,1);return true}return false});
+    const r=marks.filter(Boolean).length/tgt.length;if(!best||r>best.r)best={r,marks,heard:a}});
+  return best}
+function startRec(){const q=curQ(),SR=SRClass();if(!SR||q.answered)return;stopAudio();
+  try{const r=new SR();S.rec=r;r.lang='en-US';r.interimResults=false;r.maxAlternatives=3;
+    r.onresult=e=>{const alts=[...e.results[0]].map(a=>a.transcript);const b=scoreRead(q.w.contoh,alts);q.heard=b.heard;q.marks=b.marks;q.rec='done';answerQ(b.r>=.7);render()};
+    r.onerror=e=>{if(['not-allowed','service-not-allowed','audio-capture'].includes(e.error)){q.rec='error'}else{q.rec='idle';toast(t('micNo'))}render()};
+    r.onend=()=>{if(q.rec==='listening'){q.rec='idle';toast(t('micNo'));render()}};
+    q.rec='listening';render();r.start()}catch(e){q.rec='error';render()}}
+function swapRead(){const Q=S.quiz,b=bab(S.bab),ws=curWords(b),q=curQ();const nq=makeQ(clozeOf(q.w)?'cloze':'en',q.w,ws);
+  if(Q.phase==='main')Q.qs[Q.i]=nq;else Q.review[Q.ri]=nq;render()}
+function qLabel(type){return{match:t('qMatch'),en:t('q2'),listen:t('q3'),cloze:t('qCloze'),sent:t('qSent'),read:t('qRead')}[type]}
 function vQuiz(b){const Q=S.quiz;
   if(Q.done){const r=Q.saved||S.user.quiz[qKey()]||{best:Q.final,tries:1};
     return `<div class="big"><div class="tag">${t('result')}</div><div class="score">${Q.score}/${Q.qs.length}</div>
+    ${Q.review.length?`<p class="fixd">${ic('check',14)} ${Q.fixed}/${Q.review.length} ${t('fixed')}</p>`:''}
     <p class="mu">${t('best')}: ${r.best}/10 · ${t('tries')}: ${r.tries}</p></div>
-    <button class="btn" onclick="startQuiz()">${t('again')}</button><div style="height:10px"></div><button class="btn ghost" onclick="S.mode='menu';render()">${t('done')}</button>`}
-  const q=Q.qs[Q.i];const label={1:t('q1'),2:t('q2'),3:t('q3')}[q.type];
-  const prompt=q.type===1?esc(q.w.kata):q.type===2?esc(q.w.arti):`<div class="lis"><button class="spk" style="font-size:16px;padding:12px 22px" onclick="speak('${jsq(q.w.kata)}')">${ic('spk',20)} ${t('play')}</button><button class="slow" aria-label="${t('slow')}" title="${t('slow')}" onclick="speak('${jsq(q.w.kata)}',.45)">${ic('turtle',24)}</button></div>`;
-  const opts=q.opts.map(o=>{const txt=q.type===1?o.arti:o.kata;let cls='';if(Q.picked){if(o.id===q.w.id)cls='ok';else if(o.id===Q.picked)cls='no'}
-    return `<button class="opt ${cls}" ${Q.picked?'disabled':''} onclick="pick(${o.id})">${esc(txt)}</button>`}).join('');
-  return `<button class="back" onclick="S.mode='menu';render()">‹ ${t('back')}</button>
-  <div class="qhead"><span>${t('question')} ${Q.i+1}/${Q.qs.length}</span><span>${ic('check',13)} ${Q.score}</span></div><div class="bar"><i style="width:${Q.i/Q.qs.length*100}%"></i></div>
-  <p class="mu sm" style="text-align:center;margin-top:18px">${label}</p><div class="qq">${prompt}</div>${opts}
-  ${Q.picked?`<button class="btn" style="margin-top:6px" onclick="nextQ()">${Q.i===Q.qs.length-1?t('result'):t('next')}</button>`:''}`}
-function pick(id){const Q=S.quiz;if(Q.picked)return;Q.picked=id;if(id===Q.qs[Q.i].w.id)Q.score++;render()}
-async function nextQ(){const Q=S.quiz;if(Q.i<Q.qs.length-1){Q.i++;Q.picked=null;Q.played=false;render();return}
-  Q.done=true;Q.final=Math.round(Q.score/Q.qs.length*10);const key=qKey(),pk=S.paket===0?'all':String(S.paket);render();
+    <button class="btn" onclick="startQuiz()">${t('again')}</button><div style="height:10px"></div><button class="btn ghost" onclick="stopAudio();S.mode='menu';render()">${t('done')}</button>`}
+  const q=curQ(),rev=Q.phase==='review';
+  const tot=rev?Q.review.length:Q.qs.length,idx=rev?Q.ri:Q.i;
+  let body='';
+  if(q.type==='match'){const W=q.words;
+    const cell=(id,side)=>{const done=q.matched.includes(id);let cls=done?'ok':'';if(side==='l'&&q.sel===id)cls='sel';if(q.flash&&q.flash[side==='l'?0:1]===id)cls='no';
+      return `<button class="mt ${cls}" ${done||q.answered?'disabled':''} onclick="${side==='l'?'mLeft':'mRight'}(${id})">${esc(side==='l'?W[id].kata:W[id].arti)}</button>`};
+    body=`<div class="mgrid"><div>${q.left.map(id=>cell(id,'l')).join('')}</div><div>${q.right.map(id=>cell(id,'r')).join('')}</div></div>
+    ${q.errors?`<p class="sm mu" style="text-align:center">${t('mistakes')}: ${q.errors}</p>`:''}`}
+  else if(q.type==='read'){
+    const sent=q.marks?q.w.contoh.split(/\s+/).map((tk,i)=>{const m=q.marks[i];return `<span class="${m===undefined?'':m?'rok':'rno'}">${esc(tk)}</span>`}).join(' '):esc(q.w.contoh);
+    body=`<div class="qq rd">${sent}</div>
+    <div class="lis" style="margin-bottom:14px"><button class="spk" onclick="speak('${jsq(q.w.contoh)}',.85,this)">${ic('spk',18)} ${t('listen')}</button></div>
+    ${q.rec==='error'?`<div class="card" style="text-align:center"><p class="sm mu" style="margin:0 0 10px">${t('micErr')}</p><button class="btn" onclick="swapRead()">${t('swapQ')}</button></div>`:
+     q.answered?`<p class="sm mu" style="text-align:center">${t('micHeard')}: “${esc(q.heard||'')}”</p>`:
+     `<button class="btn mic ${q.rec==='listening'?'on':''}" onclick="startRec()">${ic('mic',18)} ${q.rec==='listening'?t('micListening'):t('micTap')}</button>`}`}
+  else{const prompt=q.type==='en'?esc(q.w.arti):q.type==='cloze'?esc(clozeOf(q.w)):q.type==='sent'?`“${esc(q.w.contoh)}”`:
+      `<div class="lis"><button class="spk big2" onclick="speak('${jsq(q.w.kata)}',.85,this)">${ic('spk',20)} ${t('play')}</button><button class="slow" aria-label="${t('slow')}" title="${t('slow')}" onclick="speak('${jsq(q.w.kata)}',.3,this)">${ic('turtle',24)}</button></div>`;
+    const opts=q.opts.map(o=>{const txt=q.type==='sent'?o.contoh_arti:o.kata;let cls='';if(q.answered){if(o.id===q.w.id)cls='ok';else if(o.id===q.picked)cls='no'}
+      return `<button class="opt ${cls}" ${q.answered?'disabled':''} onclick="pick(${o.id})">${esc(txt)}</button>`}).join('');
+    body=`<div class="qq ${q.type==='cloze'||q.type==='sent'?'qs2':''}">${prompt}</div>${opts}`}
+  const reveal=rev&&q.answered&&!q.correct?`<div class="card reveal"><div class="tag">${t('correctAns')}</div><b>${esc(q.w.kata)}</b> · ${esc(q.w.arti)}
+    <div class="sm mu" style="margin-top:4px">“${esc(q.w.contoh)}”</div>${q.w.contoh_arti?`<div class="sm" style="color:var(--ac)">${esc(q.w.contoh_arti)}</div>`:''}
+    <button class="mini" style="margin-top:8px" aria-label="${t('listen')}" onclick="speak('${jsq(q.w.kata+'. '+q.w.contoh)}',.85,this)">${ic('spk',15)}</button></div>`:'';
+  const fb=q.answered&&!rev?`<p class="fb ${q.correct?'g':'r'}">${q.correct?t('right'):t('wrongAns')}</p>`:'';
+  const btnLbl=rev?(Q.ri===Q.review.length-1?t('result'):t('next')):(Q.i===Q.qs.length-1?(Q.wrong.length?t('toReview'):t('result')):t('next'));
+  return `<button class="back" onclick="stopAudio();S.mode='menu';render()">‹ ${t('back')}</button>
+  ${rev?`<div class="revh">${ic('refresh',14)} ${t('review')} · ${idx+1}/${tot}</div>`:''}
+  <div class="qhead"><span>${rev?'':t('question')+' '}${idx+1}/${tot}</span><span>${rev?'':`${ic('check',13)} ${Q.score}`}</span></div><div class="bar"><i style="width:${idx/tot*100}%"></i></div>
+  <p class="mu sm" style="text-align:center;margin-top:18px">${qLabel(q.type)}</p>${body}${fb}${reveal}
+  ${q.answered?`<button class="btn" style="margin-top:8px" onclick="nextQ()">${btnLbl}</button>`:''}`}
+async function nextQ(){const Q=S.quiz;stopAudio();
+  if(Q.phase==='main'){if(Q.i<Q.qs.length-1){Q.i++;render();scrollTo(0,0);return}
+    Q.final=Math.round(Q.score/Q.qs.length*10);submitQuiz();
+    if(Q.wrong.length){const b=bab(S.bab),ws=curWords(b);Q.review=Q.wrong.map(o=>makeQ(o.type==='read'&&!SRClass()?'en':o.type,o.w,ws));Q.phase='review';Q.ri=0;render();scrollTo(0,0);return}
+    Q.done=true;render();return}
+  if(Q.ri<Q.review.length-1){Q.ri++;render();scrollTo(0,0);return}
+  Q.done=true;render()}
+async function submitQuiz(){const Q=S.quiz,key=qKey(),pk=S.paket===0?'all':String(S.paket);
   await run(async()=>{const{data,error}=await sb.rpc('submit_quiz',{p_bab:S.bab,p_paket:pk,p_score:Q.final});if(error)throw error;
     const r=Array.isArray(data)?data[0]:data;Q.saved={last:r.last,best:r.best,tries:r.tries};S.user.quiz[key]=Q.saved},false);
-  render()}
+  if(Q.done)render()}
 
 /* ---------- score (shared) ---------- */
 function vScore(s,b,edit){const maxOpen=maxOpenOf(s,b);
@@ -425,14 +543,19 @@ function vScore(s,b,edit){const maxOpen=maxOpenOf(s,b);
   ${edit?'':`<p class="sm mu" style="margin:0 0 6px">${t('tapHint')} · ${t('viewOnly')}</p>`}`;
   const qa=s.quiz[b.id+'-all'];if(qa)html+=`<p class="sm mu" style="margin:0 0 6px">${t('quiz')} ${t('allWords')}: ${qa.last}/10 (${t('best')} ${qa.best}, ${qa.tries}x)</p>`;
   for(let p=1;p<=maxOpen;p++){const ws=pkWords(b,p);if(!ws.length)continue;const ph=ws.filter(w=>st(s,w)==='hafal').length,q=s.quiz[b.id+'-'+p];
-    html+=`${p>1?'<div class="pksep"></div>':''}<div class="pk"><span>${t('paket')} ${p}</span><span>${ph}/${ws.length} · ${q?`${t('quiz')} ${q.last}/10 (${t('best')} ${q.best}, ${q.tries}x)`:t('noQuiz')}</span></div><div class="wl">`;
+    const key=`${s.id}-${b.id}-${p}`,open=S.open[key]??(p===maxOpen),full=ph===ws.length;
+    html+=`${p>1?'<div class="pksep"></div>':''}<button class="pkh ${open?'op':''}" onclick="togPk('${key}',${p===maxOpen})"><span class="chev">›</span><span class="pkt">${t('paket')} ${p}</span>
+      <span class="pks ${full?'full':''}">${ph}/${ws.length}${full?' '+ic('check',12):''} · ${q?`${t('quiz')} ${q.last}/10`:t('noQuiz')}</span></button>`;
+    if(!open)continue;
+    html+=`${q?`<p class="sm mu" style="margin:0 0 6px">${t('best')} ${q.best}/10 · ${q.tries}x</p>`:''}<div class="wl">`;
     ws.forEach((w,i)=>{const v=st(s,w);
       html+=`<div class="wi ${v}"><span class="no">${(p-1)*20+i+1}</span>${edit?`<div class="grow"><b>${esc(w.kata)}</b> <span class="sm mu">· ${esc(w.arti)}</span><div class="sm mu ex">“${esc(w.contoh)}”</div>${w.contoh_arti?`<div class="sm" style="color:var(--ac)">${esc(w.contoh_arti)}</div>`:''}</div>
       <select onchange="setSt('${s.id}',${w.id},this.value,this)">${['baru','belum','hafal'].map(o=>`<option value="${o}" ${o===v?'selected':''}>${t(o)}</option>`).join('')}</select>`:
       `<div class="grow wcard" onclick="this.classList.toggle('open')"><b>${esc(w.kata)}</b> <span class="sm hid">· ${t('tapShort')}</span><span class="sm ar">· ${esc(w.arti)}</span><div class="sm mu ex">“${esc(w.contoh)}”</div>${w.contoh_arti?`<div class="sm ar2">${esc(w.contoh_arti)}</div>`:''}</div>
-      <button class="mini" aria-label="${t('listen')}" onclick="speak('${jsq(w.kata+'. '+w.contoh)}')">${ic('spk',15)}</button><span class="st ${v}">${t(v)}</span>`}</div>`});
+      <button class="mini" aria-label="${t('listen')}" onclick="speak('${jsq(w.kata+'. '+w.contoh)}',.85,this)">${ic('spk',15)}</button><span class="st ${v}">${t(v)}</span>`}</div>`});
     html+='</div>'}
   return html}
+async function togPk(k,def){S.open[k]=!(S.open[k]??def);render()}
 async function setSt(sid,wid,v,el){const s=DB.students.find(x=>x.id===sid),prev=s.status[wid]||'baru';s.status[wid]=v;
   const row=el&&el.closest('.wi');if(row){row.classList.remove('baru','belum','hafal');row.classList.add(v)}
   const ok=await run(async()=>{const{error}=await sb.from('statuses').upsert({student_id:sid,word_id:wid,status:v,updated_at:new Date().toISOString()});if(error)throw error},false);
@@ -510,15 +633,21 @@ function aMat(){const b=bab(S.mBab)||DB.babs[0];
   <button class="btn" type="button" onclick="pasteWords()">${t('save')}</button></div>
   <h2>${t('wordList')} <span class="sm mu" style="font-weight:400">· ${t('autoSplit')}</span></h2><p class="sm mu" style="margin:-4px 0 8px">${t('tapEdit')}</p>
   ${b.words.length?`<div class="card bab" onclick="openMFlash(0)"><div class="n">${ic('cards',18)}</div><div class="grow"><b>${t('flash')} · ${t('allWords')}</b><div class="sm mu">${b.words.length} ${t('words')}</div></div><span class="mu">›</span></div>`:''}
-  ${b.words.length?Array.from({length:pakets(b)},(_,i)=>{const ws=pkWords(b,i+1);return `${i?'<div class="pksep"></div>':''}<div class="pk"><span>${t('paket')} ${i+1} · ${ws.length}/20</span><button class="flbtn" onclick="openMFlash(${i+1})">${ic('cards',12)} ${t('flash')}</button></div><div class="wl">${ws.map((w,j)=>
-    S.editWord===w.id?`<div class="wi" style="display:block" ${enter('saveWord')}>
+  ${b.words.length?`<div class="msearch">${ic('search',16)}<input id="mq" type="search" placeholder="${t('searchWord')}" value="${esc(S.mq||'')}" oninput="S.mq=this.value;$('mlist').innerHTML=matList(bab(S.mBab))"></div><div id="mlist">${matList(b)}</div>`:`<div class="card mu">${t('empty')}</div>`}`:''}`}
+function mRow(w,idx){return S.editWord===w.id?`<div class="wi" style="display:block" ${enter('saveWord')}>
       <div class="field"><label>${t('word')}</label><input id="ek" value="${esc(w.kata)}"></div>
       <div class="field"><label>${t('meaning')}</label><input id="ea" value="${esc(w.arti)}"></div>
       <div class="field"><label>${t('example')} *</label><input id="ec" value="${esc(w.contoh)}"></div>
       <div class="field"><label>${t('sentMeaning')}</label><input id="eca" value="${esc(w.contoh_arti)}"></div>
       <div style="display:flex;gap:8px"><button class="btn sm2" type="button" onclick="saveWord()">${t('save')}</button><button class="btn ghost sm2" type="button" onclick="S.editWord=null;S.confirm=null;render()">${t('cancel')}</button>
       <span class="grow"></span><button class="btn ghost sm2" style="color:var(--bad)" type="button" onclick="delWord()">${S.confirm==='w'+w.id?t('sureDel'):t('del')}</button></div></div>`:
-    `<div class="wi" style="cursor:pointer" onclick="S.editWord=${w.id};S.confirm=null;render()"><span class="no">${i*20+j+1}</span><div class="grow"><b>${esc(w.kata)}</b> <span class="sm mu">· ${esc(w.arti)}</span>${isNew(w)?`<span class="pill">${t('newMark')}</span>`:''}<div class="sm mu">“${esc(w.contoh)}”</div>${w.contoh_arti?`<div class="sm" style="color:var(--ac)">${esc(w.contoh_arti)}</div>`:''}</div><span class="mu sm">${t('edit')}</span></div>`).join('')}</div>`}).join(''):`<div class="card mu">${t('empty')}</div>`}`:''}`}
+    `<div class="wi" style="cursor:pointer" onclick="S.editWord=${w.id};S.confirm=null;render()"><span class="no">${idx+1}</span><div class="grow"><b>${esc(w.kata)}</b> <span class="sm mu">· ${esc(w.arti)}</span>${isNew(w)?`<span class="pill">${t('newMark')}</span>`:''}<div class="sm mu">“${esc(w.contoh)}”</div>${w.contoh_arti?`<div class="sm" style="color:var(--ac)">${esc(w.contoh_arti)}</div>`:''}</div><span class="mu sm">${t('edit')}</span></div>`}
+function matList(b){const q=(S.mq||'').trim().toLowerCase();
+  if(q){const hits=b.words.map((w,i)=>[w,i]).filter(([w])=>(w.kata+' '+w.arti+' '+w.contoh+' '+(w.contoh_arti||'')).toLowerCase().includes(q));
+    return hits.length?`<p class="sm mu" style="margin:4px 0 8px">${hits.length} ${t('found')}</p><div class="wl">${hits.map(([w,i])=>mRow(w,i)).join('')}</div>`:`<div class="card mu">${t('notFound')}</div>`}
+  const n=pakets(b);return Array.from({length:n},(_,i)=>{const p=i+1,ws=pkWords(b,p),key=`m-${b.id}-${p}`,hasEdit=ws.some(w=>w.id===S.editWord),open=hasEdit||(S.open[key]??(p===n));
+    return `${i?'<div class="pksep"></div>':''}<div class="pkrow"><button class="pkh ${open?'op':''}" onclick="togPk('${key}',${p===n})"><span class="chev">›</span><span class="pkt">${t('paket')} ${p}</span><span class="pks">${ws.length}/20</span></button>
+    <button class="flbtn" onclick="openMFlash(${p})">${ic('cards',12)} ${t('flash')}</button></div>${open?`<div class="wl">${ws.map((w,j)=>mRow(w,i*20+j)).join('')}</div>`:''}`}).join('')}
 async function addBab(){const n=$('bn').value.trim();if(!n){toast(t('fill'));return}
   const ok=await run(async()=>{const{data,error}=await sb.from('babs').insert({nama:n.slice(0,80)}).select('id,nama').single();if(error)throw error;DB.babs.push({...data,words:[]});S.mBab=data.id});
   if(ok)toast(t('babCreated'));render()}
