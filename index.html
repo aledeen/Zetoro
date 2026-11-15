@@ -162,10 +162,13 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .blank{color:var(--ac);font-weight:700;letter-spacing:1px}
 .gcard.lockd{opacity:.55}.gcard.lockd .gch{cursor:default}
 .glsel{display:inline-flex;align-items:center;gap:6px;color:var(--mu);margin-top:6px}.glsel select{padding:5px 8px;font-size:12.5px;width:auto}
-.scard{margin-bottom:12px;padding:16px}.sc-n{display:flex;align-items:center;gap:4px}.sc-n b{font-size:16px}
-.sc-gl{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;flex-wrap:wrap}
-.seg3{display:flex;flex:1;max-width:280px}.seg3 button{flex:1;padding:7px 4px}
-.sc-act{display:flex;justify-content:flex-end;gap:4px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.scard{padding:0;margin:0 0 10px;overflow:hidden}
+.sc-h{display:flex;align-items:center;gap:12px;width:100%;background:none;border:none;padding:14px 16px;cursor:pointer;text-align:left}
+.sc-h b{font-size:15.5px}.sc-h .chev{color:var(--ac);font-size:18px;transition:transform .2s;transform:rotate(90deg)}.scard.op .sc-h .chev{transform:rotate(-90deg)}
+.sc-b{border-top:1px solid var(--line);padding-top:14px!important}
+.sc-lbl{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin:0 0 8px}
+.seg3{display:flex;width:100%}.seg3 button{flex:1;padding:9px 4px;font-size:13px}
+.sc-act{display:flex;flex-wrap:wrap;gap:2px 4px;margin-top:14px;padding-top:10px;border-top:1px solid var(--line)}
 .lnk3{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--mu);font-size:13px;padding:6px 10px;border-radius:8px;cursor:pointer}
 .lnk3:hover{background:var(--card2);color:var(--tx)}.lnk3.bad{color:var(--bad)}
 .nm{margin:0 0 10px;font-size:15px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -827,12 +830,19 @@ function aStu(){return `<h1>${t('students')}</h1><div style="height:12px"></div>
   ${S.pinShow?`<div class="card" style="border-color:var(--ac);margin-bottom:12px"><div class="sm mu">${t('newPinFor')} ${esc(S.pinShow.nama)} (@${esc(S.pinShow.username)})</div>
    <div style="font-size:32px;font-weight:600;letter-spacing:6px;color:var(--ac);margin:6px 0">${esc(S.pinShow.pin)}</div><p class="sm mu" style="margin:0 0 10px">${t('tellStudent')}</p>
    <button class="btn ghost sm2" onclick="S.pinShow=null;render()">${t('close')}</button></div>`:''}
-  ${DB.students.length?DB.students.map(s=>`<div class="card scard">
-   <div class="row"><button class="avbtn" title="${t('changePhoto')}" onclick="S.stuPhoto=S.stuPhoto==='${s.id}'?null:'${s.id}';render()">${avatar(s,46)}</button>
-   <div class="grow">${S.stuEdit===s.id?`<div class="me-ed"><input id="sn_${s.id}" value="${esc(s.nama)}" maxlength="60"><button class="btn sm2" onclick="saveStuName('${s.id}')">${t('save')}</button></div>`:`<div class="sc-n"><b>${esc(s.nama)}</b><button class="lnk" title="${t('editName')}" onclick="S.stuEdit='${s.id}';render()">${ic('pen',13)}</button></div>`}<div class="sm mu">@${esc(s.username)}</div></div></div>
-   ${S.stuPhoto===s.id?`<div class="row" style="margin-top:10px;gap:8px"><button class="btn ghost sm2" onclick="pickFoto('${s.id}')">${ic('cam',14)} ${t('changePhoto')}</button>${s.foto?`<button class="btn ghost sm2" onclick="delFoto('${s.id}')">${ic('trash',14)} ${t('removePhoto')}</button>`:''}</div>`:''}
-   <div class="sc-gl"><span class="sm mu">${t('glLabel')}</span><div class="seg seg3">${[1,2,3].map(l=>`<button type="button" class="${(s.glevel||1)===l?'on':''}" onclick="setGL('${s.id}',${l})">${t('lv'+l)}</button>`).join('')}</div></div>
-   <div class="sc-act"><button class="lnk3" onclick="resetPin('${s.id}')">${ic('key',15)} ${t('resetPin')}</button><button class="lnk3 bad" onclick="delStudent('${s.id}')">${ic('trash',15)} ${t('del')}</button></div></div>`).join(''):`<div class="card mu">${t('noStudents')}</div>`}
+  ${DB.students.length?DB.students.map(s=>{const op=S.fold&&S.fold['s'+s.id];return `<div class="card scard fold ${op?'op':''}">
+   <button type="button" class="sc-h" onclick="togFold('s${s.id}',this)">${avatar(s,44)}<div class="grow"><b>${esc(s.nama)}</b><div class="sm mu">@${esc(s.username)} · ${t('grammar')} ${t('lv'+(s.glevel||1))}</div></div><span class="chev">›</span></button>
+   <div class="fold-b sc-b">
+    ${S.stuEdit===s.id?`<div class="me-ed" style="margin-bottom:6px"><input id="sn_${s.id}" value="${esc(s.nama)}" maxlength="60"><button class="btn sm2" onclick="saveStuName('${s.id}')">${t('save')}</button><button class="btn ghost sm2" onclick="S.stuEdit=null;render()">${t('cancel')}</button></div>`:''}
+    <div class="sc-lbl">${t('glLabel')}</div>
+    <div class="seg seg3">${[1,2,3].map(l=>`<button type="button" class="${(s.glevel||1)===l?'on':''}" onclick="setGL('${s.id}',${l})">${t('lv'+l)}</button>`).join('')}</div>
+    <div class="sc-act">
+     <button class="lnk3" onclick="S.stuEdit='${s.id}';render()">${ic('pen',15)} ${t('editName')}</button>
+     <button class="lnk3" onclick="pickFoto('${s.id}')">${ic('cam',15)} ${t('changePhoto')}</button>
+     ${s.foto?`<button class="lnk3" onclick="delFoto('${s.id}')">${ic('trash',15)} ${t('removePhoto')}</button>`:''}
+     <button class="lnk3" onclick="resetPin('${s.id}')">${ic('key',15)} ${t('resetPin')}</button>
+     <button class="lnk3 bad" onclick="delStudent('${s.id}')">${ic('trash',15)} ${t('del')}</button>
+    </div></div></div>`}).join(''):`<div class="card mu">${t('noStudents')}</div>`}
   ${fold('stu',t('addStudent'),`<div ${enter('addStu')}>
   <div class="field"><label>${t('name')}</label><input id="sn" placeholder="Budi"></div>
   <div class="field"><label>${t('username')} <span class="mu">(${t('userHint')})</span></label><input id="su" autocapitalize="off" placeholder="budi"></div>
