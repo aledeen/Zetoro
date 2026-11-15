@@ -246,13 +246,43 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .ca{margin-top:6px;color:var(--ac);font-size:14px;font-style:italic}
 .wcard .ar2{display:none;color:var(--ac)}.wcard.open .ar2{display:block}
 .flbtn{background:none;border:1px solid var(--ac);color:var(--ac);border-radius:12px;padding:2px 9px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;letter-spacing:.5px;text-transform:none}
-.expl{font-size:13px;padding:7px 14px;margin:0 0 10px}.sm3{font-size:12px!important;padding:5px 11px!important;margin:0!important}
+.vpill.sm3{padding:4px 12px 4px 4px!important}.sm3{font-size:12px!important;padding:5px 11px!important;margin:0!important}
 .aplay{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:0 0 10px}
 .apb{width:38px;height:38px;border-radius:50%;background:var(--ac);color:var(--on);border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
 .aph{display:flex;justify-content:space-between;align-items:center;gap:8px}.apr{width:100%;accent-color:var(--ac);margin:6px 0 0;display:block}
 .recbox{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}.recbox.col{display:block}
 .recdot{width:10px;height:10px;border-radius:50%;background:var(--bad);animation:blink 1s infinite;flex-shrink:0}@keyframes blink{50%{opacity:.25}}
 .me-it,a.me-it{color:inherit;text-decoration:none}.me-v{white-space:nowrap}.me-it .grow{white-space:nowrap}
+.vcard{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:linear-gradient(135deg,var(--acs),var(--card2) 70%);border:1px solid var(--line);margin:0 0 14px;transition:border-color .2s}
+.vcard.on{border-color:var(--ac)}
+.vplay,.vstop{width:48px;height:48px;border-radius:50%;background:var(--ac);color:var(--on);border:none;display:grid;place-items:center;cursor:pointer;flex-shrink:0;box-shadow:0 4px 14px rgba(208,138,91,.3);transition:transform .15s}
+.vplay:active,.vstop:active{transform:scale(.92)}.vplay .svi{vertical-align:0}
+.vcard.on .vplay{animation:vpulse 1.6s ease-out infinite}
+@keyframes vpulse{0%{box-shadow:0 0 0 0 rgba(208,138,91,.5)}100%{box-shadow:0 0 0 12px rgba(208,138,91,0)}}
+.vmid{flex:1;min-width:0;display:block}.vtop{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.vtop b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vtime{font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums;white-space:nowrap}
+.vwave{position:relative;display:flex;align-items:center;gap:2px;height:30px;margin:8px 0 6px}
+.vwave i{flex:1;min-width:2px;border-radius:2px;background:var(--line);transition:background .25s}
+[data-theme=light] .vwave i{background:#D9D2CA}.vwave i.on,[data-theme=light] .vwave i.on{background:var(--ac)}
+.vcard.on[data-kind=tts] .vwave i{animation:vbar 1.1s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes vbar{50%{transform:scaleY(.4)}}
+.vseek{position:absolute;inset:-4px 0;width:100%;height:calc(100% + 8px);opacity:0;cursor:pointer;margin:0}
+.vsub{font-size:11.5px;color:var(--mu);display:flex;align-items:center;gap:5px}.vsub .svi{vertical-align:0}
+.vpill{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:20px;border:1px solid var(--line);background:var(--card2);color:var(--tx);font-size:12.5px;cursor:pointer;font-family:inherit}
+.vpill.talking{background:var(--card2)!important;color:var(--tx)!important;border-color:var(--ac)!important}
+.vpi{width:26px;height:26px;border-radius:50%;background:var(--ac);color:var(--on);display:grid;place-items:center;flex-shrink:0}
+.vpill .svi{display:inline-block!important;vertical-align:0}.vpill .ic-stop{display:none}.vpill.talking .ic-play{display:none}.vpill.talking .ic-stop{display:block}
+.vb{display:inline-flex;gap:2px;align-items:center;height:14px}.vb i{width:2px;border-radius:1px;background:var(--mu)}
+.vpill.talking .vb i{background:var(--ac);animation:vbar .8s ease-in-out infinite}
+.vrec,.vnew{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;border:1px solid var(--bad);background:linear-gradient(135deg,rgba(217,112,90,.14),var(--card2) 70%);margin:0 0 10px;width:100%}
+.vnew{border:1px dashed var(--line);background:var(--card2);cursor:pointer;color:var(--tx);font-family:inherit}.vnew:hover{border-color:var(--ac)}.vnew .vsub{margin-top:3px}
+.vrdot{width:48px;height:48px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;flex-shrink:0;animation:rpulse 1.4s ease-out infinite}
+.vrdot.idle{background:var(--acs);color:var(--ac);animation:none}
+@keyframes rpulse{0%{box-shadow:0 0 0 0 rgba(217,112,90,.55)}100%{box-shadow:0 0 0 12px rgba(217,112,90,0)}}
+.vstop{background:var(--tx);color:var(--bg);box-shadow:none}
+.vlv{display:flex;align-items:center;gap:2px;height:28px;margin:8px 0 6px}.vlv i{flex:1;min-width:2px;height:10%;border-radius:2px;background:var(--bad);transition:height .08s}
+.vprog{height:3px;border-radius:2px;background:var(--line);overflow:hidden}.vprog i{display:block;height:100%;background:var(--bad);transition:width .25s linear}
+@media (prefers-reduced-motion:reduce){.vcard.on .vplay,.vrdot,.vcard.on[data-kind=tts] .vwave i,.vpill.talking .vb i{animation:none}}
 .wabtn{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:20px;border:1px solid #2E9E5B;color:#2E9E5B;text-decoration:none;font-size:13px;font-weight:500;background:none}
 .wabtn:hover{background:rgba(46,158,91,.1)}.wabtn.full{display:flex;justify-content:center;margin-top:12px}
 .lis{display:flex;align-items:center;justify-content:center;gap:10px}
@@ -304,9 +334,9 @@ wordList:"Word list",autoSplit:"Split into sets of 20 automatically",viewOnly:"O
 gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",total:"total words mastered",toNext:"more words to next level",maxLvl:"Top level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
-Object.assign(T.id,{listenExpl:"Dengarkan penjelasan",teacherVoice:"Suara guru",progress:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Stop",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar dulu sebelum disimpan",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada rekaman. Murid akan mendengar suara otomatis (TTS).",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
+Object.assign(T.id,{listenExpl:"Dengarkan penjelasan",teacherExpl:"Penjelasan dari guru",autoVoice:"Suara otomatis",recording:"Merekam…",recNotSaved:"Belum disimpan, dengar dulu sebelum menyimpan",recActive:"Rekaman ini yang didengar murid",teacherVoice:"Suara guru",progress:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Stop",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar ulang",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada, murid dengar suara otomatis",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
 askWa:"Tanya via WA",waNum:"Nomor WA",waNotSet:"Belum diisi",waHint:"Contoh: 0812 3456 7890",waSaved:"Nomor WA tersimpan",waCleared:"Nomor WA dihapus",waBad:"Nomor WA tidak valid"});
-Object.assign(T.en,{listenExpl:"Listen to explanation",teacherVoice:"Teacher's voice",progress:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Listen before saving",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"No recording yet. Students will hear the automatic voice (TTS).",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
+Object.assign(T.en,{listenExpl:"Listen to explanation",teacherExpl:"Explanation from teacher",autoVoice:"Automatic voice",recording:"Recording…",recNotSaved:"Not saved yet, listen before saving",recActive:"Students hear this recording",teacherVoice:"Teacher's voice",progress:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Play back",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"None yet, students hear the automatic voice",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
 askWa:"Ask via WhatsApp",waNum:"WhatsApp",waNotSet:"Not set",waHint:"e.g. 0812 3456 7890",waSaved:"WhatsApp number saved",waCleared:"WhatsApp number removed",waBad:"Invalid WhatsApp number"});
 let lang='id';const t=k=>T[lang][k]||k;
 Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",qOrder:"Susun kalimat ini dalam bahasa Inggris",changePhoto:"Ganti foto",removePhoto:"Hapus foto",editName:"Ubah nama",photoSaved:"Foto disimpan",photoRemoved:"Foto dihapus",nameSaved:"Nama disimpan",photoErr:"File harus berupa gambar.",orderHint:"Ketuk kata di bawah sesuai urutan",check:"Cek",correctSent:"Kalimat yang benar",
@@ -450,7 +480,7 @@ function speak(txt,rate=.85,el){try{const was=!!(el&&el.classList.contains('talk
     const off=()=>{if(S.talkEl===el)clearTalk()};u.onend=off;u.onerror=off;clearTimeout(S.talkT);S.talkT=setTimeout(off,Math.max(4000,txt.length*180/rate))}
   speechSynthesis.speak(u)}catch(e){clearTalk();toast('Audio tidak tersedia')}}
 function clearTalk(){const el=S.talkEl;if(el){el.classList.remove('talking');const w=el.querySelector('.wave');if(w)w.remove()}S.talkEl=null}
-function stopAudio(){try{speechSynthesis.cancel()}catch(e){}clearTalk();if(S.aud){try{S.aud.pause()}catch(e){}}try{if(S.rec)S.rec.abort()}catch(e){}S.rec=null}
+function stopAudio(){try{speechSynthesis.cancel()}catch(e){}clearTalk();if(S.aud){try{S.aud.pause()}catch(e){}}clearInterval(S.ttsIv);if(S.ttsKey){const k=S.ttsKey;S.ttsKey=null;S.ttsP=0;vcUI(k)}try{if(S.rec)S.rec.abort()}catch(e){}S.rec=null}
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const isNew=w=>Date.now()-new Date(w.created_at).getTime()<3*864e5;
 async function run(fn,savingMsg=true){if(S.busy)return;S.busy=true;if(savingMsg)toast(t('saving'),60000);
@@ -985,7 +1015,7 @@ function vGlat(){const G=S.glat,g=GB[G.key]||{judul:G.key,grup:'other'};const ba
 function gUse(key){let n=0;DB.babs.forEach(b=>b.words.forEach(w=>{if((w.tanda||[]).some(m=>m.g===key))n++}));return n}
 function gCard(g,b,teacher,locked){if(locked)return `<div class="card gcard g-${g.grup} lockd" id="g_${g.key}"><button class="gch" onclick="toast(t('glLocked')+' '+t('lv${g.level}'))"><i class="gdot"></i><b class="grow">${esc(g.judul)}</b><span class="sm mu">🔒 ${t('lv'+g.level)}</span></button></div>`;
   const op=S.gOpen===g.key;const ex=b?curWords(b).filter(w=>(w.tanda||[]).some(m=>m.g===g.key)).slice(0,3):[];
-  const body=teacher&&op?gForm(g):op?`<div class="gbody">${g.audio_path?recPlayer(g):explBtn(g.key,0)}<p>${esc(g.penjelasan)}</p>${g.rumus?`<div class="rumus">${esc(g.rumus)}</div>`:''}${g.detail?`<p class="sm">${esc(g.detail)}</p>`:''}
+  const body=teacher&&op?gForm(g):op?`<div class="gbody">${gVoice(g)}<p>${esc(g.penjelasan)}</p>${g.rumus?`<div class="rumus">${esc(g.rumus)}</div>`:''}${g.detail?`<p class="sm">${esc(g.detail)}</p>`:''}
     ${g.contoh?`<div class="gex">${g.contoh.split('\n').filter(Boolean).map(x=>`<div>“${esc(x)}”<button class="mini" aria-label="${t('listen')}" onclick="speak('${jsq(x)}',.85,this)">${ic('spk',13)}</button></div>`).join('')}</div>`:''}
     ${ex.length?`<div class="tag" style="margin-top:12px">${t('inThisBab')}</div>${ex.map(w=>`<div class="sm" style="margin:4px 0">“${cs(w)}”</div>`).join('')}`:''}
     ${!teacher?(()=>{const n=gWordsFor(g.key,openWords()).length,st=gStat(S.user.id,g.key);return `<div class="glat-row">${n>=3?`<button class="btn sm2" onclick="startGlat('${g.key}')">${ic('check',14)} ${t('practice')} (10 ${t('questions')})</button>`:`<span class="sm mu">${t('practiceNeed')}</span>`}${st?`<span class="sm mu">${t('yourScore')}: ${st.benar}/${st.total}</span>`:''}</div>${waBtn(waGram(g),'full')}`})():''}</div>`:'';
@@ -1011,50 +1041,69 @@ function gramParts(g,short,sent){const ex=(g.contoh||'').split('\n').map(x=>x.tr
   return mergeParts(P.filter(p=>p.t&&String(p.t).trim()))}
 function pickVoice(l){try{const vs=speechSynthesis.getVoices();if(l==='id')return vs.find(v=>/^(id|in)([-_]|$)/i.test(v.lang))||null;return vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null}catch(e){return null}}
 try{speechSynthesis.getVoices();speechSynthesis.addEventListener('voiceschanged',()=>{})}catch(e){}
-function speakSeq(parts,el){try{const was=!!(el&&el.classList.contains('talking'));stopAudio();if(was||!parts.length)return;
-  const segs=parts.flatMap(p=>String(p.t).split(/(?<=[.!?;])\s+/).filter(Boolean).map(t=>({l:p.l,t})));let total=0;
-  const us=segs.map(p=>{const u=new SpeechSynthesisUtterance(p.t);u.lang=p.l==='id'?'id-ID':'en-US';u.rate=p.l==='id'?1:.85;const v=pickVoice(p.l);if(v)u.voice=v;total+=p.t.length*90/u.rate+400;return u});
-  if(el){el.classList.add('talking');el.insertAdjacentHTML('afterbegin','<span class="wave"><i></i><i></i><i></i><i></i></span>');S.talkEl=el;
-    const off=()=>{if(S.talkEl===el)clearTalk()};us[us.length-1].onend=off;clearTimeout(S.talkT);S.talkT=setTimeout(off,Math.max(6000,total*2))}
+function speakSeq(parts,el,key){try{const was=!!(el&&el.classList.contains('talking'))||(key&&S.ttsKey===key);stopAudio();if(was||!parts.length)return;
+  const segs=parts.flatMap(p=>String(p.t).split(/(?<=[.!?;])\s+/).filter(Boolean).map(t=>({l:p.l,t})));
+  const est=segs.map(p=>p.t.length/(p.l==='id'?14:11)+.35),tot=est.reduce((a,b)=>a+b,0),cum=est.map((_,i)=>est.slice(0,i).reduce((a,b)=>a+b,0));
+  const us=segs.map((p,i)=>{const u=new SpeechSynthesisUtterance(p.t);u.lang=p.l==='id'?'id-ID':'en-US';u.rate=p.l==='id'?1:.85;const v=pickVoice(p.l);if(v)u.voice=v;
+    u.onstart=()=>{S.ttsSeg=i;S.ttsSegT=Date.now()};return u});
+  if(el){el.classList.add('talking');if(!el.classList.contains('vpill'))el.insertAdjacentHTML('afterbegin','<span class="wave"><i></i><i></i><i></i><i></i></span>');S.talkEl=el;
+    const off=()=>{if(S.talkEl===el)clearTalk()};us[us.length-1].onend=off;clearTimeout(S.talkT);S.talkT=setTimeout(off,Math.max(6000,tot*2500))}
+  if(key){S.ttsKey=key;S.ttsP=0;S.ttsSeg=0;S.ttsSegT=Date.now();const done=()=>{if(S.ttsKey===key){clearInterval(S.ttsIv);S.ttsKey=null;S.ttsP=0;vcUI(key)}};
+    us[us.length-1].onend=done;clearTimeout(S.talkT);S.talkT=setTimeout(done,Math.max(6000,tot*2500));
+    S.ttsIv=setInterval(()=>{if(S.ttsKey!==key)return;const i=S.ttsSeg||0;S.ttsP=Math.min(1,(cum[i]+Math.min(est[i],(Date.now()-S.ttsSegT)/1000))/tot);vcUI(key)},200);vcUI(key)}
   us.forEach(u=>speechSynthesis.speak(u))}catch(e){clearTalk();toast(t('audioErr'))}}
-function explBtn(key,short,sent,cls=''){return `<button class="spk expl ${cls}" onclick="event.stopPropagation();explSay('${key}',${short?1:0},this,'${jsq(sent||'')}')">${ic('spk',15)} ${t('listenExpl')}</button>`}
+function ttsDur(id){const g=GB[id];if(!g)return 0;return gramParts(g,false).flatMap(p=>String(p.t).split(/(?<=[.!?;])\s+/).filter(Boolean).map(t=>({l:p.l,t}))).reduce((a,p)=>a+p.t.length/(p.l==='id'?14:11)+.35,0)}
+function ttsToggle(id){if(S.ttsKey===id){stopAudio();return}const g=GB[id];if(g)speakSeq(gramParts(g,false),null,id)}
+function explBtn(key,short,sent,cls=''){return `<button class="vpill ${cls}" type="button" onclick="event.stopPropagation();explSay('${key}',${short?1:0},this,'${jsq(sent||'')}')"><span class="vpi"><span class="ic-play">${ic('play',12)}</span><span class="ic-stop">${ic('stop',10)}</span></span><span>${t('listenExpl')}</span><span class="vb">${[5,9,13,8,11,6].map((h,i)=>`<i style="height:${h}px;animation-delay:${i*.12}s"></i>`).join('')}</span></button>`}
 function explSay(key,short,el,sent){const g=GB[key];if(g)speakSeq(gramParts(g,!!short,sent||null),el)}
-/* pemutar rekaman guru */
-const AURL={};const fmtT=s=>{s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
-function audDur(key){const a=S.audKey===key?S.aud:null,g=GB[key]||{};return a&&isFinite(a.duration)&&a.duration>0?a.duration:(g.audio_dur||0)}
-function recPlayer(g){const a=S.audKey===g.key?S.aud:null,d=audDur(g.key),c=a?a.currentTime:0;
-  return `<div class="aplay" id="ap_${g.key}"><button class="apb" type="button" aria-label="${t('play')}" onclick="recToggle('${g.key}')">${ic(a&&!a.paused?'pause':'play',18)}</button>
-  <div class="grow"><div class="sm aph"><span>${ic('mic',13)} ${t('teacherVoice')}</span><span class="apt mu">${fmtT(c)}${d?' / '+fmtT(d):''}</span></div>
-  <input type="range" class="apr" min="0" max="1000" value="${d?Math.round(c/d*1000):0}" aria-label="${t('progress')}" onpointerdown="this._drag=1" onpointerup="this._drag=0" oninput="recSeek('${g.key}',this.value)"></div></div>`}
-async function recToggle(key){const g=GB[key];if(!g||!g.audio_path)return;
-  if(S.aud&&S.audKey===key){if(S.aud.paused){try{speechSynthesis.cancel()}catch(e){}clearTalk();S.aud.play().catch(()=>toast(t('audioErr')))}else S.aud.pause();return}
-  stopAudio();let url=AURL[g.audio_path];
-  if(!url){try{const{data,error}=await sb.storage.from('grammar-audio').createSignedUrl(g.audio_path,3600);if(error)throw error;url=AURL[g.audio_path]=data.signedUrl}catch(e){console.warn(e);toast(t('offline'));return}}
-  const a=new Audio(url);a.preload='auto';S.aud=a;S.audKey=key;const upd=()=>apUI(key);['timeupdate','play','pause','ended','loadedmetadata','durationchange'].forEach(ev=>a.addEventListener(ev,upd));
+/* kartu pemutar (rekaman guru / TTS) */
+const AURL={};const fmtT=s=>{s=Math.max(0,Math.round(s||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function audDur(id){const a=S.audKey===id?S.aud:null;if(a&&isFinite(a.duration)&&a.duration>0)return a.duration;if(id==='rev')return S.recG?S.recG.sec:0;return (GB[id]||{}).audio_dur||0}
+function wbars(seed,n,p){let h=7;for(const c of String(seed))h=(h*31+c.charCodeAt(0))>>>0;let o='';
+  for(let i=0;i<n;i++){h=(h*1103515245+12345)>>>0;const env=.35+.65*Math.sin(Math.PI*(i+.5)/n),v=Math.round(18+env*(30+(h%1000)/1000*52));o+=`<i class="${(i+.5)/n<=p?'on':''}" style="height:${Math.min(100,v)}%;--d:${((h>>8)%10)/10}s"></i>`}return o}
+function vState(id,kind){const rec=kind!=='tts',a=rec&&S.audKey===id?S.aud:null,on=rec?!!(a&&!a.paused):S.ttsKey===id,d=rec?audDur(id):ttsDur(id),c=rec?(a?a.currentTime:0):(on?(S.ttsP||0)*d:0);
+  return{rec,on,d,c,p:d?Math.min(1,c/d):0,time:rec?`${fmtT(c)} / ${fmtT(d)}`:`${on?fmtT(c)+' / ':''}±${fmtT(d)}`}}
+function vCard(id,kind,title,sub,seed){const s=vState(id,kind);
+  return `<div class="vcard ${s.on?'on':''}" id="vc_${id}" data-kind="${kind}"><button class="vplay" type="button" aria-label="${s.on?t('recStop'):t('play')}" onclick="event.stopPropagation();${s.rec?`recToggle('${id}')`:`ttsToggle('${id}')`}">${ic(s.on?(s.rec?'pause':'stop'):'play',20)}</button>
+  <div class="vmid"><div class="vtop"><b>${title}</b><span class="vtime">${s.time}</span></div>
+  <div class="vwave">${wbars(seed||id,40,s.p)}${s.rec?`<input type="range" class="vseek" min="0" max="1000" value="${Math.round(s.p*1000)}" aria-label="${t('progress')}" oninput="recSeek('${id}',this.value)">`:''}</div>
+  <div class="vsub">${sub}</div></div></div>`}
+function vcUI(id){const el=$('vc_'+id);if(!el)return;const s=vState(id,el.dataset.kind);el.classList.toggle('on',s.on);
+  el.querySelector('.vplay').innerHTML=ic(s.on?(s.rec?'pause':'stop'):'play',20);el.querySelector('.vtime').textContent=s.time;
+  const bs=el.querySelectorAll('.vwave i'),n=bs.length;bs.forEach((b,i)=>b.classList.toggle('on',(i+.5)/n<=s.p));const r=el.querySelector('.vseek');if(r&&document.activeElement!==r)r.value=Math.round(s.p*1000)}
+function gVoice(g){return g.audio_path?vCard(g.key,'rec',t('teacherExpl'),`${ic('mic',12)} ${t('teacherVoice')}`):vCard(g.key,'tts',t('listenExpl'),`${ic('spk',12)} ${t('autoVoice')}`)}
+async function recToggle(id){const rev=id==='rev',g=GB[id];if(!rev&&(!g||!g.audio_path))return;
+  if(S.aud&&S.audKey===id){if(S.aud.paused){try{speechSynthesis.cancel()}catch(e){}clearTalk();S.aud.play().catch(()=>toast(t('audioErr')))}else S.aud.pause();return}
+  stopAudio();let url=rev?(S.recG&&S.recG.url):AURL[g.audio_path];
+  if(!url&&!rev){try{const{data,error}=await sb.storage.from('grammar-audio').createSignedUrl(g.audio_path,3600);if(error)throw error;url=AURL[g.audio_path]=data.signedUrl}catch(e){console.warn(e);toast(t('offline'));return}}
+  if(!url)return;const a=new Audio(url);a.preload='auto';S.aud=a;S.audKey=id;const upd=()=>vcUI(id);['timeupdate','play','pause','ended','loadedmetadata','durationchange'].forEach(ev=>a.addEventListener(ev,upd));
   a.play().catch(()=>toast(t('audioErr')))}
-function apUI(key){const el=$('ap_'+key);if(!el)return;const a=S.audKey===key?S.aud:null,d=audDur(key),c=a?a.currentTime:0;
-  el.querySelector('.apb').innerHTML=ic(a&&!a.paused?'pause':'play',18);el.querySelector('.apt').textContent=fmtT(c)+(d?' / '+fmtT(d):'');
-  const r=el.querySelector('.apr');if(!r._drag)r.value=d?Math.min(1000,Math.round(c/d*1000)):0}
-function recSeek(key,v){const a=S.audKey===key?S.aud:null,d=audDur(key);if(a&&d)try{a.currentTime=d*v/1000}catch(e){}}
+function recSeek(id,v){const a=S.audKey===id?S.aud:null,d=audDur(id);if(a&&d)try{a.currentTime=d*v/1000}catch(e){}}
 /* rekam suara guru */
 function recBox(g){if(!g)return `<p class="sm mu" style="margin:0">${t('recSaveFirst')}</p>`;const R=S.recG&&S.recG.key===g.key?S.recG:null;
-  if(R&&R.st==='rec')return `<div class="recbox"><span class="recdot"></span><b id="recT">${fmtT(R.sec)}</b><span class="sm mu grow">/ 3:00</span><button class="btn sm2 dng" type="button" onclick="recStop()">${ic('stop',14)} ${t('recStop')}</button></div>`;
-  if(R&&R.st==='review')return `<div class="recbox col"><div class="sm mu" style="margin-bottom:6px">${t('recReview')} (${fmtT(R.sec)})</div><audio controls src="${R.url}" style="width:100%"></audio>
-    <div style="display:flex;gap:8px;margin-top:8px"><button class="btn sm2" type="button" onclick="recUpload('${g.key}')">${t('recSave')}</button><button class="btn ghost sm2" type="button" onclick="recCancel()">${t('cancel')}</button></div></div>`;
-  return g.audio_path?`${recPlayer(g)}<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm2" type="button" onclick="recStart('${g.key}')">${ic('mic',14)} ${t('recAgain')}</button><button class="btn ghost sm2" style="color:var(--bad)" type="button" onclick="recDel('${g.key}')">${ic('trash',14)} ${t('recDel')}</button></div>`
-    :`<div class="row" style="gap:10px;align-items:center;flex-wrap:wrap"><button class="btn ghost sm2" type="button" onclick="recStart('${g.key}')">${ic('mic',14)} ${t('recStart')}</button><span class="sm mu">${t('recMax')}</span></div><p class="sm mu" style="margin:6px 0 0">${t('recNone')}</p>`}
+  if(R&&R.st==='rec')return `<div class="vrec"><div class="vrdot">${ic('mic',20)}</div><div class="vmid"><div class="vtop"><b>${t('recording')}</b><span class="vtime"><span id="recT">${fmtT(R.sec)}</span> / 3:00</span></div>
+    <div class="vlv" id="recLv">${'<i></i>'.repeat(28)}</div><div class="vprog"><i id="recBar" style="width:${R.sec/1.8}%"></i></div></div>
+    <button class="vstop" type="button" aria-label="${t('recStop')}" onclick="recStop()">${ic('stop',16)}</button></div>`;
+  if(R&&R.st==='review')return `${vCard('rev','rec',t('recReview'),`${ic('mic',12)} ${t('recNotSaved')}`,'rev'+R.t0)}
+    <div style="display:flex;gap:8px"><button class="btn sm2" type="button" onclick="recUpload('${g.key}')">${ic('check',14)} ${t('recSave')}</button><button class="btn ghost sm2" type="button" onclick="recCancel()">${t('cancel')}</button></div>`;
+  return g.audio_path?`${vCard(g.key,'rec',t('teacherExpl'),`${ic('check',12)} ${t('recActive')}`)}<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm2" type="button" onclick="recStart('${g.key}')">${ic('mic',14)} ${t('recAgain')}</button><button class="btn ghost sm2" style="color:var(--bad)" type="button" onclick="recDel('${g.key}')">${ic('trash',14)} ${t('recDel')}</button></div>`
+    :`<button class="vnew" type="button" onclick="recStart('${g.key}')"><span class="vrdot idle">${ic('mic',20)}</span><span class="vmid" style="text-align:left"><b>${t('recStart')}</b><span class="vsub">${t('recMax')} · ${t('recNone')}</span></span></button>`}
 function recRender(key){const k=key||(S.recG&&S.recG.key),w=$('recWrap');if(w&&k&&GB[k])w.innerHTML=recBox(GB[k])}
+function recCloseAc(R){try{if(R.ac)R.ac.close()}catch(e){}R.ac=null}
 async function recStart(key){if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){toast(t('recNoMic'),3000);return}recCancel();stopAudio();
   let stream;try{stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}})}catch(e){toast(t('recNoMic'),3000);return}
   const mt=['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'].find(m=>MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(m))||'';
   let mr;try{mr=new MediaRecorder(stream,mt?{mimeType:mt,audioBitsPerSecond:48000}:{})}catch(e){stream.getTracks().forEach(x=>x.stop());toast(t('recNoMic'),3000);return}
   const chunks=[],R=S.recG={key,st:'rec',sec:0,mr,stream,t0:Date.now()};
+  try{const ac=new(window.AudioContext||window.webkitAudioContext)(),an=ac.createAnalyser();an.fftSize=64;an.smoothingTimeConstant=.6;ac.createMediaStreamSource(stream).connect(an);R.ac=ac;
+    const buf=new Uint8Array(an.frequencyBinCount);const loop=()=>{if(S.recG!==R||R.st!=='rec')return;an.getByteFrequencyData(buf);const bs=document.querySelectorAll('#recLv i');
+      bs.forEach((b,i)=>{const v=buf[1+Math.floor(i*(buf.length-2)/bs.length)]/255;b.style.height=Math.max(10,Math.round(v*100))+'%'});requestAnimationFrame(loop)};requestAnimationFrame(loop)}catch(e){}
   mr.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
-  mr.onstop=()=>{stream.getTracks().forEach(x=>x.stop());clearInterval(R.iv);if(S.recG!==R)return;const type=((mr.mimeType||mt||'audio/webm').split(';')[0])||'audio/webm';
+  mr.onstop=()=>{stream.getTracks().forEach(x=>x.stop());clearInterval(R.iv);recCloseAc(R);if(S.recG!==R)return;const type=((mr.mimeType||mt||'audio/webm').split(';')[0])||'audio/webm';
     R.blob=new Blob(chunks,{type});if(!R.blob.size){S.recG=null;recRender(key);toast(t('recNoMic'));return}R.url=URL.createObjectURL(R.blob);R.st='review';recRender(key)};
-  R.iv=setInterval(()=>{R.sec=(Date.now()-R.t0)/1000;const e=$('recT');if(e)e.textContent=fmtT(R.sec);if(R.sec>=180)recStop()},250);mr.start(1000);recRender(key)}
+  R.iv=setInterval(()=>{R.sec=(Date.now()-R.t0)/1000;const e=$('recT'),b=$('recBar');if(e)e.textContent=fmtT(R.sec);if(b)b.style.width=Math.min(100,R.sec/1.8)+'%';if(R.sec>=180)recStop()},250);mr.start(1000);recRender(key)}
 function recStop(){const R=S.recG;if(R&&R.mr&&R.mr.state!=='inactive'){R.sec=Math.min(180,(Date.now()-R.t0)/1000);R.mr.stop()}}
-function recCancel(){const R=S.recG;if(!R)return;S.recG=null;clearInterval(R.iv);try{if(R.mr&&R.mr.state!=='inactive')R.mr.stop()}catch(e){}try{R.stream.getTracks().forEach(x=>x.stop())}catch(e){}if(R.url)URL.revokeObjectURL(R.url);recRender(R.key)}
+function recCancel(){const R=S.recG;if(!R)return;if(S.audKey==='rev')stopAudio();S.recG=null;clearInterval(R.iv);recCloseAc(R);try{if(R.mr&&R.mr.state!=='inactive')R.mr.stop()}catch(e){}try{R.stream.getTracks().forEach(x=>x.stop())}catch(e){}if(R.url)URL.revokeObjectURL(R.url);recRender(R.key)}
 const AEXT={'audio/webm':'webm','audio/ogg':'ogg','audio/mp4':'m4a','audio/mpeg':'mp3','audio/aac':'aac'};
 async function recUpload(key){const R=S.recG,g=GB[key];if(!R||!R.blob||!g)return;const old=g.audio_path,type=AEXT[R.blob.type]?R.blob.type:'audio/webm',path=`${key}/${Date.now()}.${AEXT[type]}`,dur=Math.max(1,Math.round(R.sec));
   const ok=await run(async()=>{const{error:e1}=await sb.storage.from('grammar-audio').upload(path,R.blob,{contentType:type,upsert:false});if(e1)throw e1;
