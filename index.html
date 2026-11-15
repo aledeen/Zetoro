@@ -246,6 +246,15 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .ca{margin-top:6px;color:var(--ac);font-size:14px;font-style:italic}
 .wcard .ar2{display:none;color:var(--ac)}.wcard.open .ar2{display:block}
 .flbtn{background:none;border:1px solid var(--ac);color:var(--ac);border-radius:12px;padding:2px 9px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;letter-spacing:.5px;text-transform:none}
+.expl{font-size:13px;padding:7px 14px;margin:0 0 10px}.sm3{font-size:12px!important;padding:5px 11px!important;margin:0!important}
+.aplay{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:0 0 10px}
+.apb{width:38px;height:38px;border-radius:50%;background:var(--ac);color:var(--on);border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.aph{display:flex;justify-content:space-between;align-items:center;gap:8px}.apr{width:100%;accent-color:var(--ac);margin:6px 0 0;display:block}
+.recbox{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}.recbox.col{display:block}
+.recdot{width:10px;height:10px;border-radius:50%;background:var(--bad);animation:blink 1s infinite;flex-shrink:0}@keyframes blink{50%{opacity:.25}}
+.me-it,a.me-it{color:inherit;text-decoration:none}.me-v{white-space:nowrap}.me-it .grow{white-space:nowrap}
+.wabtn{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:20px;border:1px solid #2E9E5B;color:#2E9E5B;text-decoration:none;font-size:13px;font-weight:500;background:none}
+.wabtn:hover{background:rgba(46,158,91,.1)}.wabtn.full{display:flex;justify-content:center;margin-top:12px}
 .lis{display:flex;align-items:center;justify-content:center;gap:10px}
 .slow{width:46px;height:46px;border-radius:50%;background:var(--card2);border:1px solid var(--line);color:var(--ac);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}.slow:hover{border-color:var(--ac)}.slow:active{transform:scale(.94)}
 .proto{font-size:11px;text-align:center;color:var(--mu);padding:6px;border-bottom:1px solid var(--line);background:var(--card)}
@@ -295,6 +304,10 @@ wordList:"Word list",autoSplit:"Split into sets of 20 automatically",viewOnly:"O
 gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",total:"total words mastered",toNext:"more words to next level",maxLvl:"Top level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
+Object.assign(T.id,{listenExpl:"Dengarkan penjelasan",teacherVoice:"Suara guru",progress:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Stop",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar dulu sebelum disimpan",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada rekaman. Murid akan mendengar suara otomatis (TTS).",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
+askWa:"Tanya via WA",waNum:"Nomor WA",waNotSet:"Belum diisi",waHint:"Contoh: 0812 3456 7890",waSaved:"Nomor WA tersimpan",waCleared:"Nomor WA dihapus",waBad:"Nomor WA tidak valid"});
+Object.assign(T.en,{listenExpl:"Listen to explanation",teacherVoice:"Teacher's voice",progress:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Listen before saving",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"No recording yet. Students will hear the automatic voice (TTS).",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
+askWa:"Ask via WhatsApp",waNum:"WhatsApp",waNotSet:"Not set",waHint:"e.g. 0812 3456 7890",waSaved:"WhatsApp number saved",waCleared:"WhatsApp number removed",waBad:"Invalid WhatsApp number"});
 let lang='id';const t=k=>T[lang][k]||k;
 Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",qOrder:"Susun kalimat ini dalam bahasa Inggris",changePhoto:"Ganti foto",removePhoto:"Hapus foto",editName:"Ubah nama",photoSaved:"Foto disimpan",photoRemoved:"Foto dihapus",nameSaved:"Nama disimpan",photoErr:"File harus berupa gambar.",orderHint:"Ketuk kata di bawah sesuai urutan",check:"Cek",correctSent:"Kalimat yang benar",
 review:"Ulangi soal salah",toReview:"Ulangi soal yang salah",fixed:"soal sudah diperbaiki",correctAns:"Jawaban yang benar",mistakes:"Salah",right:"Benar!",wrongAns:"Belum tepat",
@@ -360,7 +373,7 @@ async function signFotos(){const ppl=[S.user,...DB.students].filter(p=>p&&p.foto
 function avatar(p,size=32){const url=p&&p.foto&&FOTO[p.foto];const ch=esc(((p&&p.nama)||'?').trim().charAt(0).toUpperCase());
   return url?`<img class="avi" src="${esc(url)}" alt="" width="${size}" height="${size}" style="width:${size}px;height:${size}px">`:`<span class="avi avt" style="width:${size}px;height:${size}px;font-size:${Math.round(size*.42)}px">${ch}</span>`}
 function ringAv(p,pct,lvl,size=52){return `<div class="rav" style="width:${size}px;height:${size}px">${ring(pct,'',size)}<div class="rav-in">${avatar(p,size-14)}</div><span class="rav-lv">${lvl}</span></div>`}
-function toggleMe(e){e.stopPropagation();S.me=!S.me;S.meEdit=false;renderMe()}
+function toggleMe(e){e.stopPropagation();S.me=!S.me;S.meEdit=false;S.meWa=false;renderMe()}
 document.addEventListener('click',e=>{if(S.me&&!e.target.closest('#meMenu')&&!e.target.closest('#meBtn')){S.me=false;S.meEdit=false;renderMe()}});
 function renderMe(){const m=$('meMenu');if(!S.user||!S.me){m.style.display='none';return}const u=S.user,tch=S.role==='teacher';
   m.style.display='';m.innerHTML=`<div class="me-hd"><button class="avbtn" onclick="viewFoto('${u.id}')">${avatar(u,44)}</button><div><b>${esc(u.nama)}</b><div class="sm mu">${u.username?'@'+esc(u.username):t('teacher')}</div></div></div>
@@ -370,6 +383,9 @@ function renderMe(){const m=$('meMenu');if(!S.user||!S.me){m.style.display='none
   <div class="me-sep"></div>
   <button class="me-it" onclick="pickFoto('${u.id}')">${ic('cam',16)} ${t('changePhoto')}</button>
   ${u.foto?`<button class="me-it" onclick="delFoto('${u.id}')">${ic('trash',16)} ${t('removePhoto')}</button>`:''}
+  ${tch?(S.meWa?`<div class="me-ed" ${enter('saveWa')}><input id="myWa" value="${esc(DB.wa||'')}" inputmode="tel" placeholder="${t('waHint')}" maxlength="20"><button class="btn sm2" onclick="saveWa()">${t('save')}</button></div>`
+    :`<button class="me-it" onclick="S.meWa=true;S.meEdit=false;renderMe();setTimeout(()=>$('myWa')&&$('myWa').focus(),30)">${ic('chat',16)} <span class="grow">${t('waNum')}</span><span class="me-v">${DB.wa?'+'+esc(DB.wa):t('waNotSet')}</span></button>`)
+    :(DB.wa?`<a class="me-it" href="${esc(waUrl(waHi()+'Saya mau tanya: '))}" target="_blank" rel="noopener" onclick="S.me=false;renderMe()">${ic('chat',16)} ${t('askWa')}</a>`:'')}
   ${tch&&!S.meEdit?`<button class="me-it" onclick="S.meEdit=true;renderMe();setTimeout(()=>$('myName')&&$('myName').focus(),30)">${ic('pen',16)} ${t('editName')}</button>`:''}
   <button class="me-it out" onclick="S.me=false;logout()">${ic('out',16)} ${t('logout')}</button>`}
 async function setGL(id,v){const s=DB.students.find(x=>x.id===id),old=s.glevel||1;if(v===old)return;
@@ -434,7 +450,7 @@ function speak(txt,rate=.85,el){try{const was=!!(el&&el.classList.contains('talk
     const off=()=>{if(S.talkEl===el)clearTalk()};u.onend=off;u.onerror=off;clearTimeout(S.talkT);S.talkT=setTimeout(off,Math.max(4000,txt.length*180/rate))}
   speechSynthesis.speak(u)}catch(e){clearTalk();toast('Audio tidak tersedia')}}
 function clearTalk(){const el=S.talkEl;if(el){el.classList.remove('talking');const w=el.querySelector('.wave');if(w)w.remove()}S.talkEl=null}
-function stopAudio(){try{speechSynthesis.cancel()}catch(e){}clearTalk();try{if(S.rec)S.rec.abort()}catch(e){}S.rec=null}
+function stopAudio(){try{speechSynthesis.cancel()}catch(e){}clearTalk();if(S.aud){try{S.aud.pause()}catch(e){}}try{if(S.rec)S.rec.abort()}catch(e){}S.rec=null}
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const isNew=w=>Date.now()-new Date(w.created_at).getTime()<3*864e5;
 async function run(fn,savingMsg=true){if(S.busy)return;S.busy=true;if(savingMsg)toast(t('saving'),60000);
@@ -449,6 +465,10 @@ check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="
 spk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>',
 lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>',
 turtle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 15.5h15a7.5 6.5 0 0 0-15 0z"/><path d="M6.5 10.5l3 5M13.5 10.5l-3 5M5 11.5h10"/><path d="M17.5 15.5c1 0 1.5-.8 1.5-1.8V13a2 2 0 0 1 2.5-1.9c.5.1.5.8 0 1.3l-1 1"/><path d="M5 15.5l-1 3M15 15.5l1 3"/></svg>',
+play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z"/></svg>',
+pause:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/></svg>',
+stop:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>',
+chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20l1.2-4.2A8.5 8.5 0 1 1 20.5 11.5z"/><path d="M9.2 8.6c.2 3 2.6 5.7 6 6.2l.9-1.5-1.9-.9-.9.8a5 5 0 0 1-2.6-2.6l.8-.9-.9-1.9z"/></svg>',
 cards:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="6" width="13" height="15" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/></svg>'};
 Object.assign(icon,{search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
 mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>',
@@ -477,7 +497,8 @@ document.documentElement.dataset.theme=safeStorage.getItem('zt-theme')||'dark';l
 async function loadData(){
   const uid=S.user.id;
   const [babs,words]=await Promise.all([fetchAll('babs','id,nama'),fetchAll('words','id,bab_id,kata,arti,contoh,contoh_arti,tanda,created_at')]);
-  DB.grammars=await fetchAll('grammars','id,key,judul,level,grup,rumus,penjelasan,detail,contoh');gIdx();
+  DB.grammars=await fetchAll('grammars','id,key,judul,level,grup,rumus,penjelasan,detail,contoh,audio_path,audio_dur');gIdx();
+  DB.wa='';try{const{data}=await sb.from('app_settings').select('value').eq('key','wa').maybeSingle();DB.wa=(data&&data.value)||''}catch(e){console.warn(e)}
   DB.gstats={};try{(await fetchAll('grammar_stats','student_id,grammar_key,benar,total','grammar_key')).forEach(r=>{(DB.gstats[r.student_id]=DB.gstats[r.student_id]||{})[r.grammar_key]=r})}catch(e){console.warn(e)}
   DB.babs=babs.map(b=>({...b,words:words.filter(w=>w.bab_id===b.id)}));
   const [unl,sts,qz]=await Promise.all([fetchAll('unlocks','student_id,bab_id,paket','bab_id'),fetchAll('statuses','student_id,word_id,status','word_id'),fetchAll('quiz_results','student_id,bab_id,paket,last,best,tries','bab_id')]);
@@ -762,7 +783,7 @@ async function setSt(sid,wid,v,el){const s=DB.students.find(x=>x.id===sid),prev=
   if(!ok){s.status[wid]=prev}render()}
 
 /* ---------- admin ---------- */
-function aTab(x){S.aTab=x;S.editWord=null;S.mFlash=null;S.confirm=null;S.err='';S.fold={};S.gOpen=null;S.tgs={};render()}
+function aTab(x){recCancel();S.aTab=x;S.editWord=null;S.mFlash=null;S.confirm=null;S.err='';S.fold={};S.gOpen=null;S.tgs={};render()}
 function vAdmin(){return {sum:aSum,grade:aGrade,stu:aStu,mat:aMat,gram:aGram}[S.aTab]()}
 function gForm(g){const p=g?'ge':'gf',v=k=>esc(g?g[k]:'');
   return `<div class="${g?'gbody':''}" style="${g?'padding-top:12px':''}"><div class="field"><label>${t('gTitle')}</label><input id="${p}_j" value="${v('judul')}" placeholder="Simple Present"></div>
@@ -772,6 +793,7 @@ function gForm(g){const p=g?'ge':'gf',v=k=>esc(g?g[k]:'');
   <div class="field"><label>${t('gShort')}</label><textarea id="${p}_s" rows="2">${v('penjelasan')}</textarea></div>
   <div class="field"><label>${t('gLong')}</label><textarea id="${p}_d" rows="4">${v('detail')}</textarea></div>
   <div class="field"><label>${t('gEx')}</label><textarea id="${p}_c" rows="3">${v('contoh')}</textarea></div>
+  <div class="field"><label>${t('recTitle')}</label><div id="${g?'recWrap':'recWrapNew'}">${recBox(g)}</div></div>
   <div style="display:flex;gap:8px"><button class="btn sm2" type="button" onclick="saveGram(${g?`'${g.key}'`:'null'})">${t('save')}</button>${g?`<button class="btn ghost sm2" type="button" onclick="S.gOpen=null;render()">${t('cancel')}</button><span class="grow"></span><button class="btn ghost sm2" style="color:var(--bad)" type="button" onclick="delGram('${g.key}')">${t('del')}</button>`:''}</div></div>`}
 function aGram(){const todo=DB.babs.flatMap(b=>b.words).filter(w=>!(w.tanda&&w.tanda.length));
   return `<h1>${t('grammar')}</h1>
@@ -783,7 +805,7 @@ function aGram(){const todo=DB.babs.flatMap(b=>b.words).filter(w=>!(w.tanda&&w.t
   ${legend()}<p class="sm mu" style="margin:6px 0 0">${t('warnHint')} <b>${t('lv'+topGL())}</b>.</p>${gramList(DB.grammars,null,true)}`}
 function slugKey(j){let k=j.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,34);if(k.length<2)k='g-'+k;let x=k,n=2;while(GB[x])x=k+'-'+n++;return x}
 function gRead(p){return{judul:$(p+'_j').value.trim().slice(0,80),level:+$(p+'_l').value,grup:$(p+'_g').value,rumus:$(p+'_r').value.trim().slice(0,200),penjelasan:$(p+'_s').value.trim().slice(0,400),detail:$(p+'_d').value.trim().slice(0,3000),contoh:$(p+'_c').value.trim().slice(0,1000)}}
-const GCOLS='id,key,judul,level,grup,rumus,penjelasan,detail,contoh';
+const GCOLS='id,key,judul,level,grup,rumus,penjelasan,detail,contoh,audio_path,audio_dur';
 async function saveGram(key){const v=gRead(key?'ge':'gf');if(!v.judul||!v.penjelasan){toast(t('fill'));return}
   if(key){if(!await ask(t('askSave'),`<b>${esc(v.judul)}</b>. ${t('askSaveMsg')}`,t('save')))return;
     const ok=await run(async()=>{const{error}=await sb.from('grammars').update(v).eq('key',key);if(error)throw error;Object.assign(GB[key],v);gIdx()});if(ok){S.gOpen=null;toast(t('gramSaved'))}}
@@ -934,7 +956,7 @@ function cleanMarks(c,marks){const r=markRanges(c,marks).map(x=>x.m);return r.le
 function closeTip(){const d=$('gtip');if(d)d.remove()}
 function gTip(e,key){e.stopPropagation();const g=GB[key];if(!g)return;closeTip();const el=e.currentTarget,d=document.createElement('div');d.className='gtip g-'+g.grup;d.id='gtip';
   const ex=(g.contoh||'').split('\n').filter(Boolean)[0];d.onclick=ev=>ev.stopPropagation();
-  d.innerHTML=`<div class="gt-h"><i class="gdot"></i><b>${esc(g.judul)}</b><span class="lvb">${t('lv'+g.level)}</span></div><p>${esc(g.penjelasan)}</p>${g.rumus?`<div class="rumus">${esc(g.rumus)}</div>`:''}${ex?`<div class="sm mu">“${esc(ex)}”</div>`:''}<button class="lnk2" onclick="closeTip();openGram('${key}')">${t('seeFull')} ›</button>`;
+  d.innerHTML=`<div class="gt-h"><i class="gdot"></i><b>${esc(g.judul)}</b><span class="lvb">${t('lv'+g.level)}</span></div><p>${esc(g.penjelasan)}</p>${g.rumus?`<div class="rumus">${esc(g.rumus)}</div>`:''}${ex?`<div class="sm mu">“${esc(ex)}”</div>`:''}<div style="margin-top:8px">${explBtn(key,1,'','sm3')}</div><button class="lnk2" onclick="closeTip();openGram('${key}')">${t('seeFull')} ›</button>`;
   document.body.appendChild(d);tipY=scrollY;const vw=innerWidth,w=Math.min(320,vw-24);d.style.width=w+'px';const rc=el.getBoundingClientRect(),h=d.offsetHeight;
   d.style.left=Math.max(12,Math.min(vw-w-12,rc.left+rc.width/2-w/2))+'px';d.style.top=(rc.bottom+8+h<innerHeight?rc.bottom+8:Math.max(12,rc.top-h-8))+'px'}
 document.addEventListener('click',e=>{if(!e.target.closest('#gtip'))closeTip()});let tipY=0;addEventListener('scroll',()=>{if(Math.abs(scrollY-tipY)>40)closeTip()},{passive:true});
@@ -954,7 +976,7 @@ function glNext(){const g=S.glat;if(g.i<g.qs.length-1)g.i++;else g.done=true;ren
 function gramBody(q,onpick){const g=GB[q.m.g]||{grup:'other',judul:q.m.g,penjelasan:''};
   return `<div class="qq qs2">${esc(q.blank).replace('_____','<span class="blank">_____</span>')}</div>${q.w.contoh_arti?`<p class="ctr">${esc(q.w.contoh_arti)}</p>`:''}
     ${q.gopts.map((o,i)=>{let cls='';if(q.answered){if(norm(o)===norm(q.m.t))cls='ok';else if(i===q.gp)cls='no'}return `<button class="opt ${cls}" ${q.answered?'disabled':''} onclick="${onpick}(${i})">${esc(o)}</button>`}).join('')}
-    ${q.answered?`<div class="card gq-r g-${g.grup}"><div class="gt-h"><i class="gdot"></i><b>${esc(g.judul)}</b></div><p class="sm" style="margin:6px 0 0">${esc(g.penjelasan)}</p>${g.rumus?`<div class="rumus">${esc(g.rumus)}</div>`:''}<div class="sm" style="margin-top:6px">“${cs(q.w)}”</div></div>`:''}`}
+    ${q.answered?`<div class="card gq-r g-${g.grup}"><div class="gt-h"><i class="gdot"></i><b>${esc(g.judul)}</b></div><p class="sm" style="margin:6px 0 0">${esc(g.penjelasan)}</p>${g.rumus?`<div class="rumus">${esc(g.rumus)}</div>`:''}<div class="sm" style="margin-top:6px">“${cs(q.w)}”</div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px">${explBtn(q.m.g,1,q.w.contoh,'sm3')}${!q.ok?waBtn(waQuiz(q,g),'sm3'):''}</div></div>`:''}`}
 function vGlat(){const G=S.glat,g=GB[G.key]||{judul:G.key,grup:'other'};const back=`<button class="back" onclick="S.mode='gram';S.gOpen='${G.key}';render()">‹ ${t('grammar')}</button>`;
   if(G.done){const p=Math.round(G.score/G.qs.length*100);return back+`<div class="card" style="text-align:center;padding:28px 18px"><div class="tag">${t('practice')} · ${esc(g.judul)}</div><div style="font-size:44px;font-weight:700;color:var(--ac);margin:8px 0">${G.score}/${G.qs.length}</div>
     <p class="mu">${p>=80?t('glGreat'):t('glKeep')}</p><div style="display:flex;gap:8px;justify-content:center;margin-top:12px"><button class="btn sm2" onclick="startGlat('${G.key}')">${ic('refresh',14)} ${t('again')}</button><button class="btn ghost sm2" onclick="S.mode='gram';S.gOpen='${G.key}';render()">${t('back')}</button></div></div>`}
@@ -963,16 +985,95 @@ function vGlat(){const G=S.glat,g=GB[G.key]||{judul:G.key,grup:'other'};const ba
 function gUse(key){let n=0;DB.babs.forEach(b=>b.words.forEach(w=>{if((w.tanda||[]).some(m=>m.g===key))n++}));return n}
 function gCard(g,b,teacher,locked){if(locked)return `<div class="card gcard g-${g.grup} lockd" id="g_${g.key}"><button class="gch" onclick="toast(t('glLocked')+' '+t('lv${g.level}'))"><i class="gdot"></i><b class="grow">${esc(g.judul)}</b><span class="sm mu">🔒 ${t('lv'+g.level)}</span></button></div>`;
   const op=S.gOpen===g.key;const ex=b?curWords(b).filter(w=>(w.tanda||[]).some(m=>m.g===g.key)).slice(0,3):[];
-  const body=teacher&&op?gForm(g):op?`<div class="gbody"><p>${esc(g.penjelasan)}</p>${g.rumus?`<div class="rumus">${esc(g.rumus)}</div>`:''}${g.detail?`<p class="sm">${esc(g.detail)}</p>`:''}
+  const body=teacher&&op?gForm(g):op?`<div class="gbody">${g.audio_path?recPlayer(g):explBtn(g.key,0)}<p>${esc(g.penjelasan)}</p>${g.rumus?`<div class="rumus">${esc(g.rumus)}</div>`:''}${g.detail?`<p class="sm">${esc(g.detail)}</p>`:''}
     ${g.contoh?`<div class="gex">${g.contoh.split('\n').filter(Boolean).map(x=>`<div>“${esc(x)}”<button class="mini" aria-label="${t('listen')}" onclick="speak('${jsq(x)}',.85,this)">${ic('spk',13)}</button></div>`).join('')}</div>`:''}
     ${ex.length?`<div class="tag" style="margin-top:12px">${t('inThisBab')}</div>${ex.map(w=>`<div class="sm" style="margin:4px 0">“${cs(w)}”</div>`).join('')}`:''}
-    ${!teacher?(()=>{const n=gWordsFor(g.key,openWords()).length,st=gStat(S.user.id,g.key);return `<div class="glat-row">${n>=3?`<button class="btn sm2" onclick="startGlat('${g.key}')">${ic('check',14)} ${t('practice')} (10 ${t('questions')})</button>`:`<span class="sm mu">${t('practiceNeed')}</span>`}${st?`<span class="sm mu">${t('yourScore')}: ${st.benar}/${st.total}</span>`:''}</div>`})():''}</div>`:'';
+    ${!teacher?(()=>{const n=gWordsFor(g.key,openWords()).length,st=gStat(S.user.id,g.key);return `<div class="glat-row">${n>=3?`<button class="btn sm2" onclick="startGlat('${g.key}')">${ic('check',14)} ${t('practice')} (10 ${t('questions')})</button>`:`<span class="sm mu">${t('practiceNeed')}</span>`}${st?`<span class="sm mu">${t('yourScore')}: ${st.benar}/${st.total}</span>`:''}</div>${waBtn(waGram(g),'full')}`})():''}</div>`:'';
   return `<div class="card gcard g-${g.grup} ${op?'op':''}" id="g_${g.key}"><button class="gch" onclick="S.gOpen=S.gOpen==='${g.key}'?null:'${g.key}';render()"><i class="gdot"></i><b class="grow">${esc(g.judul)}</b>${teacher?(()=>{const n=gUse(g.key);return n?`<span class="sm mu">${n} ${t('sentences')}</span>`:g.level<=topGL()?`<span class="sm" style="color:var(--warn,#d9a03f)">⚠ 0 ${t('sentences')}</span>`:`<span class="sm mu">${t('notYet')}</span>`})():gBadge(gStat(S.user.id,g.key))}<span class="chev">›</span></button>${body}</div>`}
 function gramList(list,b,teacher,open){return [1,2,3].map(l=>{const L=list.filter(g=>g.level===l);return L.length?`<h2>${t('lv'+l)}${!teacher&&l>myGL()?' 🔒':''}</h2>`+L.map(g=>gCard(g,b,teacher,!teacher&&g.level>myGL()&&!(open&&open.has(g.key)))).join(''):''}).join('')}
 function vGram(b){const inB=bGrams(b),list=S.gAll?DB.grammars:inB;
   return `<button class="back" onclick="S.mode=S.gPrev||'menu';S.gPrev=null;if(S.gPrevTab){S.tab=S.gPrevTab;S.gPrevTab=null}render()">‹ ${t('back')}</button><h1>${t('grammar')}</h1><div class="sm mu">${t('glYour')} <b style="color:var(--ac)">${t('lv'+myGL())}</b></div>
   <div class="seg" style="margin:10px 0 4px"><button class="${!S.gAll?'on':''}" onclick="S.gAll=false;render()">${t('thisBab')} (${inB.length})</button><button class="${S.gAll?'on':''}" onclick="S.gAll=true;render()">${t('allGram')} (${DB.grammars.length})</button></div>
   ${legend()}${list.length?gramList(list,b,false,new Set(inB.map(g=>g.key))):`<div class="card mu" style="margin-top:12px">${t('noGramBab')}</div>`}`}
+/* --- suara penjelasan grammar, rekaman guru, tanya WA --- */
+const RUMUS_ID={s:'subjek',subject:'subjek',subjek:'subjek',o:'objek',object:'objek',objek:'objek',v:'kata kerja',verb:'kata kerja',v1:'kata kerja bentuk satu',v2:'kata kerja bentuk dua',v3:'kata kerja bentuk tiga',
+  'v-ing':'kata kerja ditambah i-en-ji',ving:'kata kerja ditambah i-en-ji','verb-ing':'kata kerja ditambah i-en-ji','v-s':'kata kerja ditambah es','verb-s':'kata kerja ditambah es','v-es':'kata kerja ditambah e-es','verb-es':'kata kerja ditambah e-es',
+  'v-ed':'kata kerja ditambah e-de','verb-ed':'kata kerja ditambah e-de',adj:'kata sifat',adjective:'kata sifat',adv:'kata keterangan',adverb:'kata keterangan',n:'kata benda',noun:'kata benda',k:'keterangan',ket:'keterangan'};
+function rumusParts(r){const out=[];String(r||'').split(/(\+|\/|,|\(|\)|\s+)/).forEach(x=>{x=(x||'').trim();if(!x||x==='('||x===')'||x===',')return;
+  if(x==='+')out.push({l:'id',t:'ditambah'});else if(x==='/')out.push({l:'id',t:'atau'});
+  else{const k=x.toLowerCase().replace(/[.?!:;]+$/,'');if(RUMUS_ID[k])out.push({l:'id',t:RUMUS_ID[k]});else if(/[a-z]/i.test(k))out.push({l:'en',t:k})}});return out}
+function mergeParts(P){const o=[];P.forEach(p=>{const L=o[o.length-1];if(L&&L.l===p.l&&L.f&&p.f)L.t+=', '+p.t;else o.push({...p})});return o}
+function gramParts(g,short,sent){const ex=(g.contoh||'').split('\n').map(x=>x.trim()).filter(Boolean);
+  const P=[{l:'en',t:g.judul},{l:'id',t:g.penjelasan}];
+  if(short){const s=sent||ex[0];if(s)P.push({l:'id',t:'Contohnya'},{l:'en',t:s})}
+  else{if(g.rumus)P.push({l:'id',t:'Rumusnya'},...rumusParts(g.rumus).map(x=>({...x,f:1})));if(g.detail)P.push({l:'id',t:g.detail});
+    if(ex.length){P.push({l:'id',t:'Contohnya'});ex.forEach(x=>P.push({l:'en',t:x}))}}
+  return mergeParts(P.filter(p=>p.t&&String(p.t).trim()))}
+function pickVoice(l){try{const vs=speechSynthesis.getVoices();if(l==='id')return vs.find(v=>/^(id|in)([-_]|$)/i.test(v.lang))||null;return vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null}catch(e){return null}}
+try{speechSynthesis.getVoices();speechSynthesis.addEventListener('voiceschanged',()=>{})}catch(e){}
+function speakSeq(parts,el){try{const was=!!(el&&el.classList.contains('talking'));stopAudio();if(was||!parts.length)return;
+  const segs=parts.flatMap(p=>String(p.t).split(/(?<=[.!?;])\s+/).filter(Boolean).map(t=>({l:p.l,t})));let total=0;
+  const us=segs.map(p=>{const u=new SpeechSynthesisUtterance(p.t);u.lang=p.l==='id'?'id-ID':'en-US';u.rate=p.l==='id'?1:.85;const v=pickVoice(p.l);if(v)u.voice=v;total+=p.t.length*90/u.rate+400;return u});
+  if(el){el.classList.add('talking');el.insertAdjacentHTML('afterbegin','<span class="wave"><i></i><i></i><i></i><i></i></span>');S.talkEl=el;
+    const off=()=>{if(S.talkEl===el)clearTalk()};us[us.length-1].onend=off;clearTimeout(S.talkT);S.talkT=setTimeout(off,Math.max(6000,total*2))}
+  us.forEach(u=>speechSynthesis.speak(u))}catch(e){clearTalk();toast(t('audioErr'))}}
+function explBtn(key,short,sent,cls=''){return `<button class="spk expl ${cls}" onclick="event.stopPropagation();explSay('${key}',${short?1:0},this,'${jsq(sent||'')}')">${ic('spk',15)} ${t('listenExpl')}</button>`}
+function explSay(key,short,el,sent){const g=GB[key];if(g)speakSeq(gramParts(g,!!short,sent||null),el)}
+/* pemutar rekaman guru */
+const AURL={};const fmtT=s=>{s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function audDur(key){const a=S.audKey===key?S.aud:null,g=GB[key]||{};return a&&isFinite(a.duration)&&a.duration>0?a.duration:(g.audio_dur||0)}
+function recPlayer(g){const a=S.audKey===g.key?S.aud:null,d=audDur(g.key),c=a?a.currentTime:0;
+  return `<div class="aplay" id="ap_${g.key}"><button class="apb" type="button" aria-label="${t('play')}" onclick="recToggle('${g.key}')">${ic(a&&!a.paused?'pause':'play',18)}</button>
+  <div class="grow"><div class="sm aph"><span>${ic('mic',13)} ${t('teacherVoice')}</span><span class="apt mu">${fmtT(c)}${d?' / '+fmtT(d):''}</span></div>
+  <input type="range" class="apr" min="0" max="1000" value="${d?Math.round(c/d*1000):0}" aria-label="${t('progress')}" onpointerdown="this._drag=1" onpointerup="this._drag=0" oninput="recSeek('${g.key}',this.value)"></div></div>`}
+async function recToggle(key){const g=GB[key];if(!g||!g.audio_path)return;
+  if(S.aud&&S.audKey===key){if(S.aud.paused){try{speechSynthesis.cancel()}catch(e){}clearTalk();S.aud.play().catch(()=>toast(t('audioErr')))}else S.aud.pause();return}
+  stopAudio();let url=AURL[g.audio_path];
+  if(!url){try{const{data,error}=await sb.storage.from('grammar-audio').createSignedUrl(g.audio_path,3600);if(error)throw error;url=AURL[g.audio_path]=data.signedUrl}catch(e){console.warn(e);toast(t('offline'));return}}
+  const a=new Audio(url);a.preload='auto';S.aud=a;S.audKey=key;const upd=()=>apUI(key);['timeupdate','play','pause','ended','loadedmetadata','durationchange'].forEach(ev=>a.addEventListener(ev,upd));
+  a.play().catch(()=>toast(t('audioErr')))}
+function apUI(key){const el=$('ap_'+key);if(!el)return;const a=S.audKey===key?S.aud:null,d=audDur(key),c=a?a.currentTime:0;
+  el.querySelector('.apb').innerHTML=ic(a&&!a.paused?'pause':'play',18);el.querySelector('.apt').textContent=fmtT(c)+(d?' / '+fmtT(d):'');
+  const r=el.querySelector('.apr');if(!r._drag)r.value=d?Math.min(1000,Math.round(c/d*1000)):0}
+function recSeek(key,v){const a=S.audKey===key?S.aud:null,d=audDur(key);if(a&&d)try{a.currentTime=d*v/1000}catch(e){}}
+/* rekam suara guru */
+function recBox(g){if(!g)return `<p class="sm mu" style="margin:0">${t('recSaveFirst')}</p>`;const R=S.recG&&S.recG.key===g.key?S.recG:null;
+  if(R&&R.st==='rec')return `<div class="recbox"><span class="recdot"></span><b id="recT">${fmtT(R.sec)}</b><span class="sm mu grow">/ 3:00</span><button class="btn sm2 dng" type="button" onclick="recStop()">${ic('stop',14)} ${t('recStop')}</button></div>`;
+  if(R&&R.st==='review')return `<div class="recbox col"><div class="sm mu" style="margin-bottom:6px">${t('recReview')} (${fmtT(R.sec)})</div><audio controls src="${R.url}" style="width:100%"></audio>
+    <div style="display:flex;gap:8px;margin-top:8px"><button class="btn sm2" type="button" onclick="recUpload('${g.key}')">${t('recSave')}</button><button class="btn ghost sm2" type="button" onclick="recCancel()">${t('cancel')}</button></div></div>`;
+  return g.audio_path?`${recPlayer(g)}<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm2" type="button" onclick="recStart('${g.key}')">${ic('mic',14)} ${t('recAgain')}</button><button class="btn ghost sm2" style="color:var(--bad)" type="button" onclick="recDel('${g.key}')">${ic('trash',14)} ${t('recDel')}</button></div>`
+    :`<div class="row" style="gap:10px;align-items:center;flex-wrap:wrap"><button class="btn ghost sm2" type="button" onclick="recStart('${g.key}')">${ic('mic',14)} ${t('recStart')}</button><span class="sm mu">${t('recMax')}</span></div><p class="sm mu" style="margin:6px 0 0">${t('recNone')}</p>`}
+function recRender(key){const k=key||(S.recG&&S.recG.key),w=$('recWrap');if(w&&k&&GB[k])w.innerHTML=recBox(GB[k])}
+async function recStart(key){if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){toast(t('recNoMic'),3000);return}recCancel();stopAudio();
+  let stream;try{stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}})}catch(e){toast(t('recNoMic'),3000);return}
+  const mt=['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'].find(m=>MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(m))||'';
+  let mr;try{mr=new MediaRecorder(stream,mt?{mimeType:mt,audioBitsPerSecond:48000}:{})}catch(e){stream.getTracks().forEach(x=>x.stop());toast(t('recNoMic'),3000);return}
+  const chunks=[],R=S.recG={key,st:'rec',sec:0,mr,stream,t0:Date.now()};
+  mr.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+  mr.onstop=()=>{stream.getTracks().forEach(x=>x.stop());clearInterval(R.iv);if(S.recG!==R)return;const type=((mr.mimeType||mt||'audio/webm').split(';')[0])||'audio/webm';
+    R.blob=new Blob(chunks,{type});if(!R.blob.size){S.recG=null;recRender(key);toast(t('recNoMic'));return}R.url=URL.createObjectURL(R.blob);R.st='review';recRender(key)};
+  R.iv=setInterval(()=>{R.sec=(Date.now()-R.t0)/1000;const e=$('recT');if(e)e.textContent=fmtT(R.sec);if(R.sec>=180)recStop()},250);mr.start(1000);recRender(key)}
+function recStop(){const R=S.recG;if(R&&R.mr&&R.mr.state!=='inactive'){R.sec=Math.min(180,(Date.now()-R.t0)/1000);R.mr.stop()}}
+function recCancel(){const R=S.recG;if(!R)return;S.recG=null;clearInterval(R.iv);try{if(R.mr&&R.mr.state!=='inactive')R.mr.stop()}catch(e){}try{R.stream.getTracks().forEach(x=>x.stop())}catch(e){}if(R.url)URL.revokeObjectURL(R.url);recRender(R.key)}
+const AEXT={'audio/webm':'webm','audio/ogg':'ogg','audio/mp4':'m4a','audio/mpeg':'mp3','audio/aac':'aac'};
+async function recUpload(key){const R=S.recG,g=GB[key];if(!R||!R.blob||!g)return;const old=g.audio_path,type=AEXT[R.blob.type]?R.blob.type:'audio/webm',path=`${key}/${Date.now()}.${AEXT[type]}`,dur=Math.max(1,Math.round(R.sec));
+  const ok=await run(async()=>{const{error:e1}=await sb.storage.from('grammar-audio').upload(path,R.blob,{contentType:type,upsert:false});if(e1)throw e1;
+    const{error:e2}=await sb.from('grammars').update({audio_path:path,audio_dur:dur}).eq('key',key);if(e2){sb.storage.from('grammar-audio').remove([path]).catch(()=>{});throw e2}
+    g.audio_path=path;g.audio_dur=dur;if(old)sb.storage.from('grammar-audio').remove([old]).catch(()=>{})});
+  if(ok){recCancel();recRender(key);toast(t('recSaved'))}}
+async function recDel(key){const g=GB[key];if(!g||!g.audio_path)return;if(!await ask(t('askDelRec'),`<b>${esc(g.judul)}</b>`,t('del'),true))return;const old=g.audio_path;
+  const ok=await run(async()=>{const{error}=await sb.from('grammars').update({audio_path:null,audio_dur:null}).eq('key',key);if(error)throw error;g.audio_path=null;g.audio_dur=null;sb.storage.from('grammar-audio').remove([old]).catch(()=>{})});
+  if(ok){if(S.audKey===key)stopAudio();recRender(key);toast(t('recDeleted'))}}
+/* tanya via WA */
+function waNum(v){let d=String(v||'').replace(/\D/g,'');if(d.startsWith('0'))d='62'+d.slice(1);else if(d.startsWith('8'))d='62'+d;return d}
+function waHi(){const u=S.user||{};return `Halo kak, saya ${u.nama||''}${u.username?' (@'+u.username+')':''} dari Zetoro. `}
+const waUrl=msg=>`https://wa.me/${DB.wa}?text=${encodeURIComponent(msg)}`;
+function waBtn(msg,cls=''){if(S.role!=='student'||!DB.wa)return '';return `<a class="wabtn ${cls}" href="${esc(waUrl(msg))}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${ic('chat',16)} ${t('askWa')}</a>`}
+const waGram=g=>waHi()+`Saya mau tanya soal grammar "${g.judul}": `;
+function waQuiz(q,g){const ans=q.gopts&&q.gopts[q.gp];return waHi()+`Saya mau tanya soal grammar "${g.judul}".\nSoal: ${q.blank}\nJawaban saya: ${ans||'-'}\nJawaban benar: ${q.m.t}\nPertanyaan saya: `}
+async function saveWa(){const raw=$('myWa').value.trim(),v=raw?waNum(raw):'';if(raw&&(v.length<10||v.length>15)){toast(t('waBad'),3000);return}
+  const ok=await run(async()=>{const{error}=await sb.from('app_settings').upsert({key:'wa',value:v,updated_at:new Date().toISOString()});if(error)throw error;DB.wa=v});
+  if(ok){S.meWa=false;renderMe();toast(v?t('waSaved'):t('waCleared'))}}
 /* --- tag grammar widget (add / edit forms) --- */
 function tgSent(k){const el=$(k==='add'?'wc':'ec');return el?el.value:''}
 function tgW(k,sent){S.tgs=S.tgs||{};const st=S.tgs[k]||(S.tgs[k]={marks:[],sel:null});const toks=(sent||'').split(/\s+/).filter(Boolean);
