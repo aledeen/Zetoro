@@ -253,20 +253,20 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .recbox{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}.recbox.col{display:block}
 .recdot{width:10px;height:10px;border-radius:50%;background:var(--bad);animation:blink 1s infinite;flex-shrink:0}@keyframes blink{50%{opacity:.25}}
 .me-it,a.me-it{color:inherit;text-decoration:none}.me-v{white-space:nowrap}.me-it .grow{white-space:nowrap}
-.vcard{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:linear-gradient(135deg,var(--acs),var(--card2) 70%);border:1px solid var(--line);margin:0 0 14px;transition:border-color .2s}
+.vcard{display:flex;align-items:center;gap:10px;padding:8px 8px 8px 8px;border-radius:14px;background:var(--card2);border:1px solid var(--line);margin:0 0 12px;transition:border-color .2s}
 .vcard.on{border-color:var(--ac)}
-.vplay,.vstop{width:48px;height:48px;border-radius:50%;background:var(--ac);color:var(--on);border:none;display:grid;place-items:center;cursor:pointer;flex-shrink:0;box-shadow:0 4px 14px rgba(208,138,91,.3);transition:transform .15s}
-.vplay:active,.vstop:active{transform:scale(.92)}.vplay .svi{vertical-align:0}
-.vcard.on .vplay{animation:vpulse 1.6s ease-out infinite}
-@keyframes vpulse{0%{box-shadow:0 0 0 0 rgba(208,138,91,.5)}100%{box-shadow:0 0 0 12px rgba(208,138,91,0)}}
-.vmid{flex:1;min-width:0;display:block}.vtop{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.vtop b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.vtime{font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums;white-space:nowrap}
-.vwave{position:relative;display:flex;align-items:center;gap:2px;height:30px;margin:8px 0 6px}
-.vwave i{flex:1;min-width:2px;border-radius:2px;background:var(--line);transition:background .25s}
+.vplay{width:36px;height:36px;border-radius:50%;background:var(--ac);color:var(--on);border:none;display:grid;place-items:center;cursor:pointer;flex-shrink:0;transition:transform .12s}
+.vplay:active,.vstop:active,.vx:active{transform:scale(.9)}.vplay .svi,.vx .svi{vertical-align:0}
+.vstop{width:36px;height:36px;border-radius:50%;border:none;display:grid;place-items:center;cursor:pointer;flex-shrink:0;background:var(--tx);color:var(--bg)}
+.vmid{flex:1;min-width:0;display:block}.vtop{display:flex;justify-content:space-between;align-items:center;gap:8px}.vtop b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vlab{font-size:12px;font-weight:500;color:var(--mu);display:flex;align-items:center;gap:5px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.vlab .svi{vertical-align:0}.vcard.on .vlab{color:var(--ac)}
+.vtime{font-size:11px;color:var(--mu);font-variant-numeric:tabular-nums;white-space:nowrap}
+.vwave{position:relative;display:flex;align-items:center;gap:2px;height:20px;margin:5px 0 1px}
+.vwave i{flex:1;min-width:1.5px;border-radius:2px;background:var(--line);transition:background .2s}
 [data-theme=light] .vwave i{background:#D9D2CA}.vwave i.on,[data-theme=light] .vwave i.on{background:var(--ac)}
-.vcard.on[data-kind=tts] .vwave i{animation:vbar 1.1s ease-in-out infinite;animation-delay:var(--d)}
-@keyframes vbar{50%{transform:scaleY(.4)}}
-.vseek{position:absolute;inset:-4px 0;width:100%;height:calc(100% + 8px);opacity:0;cursor:pointer;margin:0}
+.vseek{position:absolute;inset:-8px 0;width:100%;height:calc(100% + 16px);opacity:0;cursor:pointer;margin:0;touch-action:none}
+.vx{width:28px;height:28px;border-radius:50%;border:none;background:none;color:var(--mu);display:grid;place-items:center;cursor:pointer;flex-shrink:0;visibility:hidden}
+.vcard.act .vx{visibility:visible}.vx:hover{background:var(--line);color:var(--tx)}
 .vsub{font-size:11.5px;color:var(--mu);display:flex;align-items:center;gap:5px}.vsub .svi{vertical-align:0}
 .vpill{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:20px;border:1px solid var(--line);background:var(--card2);color:var(--tx);font-size:12.5px;cursor:pointer;font-family:inherit}
 .vpill.talking{background:var(--card2)!important;color:var(--tx)!important;border-color:var(--ac)!important}
@@ -274,15 +274,15 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .vpill .svi{display:inline-block!important;vertical-align:0}.vpill .ic-stop{display:none}.vpill.talking .ic-play{display:none}.vpill.talking .ic-stop{display:block}
 .vb{display:inline-flex;gap:2px;align-items:center;height:14px}.vb i{width:2px;border-radius:1px;background:var(--mu)}
 .vpill.talking .vb i{background:var(--ac);animation:vbar .8s ease-in-out infinite}
-.vrec,.vnew{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;border:1px solid var(--bad);background:linear-gradient(135deg,rgba(217,112,90,.14),var(--card2) 70%);margin:0 0 10px;width:100%}
+.vrec,.vnew{display:flex;align-items:center;gap:10px;padding:8px 10px 8px 8px;border-radius:14px;border:1px solid var(--bad);background:linear-gradient(135deg,rgba(217,112,90,.14),var(--card2) 70%);margin:0 0 10px;width:100%}
 .vnew{border:1px dashed var(--line);background:var(--card2);cursor:pointer;color:var(--tx);font-family:inherit}.vnew:hover{border-color:var(--ac)}.vnew .vsub{margin-top:3px}
-.vrdot{width:48px;height:48px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;flex-shrink:0;animation:rpulse 1.4s ease-out infinite}
+.vrdot{width:36px;height:36px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;flex-shrink:0;animation:rpulse 1.4s ease-out infinite}
 .vrdot.idle{background:var(--acs);color:var(--ac);animation:none}
 @keyframes rpulse{0%{box-shadow:0 0 0 0 rgba(217,112,90,.55)}100%{box-shadow:0 0 0 12px rgba(217,112,90,0)}}
 .vstop{background:var(--tx);color:var(--bg);box-shadow:none}
-.vlv{display:flex;align-items:center;gap:2px;height:28px;margin:8px 0 6px}.vlv i{flex:1;min-width:2px;height:10%;border-radius:2px;background:var(--bad);transition:height .08s}
+.vlv{display:flex;align-items:center;gap:2px;height:20px;margin:5px 0 4px}.vlv i{flex:1;min-width:2px;height:10%;border-radius:2px;background:var(--bad);transition:height .08s}
 .vprog{height:3px;border-radius:2px;background:var(--line);overflow:hidden}.vprog i{display:block;height:100%;background:var(--bad);transition:width .25s linear}
-@media (prefers-reduced-motion:reduce){.vcard.on .vplay,.vrdot,.vcard.on[data-kind=tts] .vwave i,.vpill.talking .vb i{animation:none}}
+@media (prefers-reduced-motion:reduce){.vrdot,.vpill.talking .vb i{animation:none}}
 .wabtn{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:20px;border:1px solid #2E9E5B;color:#2E9E5B;text-decoration:none;font-size:13px;font-weight:500;background:none}
 .wabtn:hover{background:rgba(46,158,91,.1)}.wabtn.full{display:flex;justify-content:center;margin-top:12px}
 .lis{display:flex;align-items:center;justify-content:center;gap:10px}
@@ -334,9 +334,9 @@ wordList:"Word list",autoSplit:"Split into sets of 20 automatically",viewOnly:"O
 gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",total:"total words mastered",toNext:"more words to next level",maxLvl:"Top level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
-Object.assign(T.id,{listenExpl:"Dengarkan penjelasan",teacherExpl:"Penjelasan dari guru",autoVoice:"Suara otomatis",recording:"Merekam…",recNotSaved:"Belum disimpan, dengar dulu sebelum menyimpan",recActive:"Rekaman ini yang didengar murid",teacherVoice:"Suara guru",progress:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Stop",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar ulang",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada, murid dengar suara otomatis",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
+Object.assign(T.id,{listenExpl:"Dengarkan penjelasan",pause:"Jeda",vClose:"Matikan",teacherExpl:"Penjelasan guru",autoVoice:"Suara otomatis",recording:"Merekam…",recNotSaved:"Belum disimpan, dengar dulu sebelum menyimpan",recActive:"Rekaman ini yang didengar murid",teacherVoice:"Suara guru",progress:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Stop",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar ulang",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada, murid dengar suara otomatis",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
 askWa:"Tanya via WA",waNum:"Nomor WA",waNotSet:"Belum diisi",waHint:"Contoh: 0812 3456 7890",waSaved:"Nomor WA tersimpan",waCleared:"Nomor WA dihapus",waBad:"Nomor WA tidak valid"});
-Object.assign(T.en,{listenExpl:"Listen to explanation",teacherExpl:"Explanation from teacher",autoVoice:"Automatic voice",recording:"Recording…",recNotSaved:"Not saved yet, listen before saving",recActive:"Students hear this recording",teacherVoice:"Teacher's voice",progress:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Play back",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"None yet, students hear the automatic voice",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
+Object.assign(T.en,{listenExpl:"Listen to explanation",pause:"Pause",vClose:"Turn off",teacherExpl:"Explanation from teacher",autoVoice:"Automatic voice",recording:"Recording…",recNotSaved:"Not saved yet, listen before saving",recActive:"Students hear this recording",teacherVoice:"Teacher's voice",progress:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Play back",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"None yet, students hear the automatic voice",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
 askWa:"Ask via WhatsApp",waNum:"WhatsApp",waNotSet:"Not set",waHint:"e.g. 0812 3456 7890",waSaved:"WhatsApp number saved",waCleared:"WhatsApp number removed",waBad:"Invalid WhatsApp number"});
 let lang='id';const t=k=>T[lang][k]||k;
 Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",qOrder:"Susun kalimat ini dalam bahasa Inggris",changePhoto:"Ganti foto",removePhoto:"Hapus foto",editName:"Ubah nama",photoSaved:"Foto disimpan",photoRemoved:"Foto dihapus",nameSaved:"Nama disimpan",photoErr:"File harus berupa gambar.",orderHint:"Ketuk kata di bawah sesuai urutan",check:"Cek",correctSent:"Kalimat yang benar",
@@ -480,7 +480,7 @@ function speak(txt,rate=.85,el){try{const was=!!(el&&el.classList.contains('talk
     const off=()=>{if(S.talkEl===el)clearTalk()};u.onend=off;u.onerror=off;clearTimeout(S.talkT);S.talkT=setTimeout(off,Math.max(4000,txt.length*180/rate))}
   speechSynthesis.speak(u)}catch(e){clearTalk();toast('Audio tidak tersedia')}}
 function clearTalk(){const el=S.talkEl;if(el){el.classList.remove('talking');const w=el.querySelector('.wave');if(w)w.remove()}S.talkEl=null}
-function stopAudio(){try{speechSynthesis.cancel()}catch(e){}clearTalk();if(S.aud){try{S.aud.pause()}catch(e){}}clearInterval(S.ttsIv);if(S.ttsKey){const k=S.ttsKey;S.ttsKey=null;S.ttsP=0;vcUI(k)}try{if(S.rec)S.rec.abort()}catch(e){}S.rec=null}
+function stopAudio(){if(S.tts&&S.tts.playing)ttsPause();try{speechSynthesis.cancel()}catch(e){}clearTalk();if(S.aud){try{S.aud.pause()}catch(e){}}try{if(S.rec)S.rec.abort()}catch(e){}S.rec=null}
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const isNew=w=>Date.now()-new Date(w.created_at).getTime()<3*864e5;
 async function run(fn,savingMsg=true){if(S.busy)return;S.busy=true;if(savingMsg)toast(t('saving'),60000);
@@ -499,6 +499,7 @@ play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z"
 pause:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/></svg>',
 stop:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>',
 chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20l1.2-4.2A8.5 8.5 0 1 1 20.5 11.5z"/><path d="M9.2 8.6c.2 3 2.6 5.7 6 6.2l.9-1.5-1.9-.9-.9.8a5 5 0 0 1-2.6-2.6l.8-.9-.9-1.9z"/></svg>',
+x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
 cards:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="6" width="13" height="15" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/></svg>'};
 Object.assign(icon,{search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
 mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>',
@@ -1041,19 +1042,29 @@ function gramParts(g,short,sent){const ex=(g.contoh||'').split('\n').map(x=>x.tr
   return mergeParts(P.filter(p=>p.t&&String(p.t).trim()))}
 function pickVoice(l){try{const vs=speechSynthesis.getVoices();if(l==='id')return vs.find(v=>/^(id|in)([-_]|$)/i.test(v.lang))||null;return vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null}catch(e){return null}}
 try{speechSynthesis.getVoices();speechSynthesis.addEventListener('voiceschanged',()=>{})}catch(e){}
-function speakSeq(parts,el,key){try{const was=!!(el&&el.classList.contains('talking'))||(key&&S.ttsKey===key);stopAudio();if(was||!parts.length)return;
-  const segs=parts.flatMap(p=>String(p.t).split(/(?<=[.!?;])\s+/).filter(Boolean).map(t=>({l:p.l,t})));
-  const est=segs.map(p=>p.t.length/(p.l==='id'?14:11)+.35),tot=est.reduce((a,b)=>a+b,0),cum=est.map((_,i)=>est.slice(0,i).reduce((a,b)=>a+b,0));
-  const us=segs.map((p,i)=>{const u=new SpeechSynthesisUtterance(p.t);u.lang=p.l==='id'?'id-ID':'en-US';u.rate=p.l==='id'?1:.85;const v=pickVoice(p.l);if(v)u.voice=v;
-    u.onstart=()=>{S.ttsSeg=i;S.ttsSegT=Date.now()};return u});
+function segsOf(parts){return parts.flatMap(p=>String(p.t).split(/(?<=[.!?;])\s+/).filter(Boolean).map(t=>({l:p.l,t})))}
+const segEst=p=>p.t.length/(p.l==='id'?14:11)+.35;
+function mkUtt(p){const u=new SpeechSynthesisUtterance(p.t);u.lang=p.l==='id'?'id-ID':'en-US';u.rate=p.l==='id'?1:.85;const v=pickVoice(p.l);if(v)u.voice=v;return u}
+/* pill pendek (popup / quiz): putar atau stop */
+function speakSeq(parts,el){try{const was=!!(el&&el.classList.contains('talking'));stopAudio();if(was||!parts.length)return;
+  const segs=segsOf(parts),tot=segs.reduce((a,p)=>a+segEst(p),0),us=segs.map(mkUtt);
   if(el){el.classList.add('talking');if(!el.classList.contains('vpill'))el.insertAdjacentHTML('afterbegin','<span class="wave"><i></i><i></i><i></i><i></i></span>');S.talkEl=el;
     const off=()=>{if(S.talkEl===el)clearTalk()};us[us.length-1].onend=off;clearTimeout(S.talkT);S.talkT=setTimeout(off,Math.max(6000,tot*2500))}
-  if(key){S.ttsKey=key;S.ttsP=0;S.ttsSeg=0;S.ttsSegT=Date.now();const done=()=>{if(S.ttsKey===key){clearInterval(S.ttsIv);S.ttsKey=null;S.ttsP=0;vcUI(key)}};
-    us[us.length-1].onend=done;clearTimeout(S.talkT);S.talkT=setTimeout(done,Math.max(6000,tot*2500));
-    S.ttsIv=setInterval(()=>{if(S.ttsKey!==key)return;const i=S.ttsSeg||0;S.ttsP=Math.min(1,(cum[i]+Math.min(est[i],(Date.now()-S.ttsSegT)/1000))/tot);vcUI(key)},200);vcUI(key)}
   us.forEach(u=>speechSynthesis.speak(u))}catch(e){clearTalk();toast(t('audioErr'))}}
-function ttsDur(id){const g=GB[id];if(!g)return 0;return gramParts(g,false).flatMap(p=>String(p.t).split(/(?<=[.!?;])\s+/).filter(Boolean).map(t=>({l:p.l,t}))).reduce((a,p)=>a+p.t.length/(p.l==='id'?14:11)+.35,0)}
-function ttsToggle(id){if(S.ttsKey===id){stopAudio();return}const g=GB[id];if(g)speakSeq(gramParts(g,false),null,id)}
+/* kartu TTS: play / pause (lanjut dari posisi terakhir) / geser / tutup */
+function ttsInfo(id){if(S.tts&&S.tts.key===id)return S.tts;const g=GB[id];if(!g)return null;const segs=segsOf(gramParts(g,false)),est=segs.map(segEst);let c=0;const cum=est.map(e=>{const v=c;c+=e;return v});
+  return{key:id,segs,est,cum,tot:c,idx:0,playing:false,t0:0,drag:null}}
+function ttsDur(id){const T=ttsInfo(id);return T?T.tot:0}
+function ttsPos(T){if(!T)return 0;if(T.drag!=null)return T.drag;return Math.min(T.tot,T.cum[T.idx]+(T.playing?Math.min(T.est[T.idx],(Date.now()-T.t0)/1000):0))}
+function ttsPlay(id,idx){const T=ttsInfo(id);if(!T||!T.segs.length)return;stopAudio();try{speechSynthesis.cancel()}catch(e){}
+  S.tts=T;T.idx=Math.max(0,Math.min(idx||0,T.segs.length-1));T.playing=true;T.drag=null;T.t0=Date.now();const gen=S.ttsGen=(S.ttsGen||0)+1,last=T.segs.length-1;
+  try{T.segs.slice(T.idx).forEach((p,k)=>{const i=T.idx+k,u=mkUtt(p);u.onstart=()=>{if(S.ttsGen===gen){T.idx=i;T.t0=Date.now()}};
+    if(i===last)u.onend=()=>{if(S.ttsGen===gen)ttsEnd()};speechSynthesis.speak(u)})}catch(e){toast(t('audioErr'));ttsEnd();return}
+  clearInterval(S.ttsIv);S.ttsIv=setInterval(()=>{if(S.ttsGen!==gen||!T.playing){clearInterval(S.ttsIv);return}
+    if((Date.now()-T.t0)/1000>T.est[T.idx]*3+4&&!speechSynthesis.speaking)ttsEnd();else vcUI(id)},250);vcUI(id)}
+function ttsPause(){const T=S.tts;if(!T||!T.playing)return;S.ttsGen=(S.ttsGen||0)+1;T.playing=false;clearInterval(S.ttsIv);try{speechSynthesis.cancel()}catch(e){}vcUI(T.key)}
+function ttsEnd(){const T=S.tts;if(!T)return;S.ttsGen=(S.ttsGen||0)+1;clearInterval(S.ttsIv);T.playing=false;S.tts=null;try{speechSynthesis.cancel()}catch(e){}vcUI(T.key)}
+function ttsToggle(id){const T=S.tts&&S.tts.key===id?S.tts:null;if(T&&T.playing){ttsPause();return}ttsPlay(id,T?T.idx:0)}
 function explBtn(key,short,sent,cls=''){return `<button class="vpill ${cls}" type="button" onclick="event.stopPropagation();explSay('${key}',${short?1:0},this,'${jsq(sent||'')}')"><span class="vpi"><span class="ic-play">${ic('play',12)}</span><span class="ic-stop">${ic('stop',10)}</span></span><span>${t('listenExpl')}</span><span class="vb">${[5,9,13,8,11,6].map((h,i)=>`<i style="height:${h}px;animation-delay:${i*.12}s"></i>`).join('')}</span></button>`}
 function explSay(key,short,el,sent){const g=GB[key];if(g)speakSeq(gramParts(g,!!short,sent||null),el)}
 /* kartu pemutar (rekaman guru / TTS) */
@@ -1061,33 +1072,44 @@ const AURL={};const fmtT=s=>{s=Math.max(0,Math.round(s||0));return Math.floor(s/
 function audDur(id){const a=S.audKey===id?S.aud:null;if(a&&isFinite(a.duration)&&a.duration>0)return a.duration;if(id==='rev')return S.recG?S.recG.sec:0;return (GB[id]||{}).audio_dur||0}
 function wbars(seed,n,p){let h=7;for(const c of String(seed))h=(h*31+c.charCodeAt(0))>>>0;let o='';
   for(let i=0;i<n;i++){h=(h*1103515245+12345)>>>0;const env=.35+.65*Math.sin(Math.PI*(i+.5)/n),v=Math.round(18+env*(30+(h%1000)/1000*52));o+=`<i class="${(i+.5)/n<=p?'on':''}" style="height:${Math.min(100,v)}%;--d:${((h>>8)%10)/10}s"></i>`}return o}
-function vState(id,kind){const rec=kind!=='tts',a=rec&&S.audKey===id?S.aud:null,on=rec?!!(a&&!a.paused):S.ttsKey===id,d=rec?audDur(id):ttsDur(id),c=rec?(a?a.currentTime:0):(on?(S.ttsP||0)*d:0);
-  return{rec,on,d,c,p:d?Math.min(1,c/d):0,time:rec?`${fmtT(c)} / ${fmtT(d)}`:`${on?fmtT(c)+' / ':''}±${fmtT(d)}`}}
+function vState(id,kind){const rec=kind!=='tts';
+  if(rec){const a=S.audKey===id?S.aud:null,d=audDur(id),c=a?a.currentTime:0;return{rec,on:!!(a&&!a.paused),act:!!a,d,c,p:d?Math.min(1,c/d):0,time:`${fmtT(c)} / ${fmtT(d)}`}}
+  const T=S.tts&&S.tts.key===id?S.tts:null,d=T?T.tot:ttsDur(id),c=ttsPos(T);return{rec,on:!!(T&&T.playing),act:!!T,d,c,p:d?Math.min(1,c/d):0,time:`${fmtT(c)} / ±${fmtT(d)}`}}
 function vCard(id,kind,title,sub,seed){const s=vState(id,kind);
-  return `<div class="vcard ${s.on?'on':''}" id="vc_${id}" data-kind="${kind}"><button class="vplay" type="button" aria-label="${s.on?t('recStop'):t('play')}" onclick="event.stopPropagation();${s.rec?`recToggle('${id}')`:`ttsToggle('${id}')`}">${ic(s.on?(s.rec?'pause':'stop'):'play',20)}</button>
-  <div class="vmid"><div class="vtop"><b>${title}</b><span class="vtime">${s.time}</span></div>
-  <div class="vwave">${wbars(seed||id,40,s.p)}${s.rec?`<input type="range" class="vseek" min="0" max="1000" value="${Math.round(s.p*1000)}" aria-label="${t('progress')}" oninput="recSeek('${id}',this.value)">`:''}</div>
-  <div class="vsub">${sub}</div></div></div>`}
-function vcUI(id){const el=$('vc_'+id);if(!el)return;const s=vState(id,el.dataset.kind);el.classList.toggle('on',s.on);
-  el.querySelector('.vplay').innerHTML=ic(s.on?(s.rec?'pause':'stop'):'play',20);el.querySelector('.vtime').textContent=s.time;
-  const bs=el.querySelectorAll('.vwave i'),n=bs.length;bs.forEach((b,i)=>b.classList.toggle('on',(i+.5)/n<=s.p));const r=el.querySelector('.vseek');if(r&&document.activeElement!==r)r.value=Math.round(s.p*1000)}
-function gVoice(g){return g.audio_path?vCard(g.key,'rec',t('teacherExpl'),`${ic('mic',12)} ${t('teacherVoice')}`):vCard(g.key,'tts',t('listenExpl'),`${ic('spk',12)} ${t('autoVoice')}`)}
-async function recToggle(id){const rev=id==='rev',g=GB[id];if(!rev&&(!g||!g.audio_path))return;
-  if(S.aud&&S.audKey===id){if(S.aud.paused){try{speechSynthesis.cancel()}catch(e){}clearTalk();S.aud.play().catch(()=>toast(t('audioErr')))}else S.aud.pause();return}
-  stopAudio();let url=rev?(S.recG&&S.recG.url):AURL[g.audio_path];
-  if(!url&&!rev){try{const{data,error}=await sb.storage.from('grammar-audio').createSignedUrl(g.audio_path,3600);if(error)throw error;url=AURL[g.audio_path]=data.signedUrl}catch(e){console.warn(e);toast(t('offline'));return}}
-  if(!url)return;const a=new Audio(url);a.preload='auto';S.aud=a;S.audKey=id;const upd=()=>vcUI(id);['timeupdate','play','pause','ended','loadedmetadata','durationchange'].forEach(ev=>a.addEventListener(ev,upd));
-  a.play().catch(()=>toast(t('audioErr')))}
-function recSeek(id,v){const a=S.audKey===id?S.aud:null,d=audDur(id);if(a&&d)try{a.currentTime=d*v/1000}catch(e){}}
+  return `<div class="vcard ${s.on?'on':''} ${s.act?'act':''}" id="vc_${id}" data-kind="${kind}"${sub?` title="${esc(String(sub).replace(/<[^>]*>/g,'').trim())}"`:''}>
+  <button class="vplay" type="button" aria-label="${s.on?t('pause'):t('play')}" onclick="event.stopPropagation();${s.rec?`recToggle('${id}')`:`ttsToggle('${id}')`}">${ic(s.on?'pause':'play',16)}</button>
+  <div class="vmid"><div class="vtop"><span class="vlab">${ic(s.rec?'mic':'spk',12)} ${title}</span><span class="vtime">${s.time}</span></div>
+  <div class="vwave">${wbars(seed||id,48,s.p)}<input type="range" class="vseek" min="0" max="1000" step="1" value="${Math.round(s.p*1000)}" aria-label="${t('progress')}" onclick="event.stopPropagation()" oninput="vSeek('${id}','${kind}',this.value,0)" onchange="vSeek('${id}','${kind}',this.value,1)"></div></div>
+  <button class="vx" type="button" aria-label="${t('vClose')}" title="${t('vClose')}" onclick="event.stopPropagation();vClose('${id}','${kind}')">${ic('x',14)}</button></div>`}
+function vcUI(id){const el=$('vc_'+id);if(!el)return;const s=vState(id,el.dataset.kind);el.classList.toggle('on',s.on);el.classList.toggle('act',s.act);
+  const b=el.querySelector('.vplay');b.innerHTML=ic(s.on?'pause':'play',16);b.setAttribute('aria-label',s.on?t('pause'):t('play'));el.querySelector('.vtime').textContent=s.time;
+  const bs=el.querySelectorAll('.vwave i'),n=bs.length;bs.forEach((x,i)=>x.classList.toggle('on',(i+.5)/n<=s.p));const r=el.querySelector('.vseek');if(r&&!r._drag&&document.activeElement!==r)r.value=Math.round(s.p*1000)}
+function gVoice(g){return g.audio_path?vCard(g.key,'rec',t('teacherExpl'),''):vCard(g.key,'tts',t('listenExpl'),'')}
+function vSeek(id,kind,v,commit){if(kind!=='tts'){recSeek(id,v);return}const T=ttsInfo(id);if(!T)return;
+  if(S.tts!==T){if(S.tts&&S.tts.playing)ttsPause();S.tts=T}const tt=T.tot*v/1000;
+  if(!commit){T.drag=tt;vcUI(id);return}T.drag=null;let i=0;while(i<T.segs.length-1&&T.cum[i+1]<=tt+.01)i++;
+  if(T.playing)ttsPlay(id,i);else{T.idx=i;vcUI(id)}}
+function vClose(id,kind){if(kind==='tts'){if(S.tts&&S.tts.key===id)ttsEnd();else vcUI(id);return}
+  if(S.audKey===id&&S.aud){try{S.aud.pause()}catch(e){}S.aud=null;S.audKey=null}vcUI(id)}
+async function audLoad(id){if(S.audKey===id&&S.aud)return S.aud;const rev=id==='rev',g=GB[id];if(!rev&&(!g||!g.audio_path))return null;
+  let url=rev?(S.recG&&S.recG.url):AURL[g.audio_path];
+  if(!url&&!rev){try{const{data,error}=await sb.storage.from('grammar-audio').createSignedUrl(g.audio_path,3600);if(error)throw error;url=AURL[g.audio_path]=data.signedUrl}catch(e){console.warn(e);toast(t('offline'));return null}}
+  if(!url)return null;stopAudio();const old=S.audKey;S.aud=null;S.audKey=null;if(old)vcUI(old);
+  const a=new Audio(url);a.preload='auto';S.aud=a;S.audKey=id;const upd=()=>vcUI(id);['timeupdate','play','pause','ended','loadedmetadata','durationchange','seeked'].forEach(ev=>a.addEventListener(ev,upd));return a}
+async function recToggle(id){let a=S.audKey===id?S.aud:null;
+  if(a&&!a.paused){a.pause();return}
+  if(!a)a=await audLoad(id);if(!a)return;if(S.tts&&S.tts.playing)ttsPause();try{speechSynthesis.cancel()}catch(e){}clearTalk();
+  if(a.ended)a.currentTime=0;a.play().catch(()=>toast(t('audioErr')))}
+async function recSeek(id,v){let a=S.audKey===id?S.aud:null;if(!a)a=await audLoad(id);if(!a)return;const d=audDur(id);if(d)try{a.currentTime=Math.min(d-.05,d*v/1000)}catch(e){}vcUI(id)}
 /* rekam suara guru */
 function recBox(g){if(!g)return `<p class="sm mu" style="margin:0">${t('recSaveFirst')}</p>`;const R=S.recG&&S.recG.key===g.key?S.recG:null;
-  if(R&&R.st==='rec')return `<div class="vrec"><div class="vrdot">${ic('mic',20)}</div><div class="vmid"><div class="vtop"><b>${t('recording')}</b><span class="vtime"><span id="recT">${fmtT(R.sec)}</span> / 3:00</span></div>
+  if(R&&R.st==='rec')return `<div class="vrec"><div class="vrdot">${ic('mic',16)}</div><div class="vmid"><div class="vtop"><span class="vlab" style="color:var(--bad)">${t('recording')}</span><span class="vtime"><span id="recT">${fmtT(R.sec)}</span> / 3:00</span></div>
     <div class="vlv" id="recLv">${'<i></i>'.repeat(28)}</div><div class="vprog"><i id="recBar" style="width:${R.sec/1.8}%"></i></div></div>
-    <button class="vstop" type="button" aria-label="${t('recStop')}" onclick="recStop()">${ic('stop',16)}</button></div>`;
+    <button class="vstop" type="button" aria-label="${t('recStop')}" onclick="recStop()">${ic('stop',14)}</button></div>`;
   if(R&&R.st==='review')return `${vCard('rev','rec',t('recReview'),`${ic('mic',12)} ${t('recNotSaved')}`,'rev'+R.t0)}
     <div style="display:flex;gap:8px"><button class="btn sm2" type="button" onclick="recUpload('${g.key}')">${ic('check',14)} ${t('recSave')}</button><button class="btn ghost sm2" type="button" onclick="recCancel()">${t('cancel')}</button></div>`;
   return g.audio_path?`${vCard(g.key,'rec',t('teacherExpl'),`${ic('check',12)} ${t('recActive')}`)}<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm2" type="button" onclick="recStart('${g.key}')">${ic('mic',14)} ${t('recAgain')}</button><button class="btn ghost sm2" style="color:var(--bad)" type="button" onclick="recDel('${g.key}')">${ic('trash',14)} ${t('recDel')}</button></div>`
-    :`<button class="vnew" type="button" onclick="recStart('${g.key}')"><span class="vrdot idle">${ic('mic',20)}</span><span class="vmid" style="text-align:left"><b>${t('recStart')}</b><span class="vsub">${t('recMax')} · ${t('recNone')}</span></span></button>`}
+    :`<button class="vnew" type="button" onclick="recStart('${g.key}')"><span class="vrdot idle">${ic('mic',16)}</span><span class="vmid" style="text-align:left"><b style="font-size:13.5px">${t('recStart')}</b><span class="vsub">${t('recMax')} · ${t('recNone')}</span></span></button>`}
 function recRender(key){const k=key||(S.recG&&S.recG.key),w=$('recWrap');if(w&&k&&GB[k])w.innerHTML=recBox(GB[k])}
 function recCloseAc(R){try{if(R.ac)R.ac.close()}catch(e){}R.ac=null}
 async function recStart(key){if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){toast(t('recNoMic'),3000);return}recCancel();stopAudio();
@@ -1103,7 +1125,7 @@ async function recStart(key){if(!navigator.mediaDevices||!navigator.mediaDevices
     R.blob=new Blob(chunks,{type});if(!R.blob.size){S.recG=null;recRender(key);toast(t('recNoMic'));return}R.url=URL.createObjectURL(R.blob);R.st='review';recRender(key)};
   R.iv=setInterval(()=>{R.sec=(Date.now()-R.t0)/1000;const e=$('recT'),b=$('recBar');if(e)e.textContent=fmtT(R.sec);if(b)b.style.width=Math.min(100,R.sec/1.8)+'%';if(R.sec>=180)recStop()},250);mr.start(1000);recRender(key)}
 function recStop(){const R=S.recG;if(R&&R.mr&&R.mr.state!=='inactive'){R.sec=Math.min(180,(Date.now()-R.t0)/1000);R.mr.stop()}}
-function recCancel(){const R=S.recG;if(!R)return;if(S.audKey==='rev')stopAudio();S.recG=null;clearInterval(R.iv);recCloseAc(R);try{if(R.mr&&R.mr.state!=='inactive')R.mr.stop()}catch(e){}try{R.stream.getTracks().forEach(x=>x.stop())}catch(e){}if(R.url)URL.revokeObjectURL(R.url);recRender(R.key)}
+function recCancel(){const R=S.recG;if(!R)return;if(S.audKey==='rev')vClose('rev','rec');S.recG=null;clearInterval(R.iv);recCloseAc(R);try{if(R.mr&&R.mr.state!=='inactive')R.mr.stop()}catch(e){}try{R.stream.getTracks().forEach(x=>x.stop())}catch(e){}if(R.url)URL.revokeObjectURL(R.url);recRender(R.key)}
 const AEXT={'audio/webm':'webm','audio/ogg':'ogg','audio/mp4':'m4a','audio/mpeg':'mp3','audio/aac':'aac'};
 async function recUpload(key){const R=S.recG,g=GB[key];if(!R||!R.blob||!g)return;const old=g.audio_path,type=AEXT[R.blob.type]?R.blob.type:'audio/webm',path=`${key}/${Date.now()}.${AEXT[type]}`,dur=Math.max(1,Math.round(R.sec));
   const ok=await run(async()=>{const{error:e1}=await sb.storage.from('grammar-audio').upload(path,R.blob,{contentType:type,upsert:false});if(e1)throw e1;
