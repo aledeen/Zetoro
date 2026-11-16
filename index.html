@@ -283,6 +283,9 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .vlv{display:flex;align-items:center;gap:2px;height:20px;margin:5px 0 4px}.vlv i{flex:1;min-width:2px;height:10%;border-radius:2px;background:var(--bad);transition:height .08s}
 .vprog{height:3px;border-radius:2px;background:var(--line);overflow:hidden}.vprog i{display:block;height:100%;background:var(--bad);transition:width .25s linear}
 @media (prefers-reduced-motion:reduce){.vrdot,.vpill.talking .vb i{animation:none}}
+.ost{display:inline-flex;align-items:center;gap:6px;color:var(--mu);font-size:12px}.ost.on{color:#2E9E5B;font-weight:500}
+.odot{width:8px;height:8px;border-radius:50%;background:var(--line);flex-shrink:0;display:inline-block}.ost.on .odot{background:#2E9E5B;box-shadow:0 0 0 3px rgba(46,158,91,.18)}
+.onl{margin-bottom:12px}.onl-r{display:flex;align-items:center;gap:10px;padding:6px 0}.onl-r+.onl-r{border-top:1px solid var(--line)}
 .wabtn{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:20px;border:1px solid #2E9E5B;color:#2E9E5B;text-decoration:none;font-size:13px;font-weight:500;background:none}
 .wabtn:hover{background:rgba(46,158,91,.1)}.wabtn.full{display:flex;justify-content:center;margin-top:12px}
 .lis{display:flex;align-items:center;justify-content:center;gap:10px}
@@ -334,9 +337,9 @@ wordList:"Word list",autoSplit:"Split into sets of 20 automatically",viewOnly:"O
 gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",total:"total words mastered",toNext:"more words to next level",maxLvl:"Top level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
-Object.assign(T.id,{listenExpl:"Dengarkan penjelasan",pause:"Jeda",vClose:"Matikan",teacherExpl:"Penjelasan guru",autoVoice:"Suara otomatis",recording:"Merekam…",recNotSaved:"Belum disimpan, dengar dulu sebelum menyimpan",recActive:"Rekaman ini yang didengar murid",teacherVoice:"Suara guru",progress:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Stop",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar ulang",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada, murid dengar suara otomatis",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
+Object.assign(T.id,{listenExpl:"Dengarkan penjelasan",online:"Online",onlineNow:"Online sekarang",noneOnline:"Belum ada murid yang online.",lastActive:"Terakhir aktif",neverActive:"Belum pernah aktif",justNow:"baru saja",minAgo:"menit lalu",hourAgo:"jam lalu",yesterday:"kemarin",dayAgo:"hari lalu",actHome:"di beranda",actBab:"buka",actScore:"lihat penilaian",actFlash:"flashcard",actQuiz:"sedang quiz",actGram:"baca grammar",actGramList:"buka daftar grammar",actGlat:"latihan grammar",pause:"Jeda",vClose:"Matikan",teacherExpl:"Penjelasan guru",autoVoice:"Suara otomatis",recording:"Merekam…",recNotSaved:"Belum disimpan, dengar dulu sebelum menyimpan",recActive:"Rekaman ini yang didengar murid",teacherVoice:"Suara guru",progress:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Stop",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar ulang",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada, murid dengar suara otomatis",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
 askWa:"Tanya via WA",waNum:"Nomor WA",waNotSet:"Belum diisi",waHint:"Contoh: 0812 3456 7890",waSaved:"Nomor WA tersimpan",waCleared:"Nomor WA dihapus",waBad:"Nomor WA tidak valid"});
-Object.assign(T.en,{listenExpl:"Listen to explanation",pause:"Pause",vClose:"Turn off",teacherExpl:"Explanation from teacher",autoVoice:"Automatic voice",recording:"Recording…",recNotSaved:"Not saved yet, listen before saving",recActive:"Students hear this recording",teacherVoice:"Teacher's voice",progress:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Play back",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"None yet, students hear the automatic voice",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
+Object.assign(T.en,{listenExpl:"Listen to explanation",online:"Online",onlineNow:"Online now",noneOnline:"No students online.",lastActive:"Last active",neverActive:"Never active",justNow:"just now",minAgo:"min ago",hourAgo:"h ago",yesterday:"yesterday",dayAgo:"days ago",actHome:"on home",actBab:"opened",actScore:"viewing scores",actFlash:"flashcards",actQuiz:"taking a quiz",actGram:"reading grammar",actGramList:"browsing grammar",actGlat:"grammar practice",pause:"Pause",vClose:"Turn off",teacherExpl:"Explanation from teacher",autoVoice:"Automatic voice",recording:"Recording…",recNotSaved:"Not saved yet, listen before saving",recActive:"Students hear this recording",teacherVoice:"Teacher's voice",progress:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Play back",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"None yet, students hear the automatic voice",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
 askWa:"Ask via WhatsApp",waNum:"WhatsApp",waNotSet:"Not set",waHint:"e.g. 0812 3456 7890",waSaved:"WhatsApp number saved",waCleared:"WhatsApp number removed",waBad:"Invalid WhatsApp number"});
 let lang='id';const t=k=>T[lang][k]||k;
 Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",qOrder:"Susun kalimat ini dalam bahasa Inggris",changePhoto:"Ganti foto",removePhoto:"Hapus foto",editName:"Ubah nama",photoSaved:"Foto disimpan",photoRemoved:"Foto dihapus",nameSaved:"Nama disimpan",photoErr:"File harus berupa gambar.",orderHint:"Ketuk kata di bawah sesuai urutan",check:"Cek",correctSent:"Kalimat yang benar",
@@ -534,7 +537,7 @@ async function loadData(){
   DB.babs=babs.map(b=>({...b,words:words.filter(w=>w.bab_id===b.id)}));
   const [unl,sts,qz]=await Promise.all([fetchAll('unlocks','student_id,bab_id,paket','bab_id'),fetchAll('statuses','student_id,word_id,status','word_id'),fetchAll('quiz_results','student_id,bab_id,paket,last,best,tries','bab_id')]);
   let studs;
-  if(S.role==='teacher'){const{data,error}=await sb.from('profiles').select('id,nama,username,foto,glevel,created_at').eq('role','student').order('created_at');if(error)throw error;studs=data}
+  if(S.role==='teacher'){const{data,error}=await sb.from('profiles').select('id,nama,username,foto,glevel,last_seen,created_at').eq('role','student').order('created_at');if(error)throw error;studs=data}
   else studs=[{id:uid,nama:S.user.nama,username:S.user.username,foto:S.user.foto,glevel:S.user.glevel,glevel_seen:S.user.glevel_seen}];
   DB.students=studs.map(p=>({...p,unlocked:{},status:{},quiz:{}}));
   const byId=Object.fromEntries(DB.students.map(s=>[s.id,s]));
@@ -552,13 +555,14 @@ async function enterApp(session){
   S.role=prof.role;S.user=prof;
   await loadData();
   if(S.role==='teacher'){S.view='admin';S.aTab='sum';S.gStudent=DB.students[0]?.id||null}else{S.view='home';glNotify()}
+  presStart();
 }
 function myGL(){return S.role==='teacher'?3:(S.user&&S.user.glevel)||1}
 function glNotify(){const u=S.user,g=u.glevel||1;if(g>(u.glevel_seen||1)){setTimeout(()=>ask(t('glUpTitle'),`${t('glUpMsg')} <b>${t('lv'+g)}</b>.`,t('ok'),false,true).catch(()=>{}),400);
   u.glevel_seen=g;sb.from('profiles').update({glevel_seen:g}).eq('id',u.id).then(()=>{},()=>{})}}
 
 /* ---------- render ---------- */
-function render(){closeTip();
+function render(){closeTip();setTimeout(presTrack,0);
   document.documentElement.lang=lang;
   $('langBtn').innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg><span>${lang==='en'?'ENG':'IND'}</span>`;
   const dark=document.documentElement.dataset.theme==='dark';$('themeBtn').setAttribute('aria-label',dark?'Mode terang':'Mode gelap');
@@ -615,7 +619,7 @@ async function doSetup(){const n=$('sn').value.trim(),e=$('u').value.trim().toLo
   await run(async()=>{await invokeAdmin({action:'setup_teacher',nama:n,email:e,password:p});
     const{data,error}=await sb.auth.signInWithPassword({email:e,password:p});if(error)throw error;S.needSetup=false;await enterApp(data.session)});
   render()}
-async function doSignOut(){try{await sb.auth.signOut()}catch(e){}Object.assign(S,{user:null,role:null,view:'login'});DB.babs=[];DB.students=[]}
+async function doSignOut(){presStop();try{await sb.auth.signOut()}catch(e){}Object.assign(S,{user:null,role:null,view:'login'});DB.babs=[];DB.students=[]}
 async function logout(){stopAudio();S.open={};S.mq='';await doSignOut();S.err='';S.anim=true;render()}
 
 /* ---------- student home ---------- */
@@ -866,7 +870,7 @@ async function pasteMarks(){const lines=$('mkb').value.split(/\r?\n/).map(l=>l.t
   const ok=await run(async()=>{for(let i=0;i<ups.length;i+=8){const res=await Promise.all(ups.slice(i,i+8).map(([w,tanda])=>sb.from('words').update({tanda}).eq('id',w.id)));
     const e=res.find(r=>r.error);if(e)throw e.error;ups.slice(i,i+8).forEach(([w,tanda])=>w.tanda=tanda)}});
   if(ok){$('mkb').value='';toast(`${ups.length} ${t('marked')}${bad?` · ${bad} ${t('mismatch')}`:''}`,4000)}render()}
-function aSum(){return `<h1>${t('summary')}</h1><div style="height:12px"></div>
+function aSum(){return `<h1>${t('summary')}</h1><div style="height:12px"></div><div id="onlStrip">${onlineStrip()}</div>
   ${DB.students.length?DB.students.map(s=>{const n=hafalCount(s),L=lvlOf(n),ids=Object.keys(s.unlocked).map(Number).sort((a,b)=>a-b),
    act=ids.map(bid=>bab(bid)?`${esc(bab(bid).nama)} · ${t('paket')} ${s.unlocked[bid]}`:'').filter(Boolean).join(', ')||'—';
    return `<div class="card bab" onclick="openGrade('${s.id}',${ids.length?ids[ids.length-1]:(DB.babs[0]?.id||0)})">${ringAv(s,L.pct,L.i,54)}<div class="grow"><b>${esc(s.nama)}</b> <span class="sm mu">@${esc(s.username)}</span>
@@ -900,7 +904,7 @@ function aStu(){return `<h1>${t('students')}</h1><div style="height:12px"></div>
    <div style="font-size:32px;font-weight:600;letter-spacing:6px;color:var(--ac);margin:6px 0">${esc(S.pinShow.pin)}</div><p class="sm mu" style="margin:0 0 10px">${t('tellStudent')}</p>
    <button class="btn ghost sm2" onclick="S.pinShow=null;render()">${t('close')}</button></div>`:''}
   ${DB.students.length?DB.students.map(s=>{const op=S.fold&&S.fold['s'+s.id];return `<div class="card scard fold ${op?'op':''}">
-   <button type="button" class="sc-h" onclick="togFold('s${s.id}',this)">${avatar(s,44)}<div class="grow"><b>${esc(s.nama)}</b><div class="sm mu">@${esc(s.username)} · ${t('grammar')} ${t('lv'+(s.glevel||1))}</div></div><span class="chev">›</span></button>
+   <button type="button" class="sc-h" onclick="togFold('s${s.id}',this)">${avatar(s,44)}<div class="grow"><b>${esc(s.nama)}</b><div class="sm mu">@${esc(s.username)} · ${t('grammar')} ${t('lv'+(s.glevel||1))}</div><div class="sm" data-ost="${s.id}">${onlineHTML(s)}</div></div><span class="chev">›</span></button>
    <div class="fold-b sc-b">
     ${S.stuEdit===s.id?`<div class="me-ed" style="margin-bottom:6px"><input id="sn_${s.id}" value="${esc(s.nama)}" maxlength="60"><button class="btn sm2" onclick="saveStuName('${s.id}')">${t('save')}</button><button class="btn ghost sm2" onclick="S.stuEdit=null;render()">${t('cancel')}</button></div>`:''}
     <div class="sc-lbl">${t('glLabel')}</div>
@@ -1135,6 +1139,36 @@ async function recUpload(key){const R=S.recG,g=GB[key];if(!R||!R.blob||!g)return
 async function recDel(key){const g=GB[key];if(!g||!g.audio_path)return;if(!await ask(t('askDelRec'),`<b>${esc(g.judul)}</b>`,t('del'),true))return;const old=g.audio_path;
   const ok=await run(async()=>{const{error}=await sb.from('grammars').update({audio_path:null,audio_dur:null}).eq('key',key);if(error)throw error;g.audio_path=null;g.audio_dur=null;sb.storage.from('grammar-audio').remove([old]).catch(()=>{})});
   if(ok){if(S.audKey===key)stopAudio();recRender(key);toast(t('recDeleted'))}}
+/* --- status online (Realtime Presence) + terakhir aktif --- */
+function actObj(){if(S.view!=='bab')return{a:'home'};const o={b:S.bab,p:S.paket};
+  if(S.tab==='score')o.a='score';else if(S.mode==='flash')o.a='flash';else if(S.mode==='quiz')o.a='quiz';
+  else if(S.mode==='glat'&&S.glat){o.a='glat';o.g=S.glat.key}else if(S.mode==='gram'){o.a='gram';if(S.gOpen)o.g=S.gOpen}else o.a='bab';return o}
+function actText(o){if(!o||!o.a)return '';const b=o.b&&bab(o.b),bn=b?esc(b.nama):'',pk=o.p?` · ${t('paket')} ${o.p}`:'',g=o.g&&GB[o.g]?esc(GB[o.g].judul):'';
+  return({home:t('actHome'),bab:`${t('actBab')} ${bn}`,score:`${t('actScore')} · ${bn}`,flash:`${t('actFlash')} · ${bn}${pk}`,quiz:`${t('actQuiz')} · ${bn}${pk}`,
+    gram:g?`${t('actGram')}: ${g}`:t('actGramList'),glat:`${t('actGlat')}: ${g}`})[o.a]||''}
+function fmtAgo(ts){if(!ts)return t('neverActive');const m=Math.floor((Date.now()-new Date(ts).getTime())/60000);
+  if(m<1)return t('justNow');if(m<60)return `${m} ${t('minAgo')}`;const h=Math.floor(m/60);if(h<24)return `${h} ${t('hourAgo')}`;
+  const d=Math.floor(h/24);if(d===1)return t('yesterday');if(d<7)return `${d} ${t('dayAgo')}`;return new Date(ts).toLocaleDateString(lang==='id'?'id-ID':'en-US',{day:'numeric',month:'short'})}
+function onlineHTML(s){const o=S.online&&S.online[s.id];return o?`<span class="ost on"><i class="odot"></i>${t('online')}${actText(o)?` · ${actText(o)}`:''}</span>`
+  :`<span class="ost"><i class="odot"></i>${s.last_seen?`${t('lastActive')} ${fmtAgo(s.last_seen)}`:t('neverActive')}</span>`}
+function onlineStrip(){const on=DB.students.filter(s=>S.online&&S.online[s.id]);
+  return `<div class="card onl"><div class="sc-lbl" style="margin:0 0 8px">${ic('users',14)} ${t('onlineNow')} · ${on.length}</div>${on.length?on.map(s=>`<div class="onl-r">${avatar(s,30)}<div class="grow"><b class="sm">${esc(s.nama)}</b><div>${onlineHTML(s)}</div></div></div>`).join('')
+    :`<div class="sm mu">${t('noneOnline')}</div>`}</div>`}
+function refreshOnline(){document.querySelectorAll('[data-ost]').forEach(el=>{const s=DB.students.find(x=>x.id===el.dataset.ost);if(s)el.innerHTML=onlineHTML(s)});
+  const st=$('onlStrip');if(st)st.innerHTML=onlineStrip();const c=$('onlCount');if(c)c.textContent=Object.keys(S.online||{}).length}
+function presStop(){try{if(S.pres)sb.removeChannel(S.pres)}catch(e){}S.pres=null;S.presOk=false;S.online={};S.presAct=null;clearInterval(S.seenIv);clearInterval(S.agoIv)}
+function presStart(){presStop();if(!sb.channel)return;
+  if(S.role==='student'){const ch=S.pres=sb.channel('zetoro-online',{config:{presence:{key:S.user.id}}});S.presAct=null;
+    ch.subscribe(st=>{if(st==='SUBSCRIBED'){S.presOk=true;presTrack(true)}});
+    const seen=()=>{if(document.visibilityState==='visible')sb.rpc('touch_seen').then(()=>{},()=>{})};seen();S.seenIv=setInterval(seen,120000)}
+  else{S.online={};const ch=S.pres=sb.channel('zetoro-online');
+    ch.on('presence',{event:'sync'},()=>{const st=ch.presenceState(),now={};Object.entries(st).forEach(([k,v])=>{if(v&&v.length)now[k]=v[v.length-1]});
+      Object.keys(S.online||{}).forEach(k=>{if(!now[k]){const s=DB.students.find(x=>x.id===k);if(s)s.last_seen=new Date().toISOString()}});S.online=now;refreshOnline()}).subscribe();
+    S.agoIv=setInterval(refreshOnline,60000)}}
+function presTrack(force){const ch=S.pres;if(!ch||S.role!=='student'||!S.presOk)return;if(document.visibilityState!=='visible')return;
+  const o=actObj(),k=JSON.stringify(o);if(!force&&k===S.presAct)return;S.presAct=k;clearTimeout(S.presT);S.presT=setTimeout(()=>{try{ch.track(o)}catch(e){}},force?0:600)}
+document.addEventListener('visibilitychange',()=>{if(S.role!=='student'||!S.pres)return;
+  if(document.visibilityState==='visible'){presTrack(true);sb.rpc('touch_seen').then(()=>{},()=>{})}else{try{S.pres.untrack()}catch(e){}S.presAct=null;sb.rpc('touch_seen').then(()=>{},()=>{})}});
 /* tanya via WA */
 function waNum(v){let d=String(v||'').replace(/\D/g,'');if(d.startsWith('0'))d='62'+d.slice(1);else if(d.startsWith('8'))d='62'+d;return d}
 function waHi(){const u=S.user||{};return `Halo kak, saya ${u.nama||''}${u.username?' (@'+u.username+')':''} dari Zetoro. `}
