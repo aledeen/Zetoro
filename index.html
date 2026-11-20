@@ -115,7 +115,8 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .lnk{background:none;border:none;color:var(--mu);cursor:pointer;padding:2px;vertical-align:middle}.lnk:hover{color:var(--ac)}
 .lbx{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;animation:fadeIn .16s;cursor:zoom-out}
 .lbx img{width:min(78vw,320px);height:min(78vw,320px);border-radius:50%;object-fit:cover;animation:lbxIn .2s ease-out}
-.lbx-n{color:#fff;font-weight:600;font-size:16px}.lbx.out{opacity:0;transition:opacity .15s}
+.lbx-n{color:#fff;font-weight:600;font-size:16px}
+.lbx-av{width:min(78vw,320px);height:min(78vw,320px);border-radius:50%;display:grid;place-items:center;background:var(--acs);border:2px solid var(--ac);color:var(--ac);font-weight:600;font-size:min(36vw,150px);line-height:1;animation:lbxIn .2s ease-out}.lbx.out{opacity:0;transition:opacity .15s}
 @keyframes lbxIn{from{transform:scale(.6);opacity:.4}to{transform:scale(1);opacity:1}}
 .mdl{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);display:grid;place-items:center;padding:20px;animation:fadeIn .15s}
 .mdl-b{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;width:min(100%,340px);box-shadow:0 14px 40px rgba(0,0,0,.4)}
@@ -237,7 +238,7 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .bnav svg{width:20px;height:20px}
 .back{background:none;border:none;color:var(--mu);cursor:pointer;padding:0;margin-bottom:12px;font-size:13px}
 button.back{display:inline-flex;align-items:center;gap:4px;min-height:36px;padding:6px 14px 6px 8px;border:1px solid var(--line);border-radius:20px;background:var(--card);color:var(--tx);font:inherit;font-size:13.5px;font-weight:500;transition:border-color .15s,color .15s,transform .1s}
-button.back .svi{vertical-align:0;color:var(--ac)}button.back:hover{border-color:var(--ac);color:var(--ac)}button.back:active{transform:scale(.96)}
+button.back .svi{vertical-align:0;color:var(--ac)}button.back:hover{border-color:var(--ac);color:var(--ac)}button.back:active{transform:scale(.96);background:var(--acs);border-color:var(--ac);color:var(--ac)}button.back{-webkit-tap-highlight-color:transparent}
 .qsc{display:inline-flex;align-items:center;gap:10px}.qsc .svi{vertical-align:-1px}.qok{color:var(--ok)}.qx{color:var(--bad)}
 .toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:9px 16px;border-radius:8px;font-size:13px;z-index:20;opacity:0;transition:opacity .25s;pointer-events:none}
 .toast.show{opacity:1}
@@ -437,9 +438,9 @@ async function setGL(id,v){const s=DB.students.find(x=>x.id===id),old=s.glevel||
   if(!await ask(t('glAsk'),`<b>${esc(s.nama)}</b>: ${t('lv'+old)} → <b>${t('lv'+v)}</b>. ${t('glAskMsg')}`,t('save')))return;
   const ok=await run(async()=>{const{error}=await sb.from('profiles').update({glevel:v}).eq('id',id);if(error)throw error;s.glevel=v});if(ok)toast(t('glSaved'));render()}
 function personById(id){return S.user&&S.user.id===id?S.user:DB.students.find(x=>x.id===id)}
-function viewFoto(id){const p=personById(id);if(!p||!p.foto||!FOTO[p.foto])return;S.me=false;renderMe();
+function viewFoto(id){const p=personById(id);if(!p)return;S.me=false;renderMe();const has=p.foto&&FOTO[p.foto],ch=esc(((p.nama)||'?').trim().charAt(0).toUpperCase());
   const o=document.createElement('div');o.className='lbx';o.onclick=()=>{o.classList.add('out');setTimeout(()=>o.remove(),160)};
-  o.innerHTML=`<img src="${esc(FOTO[p.foto])}" alt=""><div class="lbx-n">${esc(p.nama)}</div>`;document.body.appendChild(o)}
+  o.innerHTML=`${has?`<img src="${esc(FOTO[p.foto])}" alt="">`:`<div class="lbx-av" aria-hidden="true">${ch}</div>`}<div class="lbx-n">${esc(p.nama)}</div>`;document.body.appendChild(o)}
 function pickFoto(id){S.fotoFor=id;const i=$('fotoIn');i.value='';i.click()}
 function cropFoto(file){return new Promise(async res=>{let img;try{img=await new Promise((ok,no)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=no;im.src=URL.createObjectURL(file)})}catch(e){toast(t('photoErr'));return res(null)}
   const V=260,base=Math.max(V/img.width,V/img.height);let z=1,x=0,y=0;const o=document.createElement('div');o.className='mdl';
