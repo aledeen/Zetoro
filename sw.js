@@ -1,7 +1,10 @@
 /* Zetoro service worker: halaman utama selalu diambil dari jaringan dulu (supaya update langsung masuk),
    cadangan dari cache kalau offline. Permintaan ke Supabase tidak pernah di-cache. */
-const CACHE = 'zetoro-v1';
-const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/maskable-512.png', '/icons/apple-touch-icon.png'];
+const CACHE = 'zetoro-v2';
+// Semua path relatif terhadap folder service worker, jadi jalan di root (Netlify) maupun di subfolder (GitHub Pages /Zetoro/)
+const BASE = self.registration.scope;
+const u = p => new URL(p, BASE).href;
+const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png'].map(u);
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -17,8 +20,8 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
   if (url.origin !== location.origin && !url.hostname.endsWith('jsdelivr.net')) return; // Supabase dll: langsung ke jaringan
   if (req.mode === 'navigate') {
-    e.respondWith(fetch(req).then(res => { const copy = res.clone(); caches.open(CACHE).then(c => c.put('/index.html', copy)); return res; })
-      .catch(() => caches.match('/index.html')));
+    e.respondWith(fetch(req).then(res => { const copy = res.clone(); caches.open(CACHE).then(c => c.put(u('./index.html'), copy)); return res; })
+      .catch(() => caches.match(u('./index.html'))));
     return;
   }
   e.respondWith(caches.match(req).then(hit => {
