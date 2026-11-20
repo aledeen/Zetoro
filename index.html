@@ -80,7 +80,9 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
 .btn.mic{display:flex;align-items:center;justify-content:center;gap:8px}
 .btn.mic.on{animation:pulse 1.2s infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--acs)}50%{box-shadow:0 0 0 8px transparent}}
-.fb{text-align:center;font-weight:600;margin:6px 0}.fb.g{color:var(--ok)}.fb.r{color:var(--bad)}
+.fb{display:flex;justify-content:center;margin:8px 0 10px}.fb span{display:inline-flex;align-items:center;gap:7px;padding:7px 18px;border-radius:20px;font-weight:700;font-size:15px;letter-spacing:.2px;animation:fbPop .22s ease-out}
+.fb .svi{vertical-align:0}.fb.g span{color:var(--ok);background:var(--oks);border:1px solid var(--ok)}.fb.r span{color:var(--bad);background:rgba(217,112,90,.12);border:1px solid var(--bad)}
+@keyframes fbPop{0%{transform:scale(.85);opacity:0}100%{transform:scale(1);opacity:1}}@media (prefers-reduced-motion:reduce){.fb span{animation:none}}
 .reveal{margin-top:10px;border-color:var(--ac)}
 .revh{display:flex;align-items:center;gap:6px;justify-content:center;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ac);background:var(--acs);border-radius:8px;padding:6px;margin-bottom:10px}
 .fixd{color:var(--ok);font-weight:600;display:flex;align-items:center;gap:6px;justify-content:center}
@@ -356,11 +358,11 @@ Object.assign(T.en,{listenExpl:"Listen to explanation",teacherVoiceSub:"Explaine
 askWa:"Ask via WhatsApp",waNum:"WhatsApp",waNotSet:"Not set",waHint:"e.g. 0812 3456 7890",waSaved:"WhatsApp number saved",waCleared:"WhatsApp number removed",waBad:"Invalid WhatsApp number"});
 let lang='id';const t=k=>T[lang][k]||k;
 Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",qOrder:"Susun kalimat ini dalam bahasa Inggris",changePhoto:"Ganti foto",removePhoto:"Hapus foto",editName:"Ubah nama",photoSaved:"Foto disimpan",photoRemoved:"Foto dihapus",nameSaved:"Nama disimpan",photoErr:"File harus berupa gambar.",orderHint:"Ketuk kata di bawah sesuai urutan",check:"Cek",checkAns:"Cek jawaban",correctSent:"Kalimat yang benar",
-review:"Ulangi soal salah",wrongN:"Salah",toReview:"Ulangi soal yang salah",fixed:"soal sudah diperbaiki",correctAns:"Jawaban yang benar",mistakes:"Salah",right:"Benar!",wrongAns:"Belum tepat",
+review:"Ulangi soal salah",wrongN:"Salah",toReview:"Ulangi soal yang salah",fixed:"soal sudah diperbaiki",correctAns:"Jawaban yang benar",mistakes:"Salah",right:"Correct!",wrongAns:"Wrong",
 micTap:"Tekan lalu bacakan",micListening:"Mendengarkan… bacakan sekarang",micHeard:"Terdengar",micNo:"Suara tidak terdengar. Coba lagi.",micErr:"Mikrofon tidak bisa dipakai di perangkat ini.",swapQ:"Ganti soal",
 searchWord:"Cari kata, arti, atau kalimat",found:"kata ditemukan",notFound:"Kata tidak ditemukan"});
 Object.assign(T.en,{qMatch:"Match each word with its meaning",qCloze:"Pick the right word for this sentence",qSent:"What does this sentence mean?",qRead:"Read this sentence out loud",qOrder:"Build this sentence in English",changePhoto:"Change photo",removePhoto:"Remove photo",editName:"Edit name",photoSaved:"Photo saved",photoRemoved:"Photo removed",nameSaved:"Name saved",photoErr:"The file must be an image.",orderHint:"Tap the words below in order",check:"Check",checkAns:"Check answer",correctSent:"Correct sentence",
-review:"Retry wrong answers",wrongN:"Wrong",toReview:"Retry wrong answers",fixed:"answers fixed",correctAns:"Correct answer",mistakes:"Mistakes",right:"Correct!",wrongAns:"Not quite",
+review:"Retry wrong answers",wrongN:"Wrong",toReview:"Retry wrong answers",fixed:"answers fixed",correctAns:"Correct answer",mistakes:"Mistakes",right:"Correct!",wrongAns:"Wrong",
 micTap:"Tap, then read aloud",micListening:"Listening… read now",micHeard:"Heard",micNo:"Didn't catch that. Try again.",micErr:"The microphone can't be used on this device.",swapQ:"Swap question",
 searchWord:"Search word, meaning or sentence",found:"words found",notFound:"No words found"});
 /* ---------- extra i18n ---------- */
@@ -726,12 +728,13 @@ function answerQ(ok){const Q=S.quiz,q=curQ();if(q.answered)return;q.answered=tru
   if(Q.phase==='main'){if(ok)Q.score++;else Q.wrong.push(q)}else if(ok)Q.fixed++}
 function oTap(id){const q=curQ();if(q.answered||q.ans.includes(id))return;q.ans.push(id);render()}
 function oBack(id){const q=curQ();if(q.answered)return;q.ans=q.ans.filter(x=>x!==id);render()}
-function oCheck(){const q=curQ();if(q.answered||q.ans.length<q.target.length)return;
+function oCheck(){const q=curQ();if(q.answered||!q.ans.length)return;
   const got=q.ans.map(id=>q.tiles.find(x=>x.id===id).txt.toLowerCase()).join(' ');answerQ(got===q.target.join(' '));render()}
 function gPick(i){const q=curQ();if(q.answered)return;q.gsel=i;render()}
 function gCheck(){const q=curQ();if(q.answered||q.gsel==null)return;q.gp=q.gsel;const ok=norm(q.gopts[q.gp])===norm(q.m.t);q.ok=ok;recGram(q.m.g,ok);answerQ(ok);render()}
 function pick(id){const q=curQ();if(q.answered)return;q.sel=id;render()}
 function qCheck(){const q=curQ();if(q.answered||q.sel==null)return;q.picked=q.sel;answerQ(q.picked===q.w.id);render()}
+const fbHTML=ok=>`<div class="fb ${ok?'g':'r'}" role="status"><span>${ic(ok?'check':'x',16)} ${ok?t('right'):t('wrongAns')}</span></div>`;
 const checkBtn=(on,fn)=>`<button class="btn chk" ${on?'':'disabled'} onclick="${fn}()">${t('checkAns')}</button>`;
 function mLeft(id){const q=curQ();if(q.answered||q.matched.includes(id))return;q.sel=id;q.flash=null;render()}
 function mRight(id){const q=curQ();if(q.answered||q.matched.includes(id)||q.sel==null)return;
@@ -778,8 +781,8 @@ function vQuiz(b){const Q=S.quiz;
     body=`<div class="qq qs2">“${esc(q.w.contoh_arti)}”</div>
     <div class="oans ${q.answered?(q.correct?'okb':'nob'):''}">${q.ans.length?q.ans.map(id=>`<button class="tile on" ${q.answered?'disabled':''} onclick="oBack(${id})">${esc(T(id).txt)}</button>`).join(''):`<span class="sm mu">${t('orderHint')}</span>`}</div>
     <div class="opool">${q.tiles.filter(x=>!q.ans.includes(x.id)).map(x=>`<button class="tile" ${q.answered?'disabled':''} onclick="oTap(${x.id})">${esc(x.txt)}</button>`).join('')}</div>
-    ${q.answered?(q.correct?'':`<div class="card reveal"><div class="tag">${t('correctSent')}</div><b>${esc(q.w.contoh)}</b> <button class="mini" aria-label="${t('listen')}" onclick="speak('${jsq(q.w.contoh)}',.85,this)">${ic('spk',15)}</button></div>`)
-     :`<button class="btn" ${q.ans.length<q.target.length?'disabled style="opacity:.45"':''} onclick="oCheck()">${t('check')}</button>`}`}
+    ${q.answered?fbHTML(q.correct)+(q.correct?'':`<div class="card reveal"><div class="tag">${t('correctSent')}</div><b>${esc(q.w.contoh)}</b> <button class="mini" aria-label="${t('listen')}" onclick="speak('${jsq(q.w.contoh)}',.85,this)">${ic('spk',15)}</button></div>`)
+     :checkBtn(q.ans.length>0,'oCheck')}`}
   else{const prompt=q.type==='en'?esc(q.w.arti):q.type==='cloze'?esc(clozeOf(q.w)):q.type==='sent'?`“${esc(q.w.contoh)}”`:
       `<div class="lis"><button class="spk big2" onclick="speak('${jsq(q.w.kata)}',.85,this)">${ic('spk',20)} ${t('play')}</button><button class="slow" aria-label="${t('slow')}" title="${t('slow')}" onclick="speak('${jsq(q.w.kata)}',.3,this)">${ic('turtle',24)}</button></div>`;
     const opts=q.opts.map(o=>{const txt=q.type==='sent'?o.contoh_arti:o.kata;let cls='';if(q.answered){if(o.id===q.w.id)cls='ok';else if(o.id===q.picked)cls='no'}else if(o.id===q.sel)cls='sel';
@@ -788,7 +791,7 @@ function vQuiz(b){const Q=S.quiz;
   const reveal=rev&&q.answered&&!q.correct?`<div class="card reveal"><div class="tag">${t('correctAns')}</div><b>${kw(q.w)}</b> · ${esc(q.w.arti)}
     <div class="sm mu" style="margin-top:4px">“${esc(q.w.contoh)}”</div>${q.w.contoh_arti?`<div class="sm" style="color:var(--ac)">${esc(q.w.contoh_arti)}</div>`:''}
     <button class="mini" style="margin-top:8px" aria-label="${t('listen')}" onclick="speak('${jsq(q.w.kata+'. '+q.w.contoh)}',.85,this)">${ic('spk',15)}</button></div>`:'';
-  const fb=q.answered&&!rev?`<p class="fb ${q.correct?'g':'r'}">${q.correct?t('right'):t('wrongAns')}</p>`:'';
+  const fb=q.answered&&q.type!=='order'&&q.type!=='gram'?fbHTML(q.correct):'';
   const btnLbl=rev?(Q.ri===Q.review.length-1?t('result'):t('next')):(Q.i===Q.qs.length-1?(Q.wrong.length?t('next'):t('result')):t('next'));
   return `<button class="back" onclick="stopAudio();S.mode='menu';render()">${ic('chevl',16)}${t('back')}</button>
   <div class="qhead"><span>${t('question')} ${idx+1}/${tot}</span><span class="qsc">${rev?`<span class="qx">${ic('x',12)} ${t('wrongN')} ${tot}</span>`:`<span class="qok">${ic('check',13)} ${Q.score}</span>${Q.wrong.length?`<span class="qx">${ic('x',12)} ${Q.wrong.length}</span>`:''}`}</span></div><div class="bar"><i style="width:${idx/tot*100}%"></i></div>
@@ -1028,7 +1031,7 @@ function glNext(){const g=S.glat;if(g.i<g.qs.length-1)g.i++;else g.done=true;ren
 function gramBody(q,onpick,oncheck){const g=GB[q.m.g]||{grup:'other',judul:q.m.g,penjelasan:''};
   return `<div class="qq qs2">${esc(q.blank).replace('_____','<span class="blank">_____</span>')}</div>${q.w.contoh_arti?`<p class="ctr">${esc(q.w.contoh_arti)}</p>`:''}
     ${q.gopts.map((o,i)=>{let cls='';if(q.answered){if(norm(o)===norm(q.m.t))cls='ok';else if(i===q.gp)cls='no'}else if(i===q.gsel)cls='sel';return `<button class="opt ${cls}" ${q.answered?'disabled':''} onclick="${onpick}(${i})">${esc(o)}</button>`}).join('')}
-    ${!q.answered&&oncheck?checkBtn(q.gsel!=null,oncheck):''}
+    ${!q.answered&&oncheck?checkBtn(q.gsel!=null,oncheck):''}${q.answered?fbHTML(!!q.ok):''}
     ${q.answered?`<div class="card gq-r g-${g.grup}"><div class="gt-h"><i class="gdot"></i><b>${esc(g.judul)}</b></div><p class="sm" style="margin:6px 0 0">${esc(g.penjelasan)}</p>${g.rumus?`<div class="rumus">${esc(g.rumus)}</div>`:''}<div class="sm" style="margin-top:6px">“${cs(q.w)}”</div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px">${explBtn(q.m.g,1,q.w.contoh,'sm3')}${!q.ok?waBtn(waQuiz(q,g),'sm3'):''}</div></div>`:''}`}
 function vGlat(){const G=S.glat,g=GB[G.key]||{judul:G.key,grup:'other'};const back=`<button class="back" onclick="S.mode='gram';S.gOpen='${G.key}';render()">${ic('chevl',16)}${t('grammar')}</button>`;
   if(G.done){const p=Math.round(G.score/G.qs.length*100);return back+`<div class="card" style="text-align:center;padding:28px 18px"><div class="tag">${t('practice')} · ${esc(g.judul)}</div><div style="font-size:44px;font-weight:700;color:var(--ac);margin:8px 0">${G.score}/${G.qs.length}</div>
