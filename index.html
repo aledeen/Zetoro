@@ -432,6 +432,8 @@ html.lgv[data-theme=light],html.lgv[data-theme=light] body{background:#fff}
 .lf svg{flex-shrink:0}
 .lf input{flex:1;min-width:0;width:auto;height:100%;border:0;background:none;padding:0 8px 0 0;font-size:15px;color:var(--tx);border-radius:0}
 .lf input:focus{border:0}
+.lf input:-webkit-autofill,.lf input:-webkit-autofill:hover,.lf input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 100px var(--lgfld) inset;box-shadow:0 0 0 100px var(--lgfld) inset;-webkit-text-fill-color:var(--tx);caret-color:var(--tx);transition:background-color 99999s}
+input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 100px var(--card2) inset;-webkit-text-fill-color:var(--tx);caret-color:var(--tx);transition:background-color 99999s}
 .lf .lf-eye{border:0;background:none;color:var(--mu);padding:8px;display:flex;cursor:pointer}
 .lg-err{margin-top:12px;font-size:13.5px;color:var(--bad);display:flex;gap:8px;align-items:center;animation:lgShake .45s}
 .lg-btn{margin-top:16px;width:100%;height:54px;border:0;border-radius:16px;background:var(--lgac);color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 8px 20px color-mix(in srgb,var(--lgac) 32%,transparent);transition:transform .15s,box-shadow .2s;position:relative;overflow:hidden}
@@ -523,7 +525,7 @@ button.back:hover{border:0;color:var(--ac);opacity:.75}button.back:active{transf
 .bnav{background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-top:1px solid var(--line)}
 .bnav button{padding:9px 4px 12px;font-size:10.5px;font-weight:600;gap:4px}
 .bnav svg{width:25px;height:25px}
-.bnav button.on.fl svg path:first-child{fill:currentColor}
+.bnav button:active svg{transform:scale(.88)}.bnav svg{transition:transform .15s}.bnav button.on span{font-weight:700}
 /* di browser (bukan aplikasi terpasang): tanggal, judul, dan kartu naik */
 @media (display-mode:browser){.lg-kick{margin-top:18px}.lg-top>h1{margin-top:8px}.lg-sheet{min-height:0}}
 @media (prefers-reduced-motion:reduce){.lg *,.lg *:before,.lg *:after{animation:none!important;transition:none!important}}
@@ -551,7 +553,7 @@ button.back:hover{border:0;color:var(--ac);opacity:.75}button.back:active{transf
 const T={
 id:{proto:"Prototipe — data contoh, akan reset saat halaman dimuat ulang",student:"Murid",teacher:"Guru",username:"Username",pin:"PIN",email:"Email",password:"Password",login:"Masuk",logout:"Keluar",
 loginTitle:"Selamat datang",loginSub:"Tambahkan ilmu di setiap waktumu",wrong:"Username atau PIN salah. Coba lagi.",wrongT:"Email atau password salah. Coba lagi.",fill:"Isi semua kolom dulu.",
-demo:"Akun contoh",hello:"Halo",yourBabs:"Bab kamu",words:"kata",mastered:"dikuasai",locked:"Terkunci",paket:"Paket",learn:"Belajar",score:"Penilaian",flash:"Flashcard",quiz:"Quiz",
+demo:"Akun contoh",hello:"Halo",yourBabs:"Bab",words:"kata",mastered:"dikuasai",locked:"Terkunci",paket:"Paket",learn:"Belajar",score:"Penilaian",flash:"Flashcard",quiz:"Quiz",
 flashSub:"Ketuk kartu untuk melihat arti",quizSub:"15 soal: kata + grammar, boleh diulang",tap:"Ketuk untuk melihat arti",listen:"Dengarkan",prev:"Sebelumnya",next:"Selanjutnya",back:"Kembali",
 q1:"Apa arti kata ini?",q2:"Bahasa Inggrisnya?",q3:"Dengarkan, lalu pilih katanya",play:"Putar suara",slow:"Putar pelan",question:"Soal",result:"Hasil quiz",again:"Ulangi quiz",done:"Selesai",
 baru:"Baru",belum:"Belum lancar",hafal:"Hafal",last:"Nilai terakhir",best:"Tertinggi",tries:"Percobaan",progress:"Progres",
@@ -564,7 +566,7 @@ gradeOf:"Penilaian",chooseBab:"Pilih bab",empty:"Belum ada kata",level:"Level",t
 teacherHi:"Panel guru",newMark:"Baru",theme:"Tema",of:"dari",paketLocked:"Paket ini belum dibuka guru",allWords:"Semua kata",tapShort:"ketuk untuk arti",tapHint:"Ketuk kata untuk melihat artinya",needSentence:"Contoh kalimat wajib diisi.",skipped:"baris dilewati karena belum ada contoh kalimat",sentence:"Kalimat"},
 en:{proto:"Prototype — sample data, resets on reload",student:"Student",teacher:"Teacher",username:"Username",pin:"PIN",email:"Email",password:"Password",login:"Sign in",logout:"Sign out",
 loginTitle:"Welcome",loginSub:"Add to your knowledge every moment",wrong:"Wrong username or PIN. Try again.",wrongT:"Wrong email or password. Try again.",fill:"Fill in every field first.",
-demo:"Demo accounts",hello:"Hi",yourBabs:"Your chapters",words:"words",mastered:"mastered",locked:"Locked",paket:"Set",learn:"Learn",score:"Score",flash:"Flashcards",quiz:"Quiz",
+demo:"Demo accounts",hello:"Hi",yourBabs:"Chapters",words:"words",mastered:"mastered",locked:"Locked",paket:"Set",learn:"Learn",score:"Score",flash:"Flashcards",quiz:"Quiz",
 flashSub:"Tap the card to see the meaning",quizSub:"15 questions: words + grammar, retry anytime",tap:"Tap to see the meaning",listen:"Listen",prev:"Previous",next:"Next",back:"Back",
 q1:"What does this word mean?",q2:"What's it in English?",q3:"Listen, then pick the word",play:"Play sound",slow:"Play slowly",question:"Question",result:"Quiz result",again:"Retry quiz",done:"Done",
 baru:"New",belum:"Not fluent",hafal:"Mastered",last:"Last score",best:"Best",tries:"Attempts",progress:"Progress",
@@ -825,12 +827,24 @@ function render(){{const d=$('gtip');if(d&&d.dataset.moved&&d.dataset.page!==pag
   const v={boot:()=>`<div class="big mu">${t('loading')}</div>`,login:vLogin,home:vHome,bab:vBab,admin:vAdmin,friends:vFriends,search:vSearch}[S.view];$('main').innerHTML=v();S.anim=false;renderNav();
   if(S.view==='bab'&&S.tab==='learn'&&S.mode==='quiz'&&S.quiz&&!S.quiz.done){const q=curQ();if(q.type==='listen'&&!q.played){q.played=true;setTimeout(()=>speak(q.w.kata,.85,document.querySelector('.lis .spk')),300)}}
 }
+const NAVI=(()=>{const W=(b,f)=>`<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${b}</svg>`,
+  H='M12 3.6 3.9 10.1a1.2 1.2 0 0 0-.4.9V19a2 2 0 0 0 2 2H9.3v-5.2a1.2 1.2 0 0 1 1.2-1.2h3a1.2 1.2 0 0 1 1.2 1.2V21h3.8a2 2 0 0 0 2-2v-8a1.2 1.2 0 0 0-.4-.9z',
+  BL='M11.25 6.3C9.3 4.9 6.6 4.4 3.5 4.8a.6.6 0 0 0-.5.6v12.8a.6.6 0 0 0 .7.6c3-.4 5.6.1 7.55 1.4z',BR='M12.75 6.3c1.95-1.4 4.65-1.9 7.75-1.5a.6.6 0 0 1 .5.6v12.8a.6.6 0 0 1-.7.6c-3-.4-5.6.1-7.55 1.4z',
+  C='<rect x="3.5" y="12" width="4.6" height="8.5" rx="1.6"/><rect x="9.7" y="3.5" width="4.6" height="17" rx="1.6"/><rect x="15.9" y="8" width="4.6" height="12.5" rx="1.6"/>',
+  U='<circle cx="9" cy="8" r="3.4"/><path d="M2.8 19.6c.5-3.5 3-5.6 6.2-5.6s5.7 2.1 6.2 5.6a.8.8 0 0 1-.8.9H3.6a.8.8 0 0 1-.8-.9z"/><circle cx="17" cy="8.6" r="2.7"/><path d="M16.6 13.4c2.7-.2 4.6 1.6 4.9 4.4a.7.7 0 0 1-.7.8h-3.3"/>',
+  F='M7.5 2.8h6.3a1.5 1.5 0 0 1 1.1.4l4.4 4.4a1.5 1.5 0 0 1 .4 1.1v10.8a1.7 1.7 0 0 1-1.7 1.7H7.5a1.7 1.7 0 0 1-1.7-1.7V4.5a1.7 1.7 0 0 1 1.7-1.7z';
+  return{home:[W(`<path d="${H}"/>`),W(`<path d="${H}" fill="currentColor"/>`)],
+   book:[W(`<path d="${BL}"/><path d="${BR}"/>`),W(`<path d="${BL}" fill="currentColor"/><path d="${BR}" fill="currentColor"/>`)],
+   chart:[W(C),W('<rect x="2.8" y="11.3" width="6" height="9.9" rx="2" fill="currentColor" stroke="none"/><rect x="9" y="2.8" width="6" height="18.4" rx="2" fill="currentColor" stroke="none"/><rect x="15.2" y="7.3" width="6" height="13.9" rx="2" fill="currentColor" stroke="none"/><path d="M8.5 21V12M14.9 21V8" stroke="var(--bg)" stroke-width="1.2"/>')],
+   users:[W(U),W(U.replace(/<circle /g,'<circle fill="currentColor" ').replace('<path d="M2.8','<path fill="currentColor" d="M2.8'))],
+   file:[W(`<path d="${F}"/><path d="M14 3v4.2a1 1 0 0 0 1 1h4.2M9 13h6M9 16.5h4"/>`),W(`<path d="${F}" fill="currentColor"/><path d="M9 13h6M9 16.5h4" stroke="var(--bg)" stroke-width="1.9"/>`)],
+   gram:[W('<path d="M3 18.5 7.6 6.2a.6.6 0 0 1 1.1 0l4.6 12.3M4.7 14.2h6.6"/><circle cx="17.3" cy="15" r="3.3"/><path d="M20.6 11.5v7"/>'),W('<path d="M3 18.5 7.6 6.2a.6.6 0 0 1 1.1 0l4.6 12.3M4.7 14.2h6.6" stroke-width="2.3"/><circle cx="17.3" cy="15" r="3.3" stroke-width="2.3"/><path d="M20.6 11.5v7" stroke-width="2.3"/>')]}})();
 function renderNav(){let items=[];
   if(S.role==='student'&&['home','bab','friends','search'].includes(S.view)){const inB=S.view==='bab';
     items=[['home',t('yourBabs'),"goHome()",S.view==='home'],['book',t('learn'),"navBab('learn')",inB&&S.tab==='learn'],['chart',t('score'),"navBab('score')",inB&&S.tab==='score']]}
   else if(S.role==='teacher'&&S.view==='admin')items=[['home',t('summary'),"aTab('sum')",S.aTab==='sum'||S.aTab==='grade'],['users',t('students'),"aTab('stu')",S.aTab==='stu'],['file',t('material'),"aTab('mat')",S.aTab==='mat'],['gram',t('grammar'),"aTab('gram')",S.aTab==='gram']];
   $('bnav').style.display=items.length?'':'none';
-  $('bnavIn').innerHTML=items.map(([ic,l,fn,on])=>`<button class="${on?'on':''} ${ic==='home'||ic==='book'?'fl':''}" onclick="${fn}">${icon[ic]}${l}</button>`).join('')}
+  $('bnavIn').innerHTML=items.map(([ic,l,fn,on])=>`<button class="${on?'on':''}" onclick="${fn}" ${on?'aria-current="page"':''}>${NAVI[ic]?NAVI[ic][on?1:0]:icon[ic]}<span>${l}</span></button>`).join('')}
 
 /* ---------- login ---------- */
 function emblem(){return `<svg class="emb" width="88" height="88" viewBox="0 0 88 88" aria-label="Zetoro">
