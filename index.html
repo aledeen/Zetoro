@@ -254,7 +254,7 @@ button.back .svi{vertical-align:0;color:var(--ac)}button.back:hover{border-color
 .ca{margin-top:6px;color:var(--ac);font-size:14px;font-style:italic}
 .wcard .ar2{display:none;color:var(--ac)}.wcard.open .ar2{display:block}
 .flbtn{background:none;border:1px solid var(--ac);color:var(--ac);border-radius:12px;padding:2px 9px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;letter-spacing:.5px;text-transform:none}
-.vpill.sm3{padding:4px 12px 4px 4px!important}.sm3{font-size:12px!important;padding:5px 11px!important;margin:0!important}
+.sm3{font-size:12px!important;padding:5px 11px!important;margin:0!important}
 .aplay{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:0 0 10px}
 .apb{width:38px;height:38px;border-radius:50%;background:var(--ac);color:var(--on);border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
 .aph{display:flex;justify-content:space-between;align-items:center;gap:8px}.apr{width:100%;accent-color:var(--ac);margin:6px 0 0;display:block}
@@ -283,12 +283,12 @@ button.back .svi{vertical-align:0;color:var(--ac)}button.back:hover{border-color
 .vfoot .vtime{min-width:64px;text-align:right}
 .vfoot .vwave{height:26px;margin:0;flex:1;min-width:0}.vfoot .vx{margin-left:-4px}
 .vsub{font-size:11.5px;color:var(--mu);display:flex;align-items:center;gap:5px}.vsub .svi{vertical-align:0}
-.vpill{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:20px;border:1px solid var(--line);background:var(--card2);color:var(--tx);font-size:12.5px;cursor:pointer;font-family:inherit}
-.vpill.talking{background:var(--card2)!important;color:var(--tx)!important;border-color:var(--ac)!important}
-.vpi{width:26px;height:26px;border-radius:50%;background:var(--ac);color:var(--on);display:grid;place-items:center;flex-shrink:0}
+
+
+
 .vpill .svi{display:inline-block!important;vertical-align:0}.vpill .ic-stop{display:none}.vpill.talking .ic-play{display:none}.vpill.talking .ic-stop{display:block}
-.vb{display:inline-flex;gap:2px;align-items:center;height:14px}.vb i{width:2px;border-radius:1px;background:var(--mu)}
-.vpill.talking .vb i{background:var(--ac);animation:vbar .8s ease-in-out infinite}
+
+
 .vrec,.vnew{display:flex;align-items:center;gap:10px;padding:8px 10px 8px 8px;border-radius:14px;border:1px solid var(--bad);background:linear-gradient(135deg,rgba(217,112,90,.14),var(--card2) 70%);margin:0 0 10px;width:100%}
 .vnew{border:1px dashed var(--line);background:var(--card2);cursor:pointer;color:var(--tx);font-family:inherit}.vnew:hover{border-color:var(--ac)}.vnew .vsub{margin-top:3px}
 .vrdot{width:36px;height:36px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;flex-shrink:0;animation:rpulse 1.4s ease-out infinite}
@@ -301,6 +301,15 @@ button.back .svi{vertical-align:0;color:var(--ac)}button.back:hover{border-color
 .ost{display:inline-flex;align-items:center;gap:6px;color:var(--mu);font-size:12px}.ost.on{color:#2E9E5B;font-weight:500}
 .odot{width:8px;height:8px;border-radius:50%;background:var(--line);flex-shrink:0;display:inline-block}.ost.on .odot{background:#2E9E5B;box-shadow:0 0 0 3px rgba(46,158,91,.18)}
 .onl{margin-bottom:12px}.onl-r{display:flex;align-items:center;gap:10px;padding:6px 0}.onl-r+.onl-r{border-top:1px solid var(--line)}
+.vpill{display:flex;width:100%;align-items:center;gap:12px;padding:8px 14px 8px 8px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(135deg,var(--acs),var(--card2) 75%);color:var(--tx);cursor:pointer;font-family:inherit;text-align:left;transition:border-color .15s,transform .1s;-webkit-tap-highlight-color:transparent}
+.vpill:hover{border-color:var(--ac)}.vpill:active{transform:scale(.98)}
+.vpill.sm3{padding:8px 14px 8px 8px!important;font-size:inherit!important}
+.vpill.talking{background:linear-gradient(135deg,var(--acs),var(--card2) 75%)!important;color:var(--tx)!important;border-color:var(--ac)!important}
+.vpi{width:34px;height:34px;border-radius:50%;background:var(--ac);color:var(--on);display:grid;place-items:center;flex-shrink:0;box-shadow:0 3px 10px rgba(208,138,91,.3)}
+.vpt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.3}.vpt b{font-size:13.5px;font-weight:600}.vpt small{font-size:11.5px;color:var(--mu)}
+.vpt .st-p{display:none;color:var(--ac)}.vpill.talking .st-i{display:none}.vpill.talking .st-p{display:inline}
+.vb{display:inline-flex;gap:2.5px;align-items:center;height:18px;flex-shrink:0}.vb i{width:3px;border-radius:2px;background:var(--line)}
+[data-theme=light] .vb i{background:#D9D2CA}.vpill.talking .vb i{background:var(--ac);animation:vbar .8s ease-in-out infinite}
 .wabtn{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:20px;border:1px solid #2E9E5B;color:#2E9E5B;text-decoration:none;font-size:13px;font-weight:500;background:none}
 .wabtn:hover{background:rgba(46,158,91,.1)}.wabtn.full{display:flex;justify-content:center;margin-top:12px}
 .lis{display:flex;align-items:center;justify-content:center;gap:10px}
@@ -352,9 +361,9 @@ wordList:"Word list",autoSplit:"Split into sets of 20 automatically",viewOnly:"O
 gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",total:"total words mastered",toNext:"more words to next level",maxLvl:"Top level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
-Object.assign(T.id,{listenExpl:"Dengarkan penjelasan",teacherVoiceSub:"Dijelaskan langsung oleh guru",autoVoiceSub:"Dibacakan otomatis",online:"Online",onlineNow:"Online sekarang",noneOnline:"Belum ada murid yang online.",lastActive:"Terakhir aktif",neverActive:"Belum pernah aktif",justNow:"baru saja",minAgo:"menit lalu",hourAgo:"jam lalu",yesterday:"kemarin",dayAgo:"hari lalu",actHome:"di beranda",actBab:"buka",actScore:"lihat penilaian",actFlash:"flashcard",actQuiz:"sedang quiz",actGram:"baca grammar",actGramList:"buka daftar grammar",actGlat:"latihan grammar",pause:"Jeda",vClose:"Matikan",teacherExpl:"Penjelasan guru",autoVoice:"Suara otomatis",recording:"Merekam…",recNotSaved:"Belum disimpan, dengar dulu sebelum menyimpan",recActive:"Rekaman ini yang didengar murid",teacherVoice:"Suara guru",audioPos:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Stop",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar ulang",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada, murid dengar suara otomatis",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
+Object.assign(T.id,{listenExpl:"Dengarkan penjelasan",shortExpl:"Versi singkat",nowPlaying:"Sedang diputar…",teacherVoiceSub:"Dijelaskan langsung oleh guru",autoVoiceSub:"Dibacakan otomatis",online:"Online",onlineNow:"Online sekarang",noneOnline:"Belum ada murid yang online.",lastActive:"Terakhir aktif",neverActive:"Belum pernah aktif",justNow:"baru saja",minAgo:"menit lalu",hourAgo:"jam lalu",yesterday:"kemarin",dayAgo:"hari lalu",actHome:"di beranda",actBab:"buka",actScore:"lihat penilaian",actFlash:"flashcard",actQuiz:"sedang quiz",actGram:"baca grammar",actGramList:"buka daftar grammar",actGlat:"latihan grammar",pause:"Jeda",vClose:"Matikan",teacherExpl:"Penjelasan guru",autoVoice:"Suara otomatis",recording:"Merekam…",recNotSaved:"Belum disimpan, dengar dulu sebelum menyimpan",recActive:"Rekaman ini yang didengar murid",teacherVoice:"Suara guru",audioPos:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Stop",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar ulang",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada, murid dengar suara otomatis",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
 askWa:"Tanya via WA",waNum:"Nomor WA",waNotSet:"Belum diisi",waHint:"Contoh: 0812 3456 7890",waSaved:"Nomor WA tersimpan",waCleared:"Nomor WA dihapus",waBad:"Nomor WA tidak valid"});
-Object.assign(T.en,{listenExpl:"Listen to explanation",teacherVoiceSub:"Explained by your teacher",autoVoiceSub:"Read aloud automatically",online:"Online",onlineNow:"Online now",noneOnline:"No students online.",lastActive:"Last active",neverActive:"Never active",justNow:"just now",minAgo:"min ago",hourAgo:"h ago",yesterday:"yesterday",dayAgo:"days ago",actHome:"on home",actBab:"opened",actScore:"viewing scores",actFlash:"flashcards",actQuiz:"taking a quiz",actGram:"reading grammar",actGramList:"browsing grammar",actGlat:"grammar practice",pause:"Pause",vClose:"Turn off",teacherExpl:"Explanation from teacher",autoVoice:"Automatic voice",recording:"Recording…",recNotSaved:"Not saved yet, listen before saving",recActive:"Students hear this recording",teacherVoice:"Teacher's voice",audioPos:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Play back",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"None yet, students hear the automatic voice",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
+Object.assign(T.en,{listenExpl:"Listen to explanation",shortExpl:"Short version",nowPlaying:"Playing…",teacherVoiceSub:"Explained by your teacher",autoVoiceSub:"Read aloud automatically",online:"Online",onlineNow:"Online now",noneOnline:"No students online.",lastActive:"Last active",neverActive:"Never active",justNow:"just now",minAgo:"min ago",hourAgo:"h ago",yesterday:"yesterday",dayAgo:"days ago",actHome:"on home",actBab:"opened",actScore:"viewing scores",actFlash:"flashcards",actQuiz:"taking a quiz",actGram:"reading grammar",actGramList:"browsing grammar",actGlat:"grammar practice",pause:"Pause",vClose:"Turn off",teacherExpl:"Explanation from teacher",autoVoice:"Automatic voice",recording:"Recording…",recNotSaved:"Not saved yet, listen before saving",recActive:"Students hear this recording",teacherVoice:"Teacher's voice",audioPos:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Play back",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"None yet, students hear the automatic voice",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
 askWa:"Ask via WhatsApp",waNum:"WhatsApp",waNotSet:"Not set",waHint:"e.g. 0812 3456 7890",waSaved:"WhatsApp number saved",waCleared:"WhatsApp number removed",waBad:"Invalid WhatsApp number"});
 let lang='id';const t=k=>T[lang][k]||k;
 Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",qOrder:"Susun kalimat ini dalam bahasa Inggris",changePhoto:"Ganti foto",removePhoto:"Hapus foto",editName:"Ubah nama",photoSaved:"Foto disimpan",photoRemoved:"Foto dihapus",nameSaved:"Nama disimpan",photoErr:"File harus berupa gambar.",orderHint:"Ketuk kata di bawah sesuai urutan",check:"Cek",checkAns:"Cek jawaban",correctSent:"Kalimat yang benar",
@@ -701,6 +710,20 @@ function startQuiz(){const b=bab(S.bab),ws=curWords(b);if(ws.length<4){toast(t('
 const orderToks=w=>w.contoh.trim().split(/\s+/).map(x=>{x=x.replace(/^[^\w']+/,'').replace(/[^\w'.]+$/,'');return /^([a-z]\.){2,}$/i.test(x)?x:x.replace(/\.+$/,'')}).filter(Boolean);
 const orderOk=w=>!!(w.contoh_arti&&w.contoh_arti.trim())&&orderToks(w).length>=3&&orderToks(w).length<=10;
 const SRClass=()=>window.SpeechRecognition||window.webkitSpeechRecognition;
+/* kalimat rumpang: jawaban mengikuti bentuk kata di kalimat (closes, closing, closed) */
+const IRR_PAST={be:'was',have:'had',do:'did',go:'went',eat:'ate',drink:'drank',write:'wrote',read:'read',sleep:'slept',sweep:'swept',take:'took',get:'got',come:'came',make:'made',see:'saw',buy:'bought',bring:'brought',think:'thought',teach:'taught',catch:'caught',run:'ran',sit:'sat',stand:'stood',swim:'swam',sing:'sang',begin:'began',give:'gave',find:'found',feel:'felt',keep:'kept',leave:'left',meet:'met',pay:'paid',say:'said',sell:'sold',send:'sent',spend:'spent',tell:'told',wear:'wore',win:'won',wake:'woke',put:'put',cut:'cut',hit:'hit',let:'let',set:'set',shut:'shut',hurt:'hurt',cost:'cost',know:'knew',grow:'grew',throw:'threw',fly:'flew',draw:'drew',drive:'drove',ride:'rode',speak:'spoke',break:'broke',choose:'chose',forget:'forgot',lose:'lost',hold:'held',hear:'heard',understand:'understood',fall:'fell',lie:'lay',light:'lit',become:'became',build:'built',fight:'fought',hang:'hung',hide:'hid',lend:'lent',shake:'shook',shine:'shone',steal:'stole',stick:'stuck',sweat:'sweat',feed:'fed',lead:'led',bite:'bit',blow:'blew',dig:'dug',freeze:'froze',mean:'meant',ring:'rang',rise:'rose',seek:'sought',shoot:'shot',sink:'sank',slide:'slid',spin:'spun',split:'split',spread:'spread',swing:'swung',tear:'tore',bend:'bent',bleed:'bled',deal:'dealt',dream:'dreamt'};
+const isCVC=w=>/^[^aeiou]*[aeiou][bdgklmnprt]$/.test(w)&&w.length<=4;
+function inflect(base,f){const b=base.toLowerCase();
+  if(f==='s'){if(b==='have')return 'has';if(b==='be')return 'is';if(b==='do'||b==='go')return b+'es';if(/(s|x|z|ch|sh|o)$/.test(b))return b+'es';if(/fe$/.test(b))return b.slice(0,-2)+'ves';if(/(leaf|loaf|half|shelf|wolf|thief|calf)$/.test(b))return b.slice(0,-1)+'ves';if(/[^aeiou]y$/.test(b))return b.slice(0,-1)+'ies';return b+'s'}
+  if(f==='ing'){if(/ie$/.test(b))return b.slice(0,-2)+'ying';if(/[^aeioy]e$/.test(b)&&b!=='be')return b.slice(0,-1)+'ing';if(isCVC(b))return b+b.slice(-1)+'ing';return b+'ing'}
+  if(f==='ed'){if(IRR_PAST[b])return IRR_PAST[b];if(/e$/.test(b))return b+'d';if(/[^aeiou]y$/.test(b))return b.slice(0,-1)+'ied';if(isCVC(b))return b+b.slice(-1)+'ed';return b+'ed'}
+  return base}
+function clozeInfo(w){const parts=w.kata.trim().split(/\s+/),esc2=x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const re=new RegExp('\\b'+parts.map(esc2).join('\\w*\\s+')+'\\w*','i'),m=w.contoh.match(re);if(!m)return null;
+  const got=m[0],first=got.split(/\s+/)[0].toLowerCase(),b0=parts[0].toLowerCase();let f='base';
+  if(first!==b0){if(first===inflect(b0,'s'))f='s';else if(first===inflect(b0,'ing')||/ing$/.test(first))f='ing';else if(first===inflect(b0,'ed')||/(ed|d)$/.test(first))f='ed';else f='other'}
+  return{got,f}}
+function clozeOpt(o,f){if(f==='base'||f==='other')return o.kata;const p=o.kata.trim().split(/\s+/);p[0]=inflect(p[0],f);return p.join(' ')}
 function clozeOf(w){const parts=w.kata.trim().split(/\s+/).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
   const re=new RegExp('\\b'+parts.join('\\w*\\s+')+'\\w*','i');return re.test(w.contoh)?w.contoh.replace(re,'_____'):null}
 function gramMarks(w){return markRanges(w.contoh||'',w.tanda).map(x=>x.m).filter(m=>m.d&&m.d.length>=2&&GB[m.g]&&GB[m.g].level<=myGL())}
@@ -721,7 +744,9 @@ function makeQ(type,w,ws,opt={}){const q={type,w,answered:false,correct:null,pic
     q.left=shuffle(set).map(x=>x.id);q.right=shuffle(set).map(x=>x.id);q.words=Object.fromEntries(set.map(x=>[x.id,x]));q.matched=[];q.sel=null;q.errors=0;q.flash=null}
   else if(type==='sent'){q.opts=shuffle([w,...others(w,ws,3,x=>x.contoh_arti&&norm(x.contoh_arti)!==norm(w.contoh_arti))])}
   else if(type==='read'){q.rec='idle';q.heard=null;q.marks=null}
-  else{q.opts=shuffle([w,...others(w,ws,3)])}
+  else{q.opts=shuffle([w,...others(w,ws,3)]);
+    if(type==='cloze'){const ci=clozeInfo(w);if(ci){q.ctext={};const seen=new Set();q.opts.forEach(o=>{const tx=o.id===w.id?ci.got:clozeOpt(o,ci.f);q.ctext[o.id]=tx});
+      const dup=new Set();q.opts=q.opts.filter(o=>{const k=norm(q.ctext[o.id]);if(dup.has(k)&&o.id!==w.id)return false;dup.add(k);return true})}}}
   return q}
 function curQ(){const Q=S.quiz;return Q.phase==='main'?Q.qs[Q.i]:Q.review[Q.ri]}
 function answerQ(ok){const Q=S.quiz,q=curQ();if(q.answered)return;q.answered=true;q.correct=ok;
@@ -785,7 +810,7 @@ function vQuiz(b){const Q=S.quiz;
      :checkBtn(q.ans.length>0,'oCheck')}`}
   else{const prompt=q.type==='en'?esc(q.w.arti):q.type==='cloze'?esc(clozeOf(q.w)):q.type==='sent'?`“${esc(q.w.contoh)}”`:
       `<div class="lis"><button class="spk big2" onclick="speak('${jsq(q.w.kata)}',.85,this)">${ic('spk',20)} ${t('play')}</button><button class="slow" aria-label="${t('slow')}" title="${t('slow')}" onclick="speak('${jsq(q.w.kata)}',.3,this)">${ic('turtle',24)}</button></div>`;
-    const opts=q.opts.map(o=>{const txt=q.type==='sent'?o.contoh_arti:o.kata;let cls='';if(q.answered){if(o.id===q.w.id)cls='ok';else if(o.id===q.picked)cls='no'}else if(o.id===q.sel)cls='sel';
+    const opts=q.opts.map(o=>{const txt=q.type==='sent'?o.contoh_arti:(q.ctext&&q.ctext[o.id])||o.kata;let cls='';if(q.answered){if(o.id===q.w.id)cls='ok';else if(o.id===q.picked)cls='no'}else if(o.id===q.sel)cls='sel';
       return `<button class="opt ${cls}" ${q.answered?'disabled':''} onclick="pick(${o.id})">${esc(txt)}</button>`}).join('');
     body=`<div class="qq ${q.type==='cloze'||q.type==='sent'?'qs2':''}">${prompt}</div>${q.type==='cloze'&&q.w.contoh_arti?`<p class="ctr">${esc(q.w.contoh_arti)}</p>`:''}${opts}${q.answered?'':checkBtn(q.sel!=null,'qCheck')}`}
   const reveal=rev&&q.answered&&!q.correct?`<div class="card reveal"><div class="tag">${t('correctAns')}</div><b>${kw(q.w)}</b> · ${esc(q.w.arti)}
@@ -1091,7 +1116,8 @@ function ttsPlay(id,idx){const T=ttsInfo(id);if(!T||!T.segs.length)return;stopAu
 function ttsPause(){const T=S.tts;if(!T||!T.playing)return;S.ttsGen=(S.ttsGen||0)+1;T.playing=false;clearInterval(S.ttsIv);try{speechSynthesis.cancel()}catch(e){}vcUI(T.key)}
 function ttsEnd(){const T=S.tts;if(!T)return;S.ttsGen=(S.ttsGen||0)+1;clearInterval(S.ttsIv);T.playing=false;S.tts=null;try{speechSynthesis.cancel()}catch(e){}vcUI(T.key)}
 function ttsToggle(id){const T=S.tts&&S.tts.key===id?S.tts:null;if(T&&T.playing){ttsPause();return}ttsPlay(id,T?T.idx:0)}
-function explBtn(key,short,sent,cls=''){return `<button class="vpill ${cls}" type="button" onclick="event.stopPropagation();explSay('${key}',${short?1:0},this,'${jsq(sent||'')}')"><span class="vpi"><span class="ic-play">${ic('play',12)}</span><span class="ic-stop">${ic('stop',10)}</span></span><span>${t('listenExpl')}</span><span class="vb">${[5,9,13,8,11,6].map((h,i)=>`<i style="height:${h}px;animation-delay:${i*.12}s"></i>`).join('')}</span></button>`}
+function explBtn(key,short,sent,cls=''){const g=GB[key],d=g?segsOf(gramParts(g,!!short,sent||null)).reduce((a,p)=>a+segEst(p),0):0;
+  return `<button class="vpill ${cls}" type="button" onclick="event.stopPropagation();explSay('${key}',${short?1:0},this,'${jsq(sent||'')}')"><span class="vpi"><span class="ic-play">${ic('play',14)}</span><span class="ic-stop">${ic('stop',12)}</span></span><span class="vpt"><b>${t('listenExpl')}</b><small><span class="st-i">${short?t('shortExpl'):t('autoVoice')} · ±${fmtT(d)}</span><span class="st-p">${t('nowPlaying')}</span></small></span><span class="vb" aria-hidden="true">${[6,11,16,9,14,7,12,8].map((h,i)=>`<i style="height:${h}px;animation-delay:${i*.1}s"></i>`).join('')}</span></button>`}
 function explSay(key,short,el,sent){const g=GB[key];if(g)speakSeq(gramParts(g,!!short,sent||null),el)}
 /* kartu pemutar (rekaman guru / TTS) */
 const AURL={};const fmtT=s=>{s=Math.max(0,Math.round(s||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
