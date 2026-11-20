@@ -1344,12 +1344,13 @@ function vFriends(){const fs=fr('friend'),rc=fr('received'),sn=fr('sent');
 function sMatch(txt,q){return norm(txt||'').includes(q)}
 function sHi(txt,q){const s=String(txt||''),i=norm(s).indexOf(q);if(!q||i<0)return esc(s);return esc(s.slice(0,i))+'<mark>'+esc(s.slice(i,i+q.length))+'</mark>'+esc(s.slice(i+q.length))}
 function babOfWord(w){return DB.babs.find(b=>b.id===w.bab_id)}
+function flashEl(el){el.classList.remove('flashhi');void el.offsetWidth;el.classList.add('flashhi');const done=()=>el.classList.remove('flashhi');el.addEventListener('animationend',done,{once:true});setTimeout(done,6500)}
 function goWord(id){const w=openWords().find(x=>x.id===id);if(!w)return;const b=babOfWord(w),i=b.words.findIndex(x=>x.id===id),p=Math.floor(i/20)+1;
   stopAudio();S.fPrev=null;S.bab=b.id;S.paket=Math.min(p,S.user.unlocked[b.id]||1);S.view='bab';S.tab='score';S.mode='menu';S.open=S.open||{};S.open[`${S.user.id}-${b.id}-${p}`]=true;render();
-  setTimeout(()=>{const el=document.querySelector(`[data-wid="${id}"]`);if(el){el.scrollIntoView({block:'center',behavior:'smooth'});el.classList.add('open');const row=el.closest('.wi')||el;row.classList.remove('flashhi');void row.offsetWidth;row.classList.add('flashhi')}},120)}
+  setTimeout(()=>{const el=document.querySelector(`[data-wid="${id}"]`);if(el){el.scrollIntoView({block:'center',behavior:'smooth'});el.classList.add('open');flashEl(el.closest('.wi')||el)}},120)}
 function goGramS(key){const u=S.user.unlocked||{};const id=(S.bab&&u[S.bab])?S.bab:(DB.babs.find(b=>u[b.id]&&b.words.length)||{}).id;if(!id){toast(t('noBabOpen'),3000);return}
   stopAudio();S.fPrev=null;S.bab=id;S.paket=Math.min(u[id],pakets(bab(id)));S.view='bab';S.tab='learn';S.gPrev='menu';S.mode='gram';S.gOpen=key;S.gAll=true;render();
-  setTimeout(()=>{const el=$('g_'+key);if(el){el.scrollIntoView({block:'start',behavior:'smooth'});el.classList.add('flashhi')}},120)}
+  setTimeout(()=>{const el=$('g_'+key);if(el){el.scrollIntoView({block:'start',behavior:'smooth'});flashEl(el)}},120)}
 function openSearch(){stopAudio();S.me=false;renderMe();S.sBack=S.view==='friends'?'friends':null;if(!['search','friends'].includes(S.view))S.fPrev={view:S.view,tab:S.tab,mode:S.mode};S.view='search';S.sf=S.sf||'all';render();scrollTo(0,0);
   setTimeout(()=>{const i=$('sq');if(i){i.value=S.sq||'';i.focus();i.setSelectionRange(i.value.length,i.value.length)}},40)}
 function closeSearch(){const i=$('sq');if(i)i.blur();if(S.sBack==='friends'){S.sBack=null;S.view='friends';render();scrollTo(0,0);return}closeFriends()}
