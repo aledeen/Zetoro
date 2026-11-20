@@ -2,8 +2,16 @@
 <html lang="id" data-theme="dark">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#000000">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000" id="themeColor">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Zetoro">
+<meta name="application-name" content="Zetoro">
+<meta name="description" content="Belajar vocabulary dan grammar bahasa Inggris bersama guru.">
 <title>Zetoro</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 88'%3E%3Ccircle cx='44' cy='44' r='42' fill='%23141210'/%3E%3Cpath d='M30 30h28L30 58h28' fill='none' stroke='%23D08A5B' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
@@ -359,11 +367,113 @@ header.searching>*:not(.hsearch){display:none!important}header.searching .hsearc
 .sr-user .btn{width:auto;flex-shrink:0}.sr-rc{padding:0}.sr-main{display:flex;align-items:center;gap:12px;flex:1;min-width:0;padding:8px 0 8px 16px;border:0;background:none;color:var(--tx);font:inherit;text-align:left;cursor:pointer}
 .sr-rc .sr-t b{font-weight:400}.sr-x{width:44px;height:44px;border:0;background:none;color:var(--mu);display:grid;place-items:center;cursor:pointer;flex-shrink:0;margin-right:4px}.sr-x .svi{vertical-align:0}
 .s-rh{display:flex;justify-content:space-between;align-items:center;margin:6px 0 2px;font-size:13px;color:var(--mu);font-weight:600}.s-rh button{border:0;background:none;color:var(--ac);font:inherit;font-weight:500;cursor:pointer;padding:6px 0}
+header{padding-top:max(12px,env(safe-area-inset-top))}header.searching{padding-top:max(8px,env(safe-area-inset-top))}
+.bnav{padding-bottom:env(safe-area-inset-bottom)}main{padding-bottom:calc(90px + env(safe-area-inset-bottom))}
+@media (display-mode:standalone){html,body{overscroll-behavior-y:none}body{-webkit-tap-highlight-color:transparent}}
+.inst{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:10px;border:1px dashed var(--line);border-radius:12px;background:none;color:var(--mu);font:inherit;font-size:13.5px;cursor:pointer}.inst:hover{color:var(--ac);border-color:var(--ac)}.inst .svi{vertical-align:0;color:var(--ac)}
 .wabtn{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:20px;border:1px solid #2E9E5B;color:#2E9E5B;text-decoration:none;font-size:13px;font-weight:500;background:none}
 .wabtn:hover{background:rgba(46,158,91,.1)}.wabtn.full{display:flex;justify-content:center;margin-top:12px}
 .lis{display:flex;align-items:center;justify-content:center;gap:10px}
 .slow{width:46px;height:46px;border-radius:50%;background:var(--card2);border:1px solid var(--line);color:var(--ac);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}.slow:hover{border-color:var(--ac)}.slow:active{transform:scale(.94)}
 .proto{font-size:11px;text-align:center;color:var(--mu);padding:6px;border-bottom:1px solid var(--line);background:var(--card)}
+/* ---------- login (editorial + flashcard) ---------- */
+.app.islogin header{display:none}.app.islogin main{padding:0;display:flex;flex-direction:column}
+html.lgv[data-theme=light],html.lgv[data-theme=light] body{background:#fff}
+.lg{--lgbg:var(--bg);--lgsh:#141210;--lgcard:#1C1916;--lgb1:#2A1E15;--lgb2:#3A2516;--lgfld:#0E0C0B;--lgfb:#2A2420;--lgseg:#221E1A;--lgind:#F1EBE4;--lgindt:#12100E;--lgac:var(--ac);--lghl:rgba(208,138,91,.28);--lgspk:var(--ac);
+ flex:1;display:flex;flex-direction:column;min-height:100vh;min-height:100dvh;background:var(--lgbg);overflow:hidden}
+[data-theme=light] .lg{--lgbg:#FFFFFF;--lgsh:#FAF7F3;--lgcard:#FFFFFF;--lgb1:#FBEEE3;--lgb2:#F6E3D3;--lgfld:#FFFFFF;--lgfb:#EDE5DC;--lgseg:#F0E9E1;--lgind:#FFFFFF;--lgindt:#17120E;--lgac:#C2733F;--lghl:#F8DFCB;--lgspk:#17120E}
+.lg-top{flex:1;padding:max(22px,calc(env(safe-area-inset-top) + 14px)) 24px 0}
+.lg-bar{display:flex;align-items:center;gap:8px}
+.lg-wm{margin-right:auto;display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:5px;font-size:13px}
+.lg-z{width:28px;height:28px;border-radius:9px;background:var(--tx);display:grid;place-items:center}
+.lg-pill{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:20px;border:1.5px solid var(--tx);background:none;color:var(--tx);font-size:11.5px;font-weight:700;letter-spacing:.6px;cursor:pointer}
+.lg-th{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--lgfb);background:none;color:var(--tx);display:grid;place-items:center;cursor:pointer;padding:0}
+.lg-pill:active,.lg-th:active{transform:scale(.94)}
+.lg-kick{margin-top:30px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--lgac);font-weight:700;display:flex;align-items:center;gap:10px}
+.lg-kick:after{content:"";flex:1;height:1px;background:var(--lgfb);transform-origin:left}
+.lg h1{font-family:Georgia,"Times New Roman",serif;font-size:38px;line-height:1.06;font-weight:700;margin:10px 0 0;letter-spacing:-1.1px}
+.lg h1 .hl{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}.lg h1 .hl>span{display:inline-block}
+.lg h1 em{color:var(--lgac);font-style:italic;background:linear-gradient(var(--lghl),var(--lghl)) no-repeat 0 86%/100% .26em}
+.lg-stack{position:relative;height:140px;margin:26px 12px 30px;perspective:1100px}
+.lg-fc{position:absolute;inset:0;border-radius:22px}
+.lg-fc.b2{background:var(--lgb2);transform:rotate(-6deg) translate(-6px,8px)}
+.lg-fc.b1{background:var(--lgb1);transform:rotate(4deg) translate(8px,4px)}
+.lg-fc.f{animation:lgFloat 5s ease-in-out infinite;cursor:pointer;outline:none}
+.lg-flip{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,1.35,.5,1)}
+.lg-fc.f.flipped .lg-flip{transform:rotateY(180deg)}
+.lg-face{position:absolute;inset:0;border-radius:22px;background:var(--lgcard);border:1px solid var(--lgfb);box-shadow:0 12px 30px rgba(60,40,20,.12);padding:16px 18px 14px 20px;display:flex;flex-direction:column;justify-content:space-between;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.lg-face.bk{transform:rotateY(180deg)}
+.lg-face .r{display:flex;justify-content:space-between;align-items:center}
+.lg-face small{font-size:10.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--lgac);font-weight:700}
+.lg-w{font-family:Georgia,"Times New Roman",serif;font-size:32px;font-weight:700;letter-spacing:-.8px;line-height:1.1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lg-ar{font-family:Georgia,"Times New Roman",serif;font-size:24px;font-weight:700;color:var(--lgac);line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lg-ex{font-size:13px;color:var(--tx);font-style:italic;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lg-ex span{display:block;font-style:normal;color:var(--mu);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lg-tap{font-size:12.5px;color:var(--mu);display:flex;gap:6px;align-items:center}
+.lg-tap svg{animation:lgSpinHint 4s ease-in-out 2s infinite}
+.lg-spk{width:38px;height:38px;border-radius:50%;border:0;background:var(--lgspk);color:#fff;display:grid;place-items:center;cursor:pointer;padding:0;position:relative;flex-shrink:0}
+.lg-spk .wave{display:none}.lg-spk:active{transform:scale(.92)}
+.lg-spk.talking:before,.lg-spk.talking:after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--lgac);animation:lgRing 1.4s ease-out infinite}
+.lg-spk.talking:after{animation-delay:.7s}
+.lg-sheet{background:var(--lgsh);border-radius:30px 30px 0 0;padding:12px 22px calc(20px + env(safe-area-inset-bottom));border-top:1px solid var(--lgfb)}
+.lg-handle{width:40px;height:4px;border-radius:2px;background:var(--lgfb);margin:0 auto 16px}
+.lg-seg{position:relative;display:flex;background:var(--lgseg);border-radius:14px;padding:4px}
+.lg-seg i{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:11px;background:var(--lgind);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.lg-seg.r i{transform:translateX(100%)}
+.lg-seg.mv.r i{animation:lgSegR .38s cubic-bezier(.3,1.3,.5,1)}.lg-seg.mv:not(.r) i{animation:lgSegL .38s cubic-bezier(.3,1.3,.5,1)}
+.lg-seg button{position:relative;z-index:1;flex:1;border:0;background:none;padding:9px;font-size:14px;font-weight:700;color:var(--mu);cursor:pointer;transition:color .3s}
+.lg-seg button.on{color:var(--lgindt)}
+.lg-sub{font-size:13px;color:var(--mu);margin:14px 2px 0}.lg-sub b{display:block;color:var(--tx);font-size:16px;margin-bottom:2px}
+.lf{display:flex;align-items:center;gap:10px;height:52px;border-radius:14px;background:var(--lgfld);border:1.5px solid var(--lgfb);padding:0 6px 0 14px;margin-top:12px;color:var(--mu);transition:border-color .25s,box-shadow .25s,color .25s;cursor:text}
+.lf:focus-within{border-color:var(--lgac);color:var(--lgac);box-shadow:0 0 0 4px color-mix(in srgb,var(--lgac) 16%,transparent)}
+.lf svg{flex-shrink:0}
+.lf input{flex:1;min-width:0;width:auto;height:100%;border:0;background:none;padding:0 8px 0 0;font-size:15px;color:var(--tx);border-radius:0}
+.lf input:focus{border:0}
+.lf .lf-eye{border:0;background:none;color:var(--mu);padding:8px;display:flex;cursor:pointer}
+.lg-err{margin-top:12px;font-size:13.5px;color:var(--bad);display:flex;gap:8px;align-items:center;animation:lgShake .45s}
+.lg-btn{margin-top:16px;width:100%;height:54px;border:0;border-radius:16px;background:var(--lgac);color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 8px 20px color-mix(in srgb,var(--lgac) 32%,transparent);transition:transform .15s,box-shadow .2s;position:relative;overflow:hidden}
+.lg-btn svg{transition:transform .25s}.lg-btn:hover svg{transform:translateX(4px)}.lg-btn:active{transform:scale(.97)}
+.lg-btn:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);transform:translateX(-100%)}
+.lg-btn.ld{pointer-events:none}.lg-btn.ld:after{animation:lgShine 1s linear infinite}.lg-btn.ld svg{animation:lgNudge .6s ease-in-out infinite alternate}
+.lg-inst{margin:14px auto 0;display:flex;justify-content:center;gap:7px;align-items:center;color:var(--mu);font-size:13px;font-weight:600;background:none;border:0;cursor:pointer;padding:6px 10px}
+.lg-inst svg{color:var(--lgac)}.lg-inst:hover{color:var(--lgac)}
+/* entry animation */
+.lg-lt{display:inline-flex}.lg-lt span{display:inline-block}
+.lg.go .lg-z{animation:lgZ .8s cubic-bezier(.3,1.5,.5,1) both}.lg.go .lg-z svg path{stroke-dasharray:120;animation:lgZd 1s .25s ease-out both}
+.lg.go .lg-lt span{animation:lgLetter .8s cubic-bezier(.2,.9,.3,1.2) both}
+.lg.go .lg-th,.lg.go .lg-pill{animation:lgDown .8s 1.5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes lgZ{from{opacity:0;transform:scale(.4) rotate(-20deg)}to{opacity:1;transform:none}}
+@keyframes lgZd{from{stroke-dashoffset:120}to{stroke-dashoffset:0}}
+@keyframes lgLetter{from{opacity:0;transform:translateX(-14px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+.lg.go .lg-kick{animation:lgFade .9s 1.4s both}.lg.go .lg-kick:after{animation:lgLine 1.3s 1.6s cubic-bezier(.6,0,.2,1) both}
+.lg.go h1 .hl>span{animation:lgRise 1.1s cubic-bezier(.2,.9,.25,1) both}
+.lg.go h1 em{animation:lgMark 1s 3s cubic-bezier(.6,0,.2,1) both}
+.lg.go .lg-fc.b2{animation:lgFan2 .9s 2.6s cubic-bezier(.3,1.3,.5,1) both}
+.lg.go .lg-fc.b1{animation:lgFan1 .9s 2.55s cubic-bezier(.3,1.3,.5,1) both}
+.lg.go .lg-fc.f{animation:lgDrop .9s 2.4s cubic-bezier(.3,1.25,.5,1) both,lgFloat 5s 3.4s ease-in-out infinite}
+.lg.go .lg-sheet{animation:lgUp .75s .3s cubic-bezier(.2,.9,.25,1) both}
+.lg.go .lg-sheet>*:not(.lg-handle){animation:lgFadeUp .5s both}
+.lg.go .lg-sheet>:nth-child(2){animation-delay:.6s}.lg.go .lg-sheet>:nth-child(3){animation-delay:.67s}.lg.go .lg-sheet>:nth-child(4){animation-delay:.74s}.lg.go .lg-sheet>:nth-child(5){animation-delay:.81s}.lg.go .lg-sheet>:nth-child(6){animation-delay:.88s}.lg.go .lg-sheet>:nth-child(7){animation-delay:.95s}.lg.go .lg-sheet>:nth-child(8){animation-delay:1s}
+.lg-sheet.lgsw .lg-fs>*{animation:lgFadeUp .4s both}.lg-sheet.lgsw .lg-fs>:nth-child(2){animation-delay:.05s}.lg-sheet.lgsw .lg-fs>:nth-child(3){animation-delay:.1s}.lg-sheet.lgsw .lg-fs>:nth-child(4){animation-delay:.15s}.lg-sheet.lgsw .lg-fs>:nth-child(5){animation-delay:.2s}
+@keyframes lgDown{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes lgFade{from{opacity:0}to{opacity:1}}
+@keyframes lgLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes lgRise{from{transform:translateY(105%)}to{transform:none}}
+@keyframes lgMark{from{background-size:0% .26em}to{background-size:100% .26em}}
+@keyframes lgFan2{from{opacity:0;transform:none}to{opacity:1;transform:rotate(-6deg) translate(-6px,8px)}}
+@keyframes lgFan1{from{opacity:0;transform:none}to{opacity:1;transform:rotate(4deg) translate(8px,4px)}}
+@keyframes lgDrop{from{opacity:0;transform:translateY(-36px) rotate(-5deg) scale(.94)}to{opacity:1;transform:none}}
+@keyframes lgFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes lgUp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes lgFadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes lgSegR{from{transform:none}to{transform:translateX(100%)}}
+@keyframes lgSegL{from{transform:translateX(100%)}to{transform:none}}
+@keyframes lgSpinHint{0%,70%{transform:none}85%,100%{transform:rotate(360deg)}}
+@keyframes lgRing{from{transform:scale(1);opacity:.8}to{transform:scale(1.7);opacity:0}}
+@keyframes lgShake{0%,100%{transform:none}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@keyframes lgShine{to{transform:translateX(100%)}}
+@keyframes lgNudge{to{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.lg *,.lg *:before,.lg *:after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -413,9 +523,9 @@ wordList:"Word list",autoSplit:"Split into sets of 20 automatically",viewOnly:"O
 gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",total:"total words mastered",toNext:"more words to next level",maxLvl:"Top level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
-Object.assign(T.id,{listenExpl:"Dengarkan penjelasan",sAll:"Semua",sRecent:"Pencarian terakhir",sClearAll:"Hapus semua",sBab:"Bab",sWord:"Kata",search:"Cari",sPh:"Cari kata, arti, grammar, bab",sHint:"Ketik huruf atau kata untuk mencari kata, arti, grammar, atau bab.",sNone:"Tidak ada hasil untuk",sPeople:"Murid",sBabs:"Bab",sWords:"Kata",sMore:"kata lagi, ketik lebih spesifik",sUserHint:"Mencari teman? Pastikan username-nya diketik persis.",frFind:"Cari teman",frFindSub:"Ketik username teman di pencarian",noBabOpen:"Belum ada bab yang dibuka guru.",profile:"Profil",lvn1:"Pemula",lvn2:"Fondasi",lvn3:"Dasar",lvn4:"Menengah",lvn5:"Atas",lvn6:"Fasih",friends:"Teman",frNew:"baru",frSearchPh:"Cari username teman",frSearch:"Cari",frHint:"Ketik username persis, misalnya budi. Huruf besar/kecil tidak masalah.",frNotFound:"Tidak ada murid dengan username",frAdd:"Tambah",frCancel:"Batalkan",frAccept:"Terima",frReject:"Tolak",frIsFriend:"Teman",frWantsYou:"ingin berteman",frWaiting:"menunggu",frRequests:"Permintaan pertemanan",frMine:"Teman kamu",frSentH:"Permintaan terkirim",frEmpty:"Belum ada teman. Cari username temanmu di atas.",frHafal:"kata hafal",frLearning:"Sedang belajar",frBest:"Nilai quiz tertinggi",frNoQuiz:"Belum pernah quiz",frRemove:"Hapus teman",frAskRemove:"Hapus teman?",frAskRemoveMsg:"tidak akan bisa melihat progresmu lagi, dan kamu juga tidak bisa melihat progresnya.",frSent:"Permintaan pertemanan terkirim",frNowFriends:"Sekarang kalian berteman",frRejected:"Permintaan ditolak",frCanceled:"Permintaan dibatalkan",frRemoved:"Teman dihapus",bioPh:"Tulis sesuatu…",bioLbl:"Bio",bioSaved:"Bio tersimpan",gramQuizScore:"Nilai grammar ini di quiz",shortExpl:"Versi singkat",nowPlaying:"Sedang diputar…",teacherVoiceSub:"Dijelaskan langsung oleh guru",autoVoiceSub:"Dibacakan otomatis",online:"Online",onlineNow:"Online sekarang",noneOnline:"Belum ada murid yang online.",lastActive:"Terakhir aktif",neverActive:"Belum pernah aktif",justNow:"baru saja",minAgo:"menit lalu",hourAgo:"jam lalu",yesterday:"kemarin",dayAgo:"hari lalu",actHome:"di beranda",actBab:"buka",actScore:"lihat penilaian",actFlash:"flashcard",actQuiz:"sedang quiz",actGram:"baca grammar",actGramList:"buka daftar grammar",actGlat:"latihan grammar",pause:"Jeda",vClose:"Matikan",teacherExpl:"Penjelasan guru",autoVoice:"Suara otomatis",recording:"Merekam…",recNotSaved:"Belum disimpan, dengar dulu sebelum menyimpan",recActive:"Rekaman ini yang didengar murid",teacherVoice:"Suara guru",audioPos:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Berhenti",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar ulang",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada, murid dengar suara otomatis",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
+Object.assign(T.id,{lgH1:"Satu kata sehari,<br><em>lancar</em> bertahap.",wod:"Kata hari ini",wodTap:"Ketuk untuk lihat arti",wodMeaning:"Artinya",showPw:"Tampilkan",listenExpl:"Dengarkan penjelasan",instBtn:"Pasang aplikasi",instTitle:"Pasang Zetoro",instIOS:"Di Safari, ketuk tombol <b>Bagikan</b> (kotak dengan panah ke atas) di bawah layar, lalu pilih <b>Tambahkan ke Layar Utama</b>. Ikon Zetoro akan muncul di HP kamu.",instOther:"Buka menu browser (titik tiga ⋮), lalu pilih <b>Pasang aplikasi</b> atau <b>Tambahkan ke layar utama</b>.",instDone:"Zetoro terpasang di HP kamu",sAll:"Semua",sRecent:"Pencarian terakhir",sClearAll:"Hapus semua",sBab:"Bab",sWord:"Kata",search:"Cari",sPh:"Cari kata, arti, grammar, bab",sHint:"Ketik huruf atau kata untuk mencari kata, arti, grammar, atau bab.",sNone:"Tidak ada hasil untuk",sPeople:"Murid",sBabs:"Bab",sWords:"Kata",sMore:"kata lagi, ketik lebih spesifik",sUserHint:"Mencari teman? Pastikan username-nya diketik persis.",frFind:"Cari teman",frFindSub:"Ketik username teman di pencarian",noBabOpen:"Belum ada bab yang dibuka guru.",profile:"Profil",lvn1:"Pemula",lvn2:"Fondasi",lvn3:"Dasar",lvn4:"Menengah",lvn5:"Atas",lvn6:"Fasih",friends:"Teman",frNew:"baru",frSearchPh:"Cari username teman",frSearch:"Cari",frHint:"Ketik username persis, misalnya budi. Huruf besar/kecil tidak masalah.",frNotFound:"Tidak ada murid dengan username",frAdd:"Tambah",frCancel:"Batalkan",frAccept:"Terima",frReject:"Tolak",frIsFriend:"Teman",frWantsYou:"ingin berteman",frWaiting:"menunggu",frRequests:"Permintaan pertemanan",frMine:"Teman kamu",frSentH:"Permintaan terkirim",frEmpty:"Belum ada teman. Cari username temanmu di atas.",frHafal:"kata hafal",frLearning:"Sedang belajar",frBest:"Nilai quiz tertinggi",frNoQuiz:"Belum pernah quiz",frRemove:"Hapus teman",frAskRemove:"Hapus teman?",frAskRemoveMsg:"tidak akan bisa melihat progresmu lagi, dan kamu juga tidak bisa melihat progresnya.",frSent:"Permintaan pertemanan terkirim",frNowFriends:"Sekarang kalian berteman",frRejected:"Permintaan ditolak",frCanceled:"Permintaan dibatalkan",frRemoved:"Teman dihapus",bioPh:"Tulis sesuatu…",bioLbl:"Bio",bioSaved:"Bio tersimpan",gramQuizScore:"Nilai grammar ini di quiz",shortExpl:"Versi singkat",nowPlaying:"Sedang diputar…",teacherVoiceSub:"Dijelaskan langsung oleh guru",autoVoiceSub:"Dibacakan otomatis",online:"Online",onlineNow:"Online sekarang",noneOnline:"Belum ada murid yang online.",lastActive:"Terakhir aktif",neverActive:"Belum pernah aktif",justNow:"baru saja",minAgo:"menit lalu",hourAgo:"jam lalu",yesterday:"kemarin",dayAgo:"hari lalu",actHome:"di beranda",actBab:"buka",actScore:"lihat penilaian",actFlash:"flashcard",actQuiz:"sedang quiz",actGram:"baca grammar",actGramList:"buka daftar grammar",actGlat:"latihan grammar",pause:"Jeda",vClose:"Matikan",teacherExpl:"Penjelasan guru",autoVoice:"Suara otomatis",recording:"Merekam…",recNotSaved:"Belum disimpan, dengar dulu sebelum menyimpan",recActive:"Rekaman ini yang didengar murid",teacherVoice:"Suara guru",audioPos:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Berhenti",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar ulang",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada, murid dengar suara otomatis",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
 askWa:"Tanya via WA",waNum:"Nomor WA",waNotSet:"Belum diisi",waHint:"Contoh: 0812 3456 7890",waSaved:"Nomor WA tersimpan",waCleared:"Nomor WA dihapus",waBad:"Nomor WA tidak valid"});
-Object.assign(T.en,{listenExpl:"Listen to explanation",sAll:"All",sRecent:"Recent searches",sClearAll:"Clear all",sBab:"Chapter",sWord:"Word",search:"Search",sPh:"Search words, grammar, chapters",sHint:"Type a letter or word to search words, meanings, grammar or chapters.",sNone:"No results for",sPeople:"Students",sBabs:"Chapters",sWords:"Words",sMore:"more words, try a more specific search",sUserHint:"Looking for a friend? Make sure the username is exact.",frFind:"Find friends",frFindSub:"Type a friend's username in search",noBabOpen:"Your teacher hasn't opened a chapter yet.",profile:"Profile",lvn1:"Starter",lvn2:"Foundation",lvn3:"Elementary",lvn4:"Intermediate",lvn5:"Upper",lvn6:"Fluent",friends:"Friends",frNew:"new",frSearchPh:"Search a friend's username",frSearch:"Search",frHint:"Type the exact username, e.g. budi. Upper/lower case doesn't matter.",frNotFound:"No student with username",frAdd:"Add",frCancel:"Cancel",frAccept:"Accept",frReject:"Decline",frIsFriend:"Friends",frWantsYou:"wants to be friends",frWaiting:"pending",frRequests:"Friend requests",frMine:"Your friends",frSentH:"Sent requests",frEmpty:"No friends yet. Search your friend's username above.",frHafal:"words mastered",frLearning:"Currently learning",frBest:"Best quiz scores",frNoQuiz:"No quiz yet",frRemove:"Remove friend",frAskRemove:"Remove friend?",frAskRemoveMsg:"won't be able to see your progress anymore, and you won't see theirs.",frSent:"Friend request sent",frNowFriends:"You're now friends",frRejected:"Request declined",frCanceled:"Request canceled",frRemoved:"Friend removed",bioPh:"Write something…",bioLbl:"Bio",bioSaved:"Bio saved",gramQuizScore:"Your quiz score for this",shortExpl:"Short version",nowPlaying:"Playing…",teacherVoiceSub:"Explained by your teacher",autoVoiceSub:"Read aloud automatically",online:"Online",onlineNow:"Online now",noneOnline:"No students online.",lastActive:"Last active",neverActive:"Never active",justNow:"just now",minAgo:"min ago",hourAgo:"h ago",yesterday:"yesterday",dayAgo:"days ago",actHome:"on home",actBab:"opened",actScore:"viewing scores",actFlash:"flashcards",actQuiz:"taking a quiz",actGram:"reading grammar",actGramList:"browsing grammar",actGlat:"grammar practice",pause:"Pause",vClose:"Turn off",teacherExpl:"Explanation from teacher",autoVoice:"Automatic voice",recording:"Recording…",recNotSaved:"Not saved yet, listen before saving",recActive:"Students hear this recording",teacherVoice:"Teacher's voice",audioPos:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Play back",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"None yet, students hear the automatic voice",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
+Object.assign(T.en,{lgH1:"One word a day,<br><em>fluent</em> step by step.",wod:"Word of the day",wodTap:"Tap to see the meaning",wodMeaning:"Meaning",showPw:"Show",listenExpl:"Listen to explanation",instBtn:"Install app",instTitle:"Install Zetoro",instIOS:"In Safari, tap the <b>Share</b> button (square with an up arrow) at the bottom, then choose <b>Add to Home Screen</b>. The Zetoro icon will appear on your phone.",instOther:"Open the browser menu (three dots ⋮), then choose <b>Install app</b> or <b>Add to Home screen</b>.",instDone:"Zetoro is installed on your phone",sAll:"All",sRecent:"Recent searches",sClearAll:"Clear all",sBab:"Chapter",sWord:"Word",search:"Search",sPh:"Search words, grammar, chapters",sHint:"Type a letter or word to search words, meanings, grammar or chapters.",sNone:"No results for",sPeople:"Students",sBabs:"Chapters",sWords:"Words",sMore:"more words, try a more specific search",sUserHint:"Looking for a friend? Make sure the username is exact.",frFind:"Find friends",frFindSub:"Type a friend's username in search",noBabOpen:"Your teacher hasn't opened a chapter yet.",profile:"Profile",lvn1:"Starter",lvn2:"Foundation",lvn3:"Elementary",lvn4:"Intermediate",lvn5:"Upper",lvn6:"Fluent",friends:"Friends",frNew:"new",frSearchPh:"Search a friend's username",frSearch:"Search",frHint:"Type the exact username, e.g. budi. Upper/lower case doesn't matter.",frNotFound:"No student with username",frAdd:"Add",frCancel:"Cancel",frAccept:"Accept",frReject:"Decline",frIsFriend:"Friends",frWantsYou:"wants to be friends",frWaiting:"pending",frRequests:"Friend requests",frMine:"Your friends",frSentH:"Sent requests",frEmpty:"No friends yet. Search your friend's username above.",frHafal:"words mastered",frLearning:"Currently learning",frBest:"Best quiz scores",frNoQuiz:"No quiz yet",frRemove:"Remove friend",frAskRemove:"Remove friend?",frAskRemoveMsg:"won't be able to see your progress anymore, and you won't see theirs.",frSent:"Friend request sent",frNowFriends:"You're now friends",frRejected:"Request declined",frCanceled:"Request canceled",frRemoved:"Friend removed",bioPh:"Write something…",bioLbl:"Bio",bioSaved:"Bio saved",gramQuizScore:"Your quiz score for this",shortExpl:"Short version",nowPlaying:"Playing…",teacherVoiceSub:"Explained by your teacher",autoVoiceSub:"Read aloud automatically",online:"Online",onlineNow:"Online now",noneOnline:"No students online.",lastActive:"Last active",neverActive:"Never active",justNow:"just now",minAgo:"min ago",hourAgo:"h ago",yesterday:"yesterday",dayAgo:"days ago",actHome:"on home",actBab:"opened",actScore:"viewing scores",actFlash:"flashcards",actQuiz:"taking a quiz",actGram:"reading grammar",actGramList:"browsing grammar",actGlat:"grammar practice",pause:"Pause",vClose:"Turn off",teacherExpl:"Explanation from teacher",autoVoice:"Automatic voice",recording:"Recording…",recNotSaved:"Not saved yet, listen before saving",recActive:"Students hear this recording",teacherVoice:"Teacher's voice",audioPos:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Play back",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"None yet, students hear the automatic voice",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
 askWa:"Ask via WhatsApp",waNum:"WhatsApp",waNotSet:"Not set",waHint:"e.g. 0812 3456 7890",waSaved:"WhatsApp number saved",waCleared:"WhatsApp number removed",waBad:"Invalid WhatsApp number"});
 let lang='id';const t=k=>T[lang][k]||k;
 Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",qOrder:"Susun kalimat ini dalam bahasa Inggris",changePhoto:"Ganti foto",removePhoto:"Hapus foto",editName:"Ubah nama",photoSaved:"Foto disimpan",photoRemoved:"Foto dihapus",nameSaved:"Nama disimpan",photoErr:"File harus berupa gambar.",orderHint:"Ketuk kata di bawah sesuai urutan",check:"Cek",checkAns:"Cek jawaban",correctSent:"Kalimat yang benar",
@@ -498,6 +608,7 @@ function renderMe(){const m=$('meMenu');if(!S.user||!S.me){m.style.display='none
     :`<button class="me-it" onclick="S.meWa=true;S.meEdit=false;renderMe();setTimeout(()=>$('myWa')&&$('myWa').focus(),30)">${ic('chat',16)} <span class="grow">${t('waNum')}</span><span class="me-v">${DB.wa?'+'+esc(DB.wa):t('waNotSet')}</span></button>`)
     :(DB.wa?`<a class="me-it" href="${esc(waUrl(waHi()+(lang==='en'?'I have a question: ':'Saya mau tanya: ')))}" target="_blank" rel="noopener" onclick="S.me=false;renderMe()">${ic('chat',16)} ${t('askWa')}</a>`:'')}
   ${tch&&!S.meEdit?`<button class="me-it" onclick="S.meEdit=true;renderMe();setTimeout(()=>$('myName')&&$('myName').focus(),30)">${ic('pen',16)} ${t('editName')}</button>`:''}
+  ${canInstall()?`<button class="me-it" onclick="installApp()">${ic('dl',16)} <span class="grow">${t('instBtn')}</span></button>`:''}
   <button class="me-it out" onclick="S.me=false;logout()">${ic('out',16)} ${t('logout')}</button>`}
 async function setGL(id,v){const s=DB.students.find(x=>x.id===id),old=s.glevel||1;if(v===old)return;
   if(!await ask(t('glAsk'),`<b>${esc(s.nama)}</b>: ${t('lv'+old)} → <b>${t('lv'+v)}</b>. ${t('glAskMsg')}`,t('save')))return;
@@ -586,6 +697,7 @@ chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1
 x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
 chevl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6l-6 6 6 6"/></svg>',
 plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+dl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10.5l5 5 5-5M5 19.5h14"/></svg>',
 cards:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="6" width="13" height="15" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/></svg>'};
 Object.assign(icon,{search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
 mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>',
@@ -649,11 +761,13 @@ function glNotify(){const u=S.user,g=u.glevel||1;if(g>(u.glevel_seen||1)){setTim
 function render(){{const d=$('gtip');if(d&&d.dataset.moved&&d.dataset.page!==pageKey())closeTip(true);else closeTip()}setTimeout(presTrack,0);
   document.documentElement.lang=lang;
   $('langBtn').innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg><span>${lang==='en'?'ENG':'IND'}</span>`;
-  const dark=document.documentElement.dataset.theme==='dark';$('themeBtn').setAttribute('aria-label',dark?t('lightMode'):t('darkMode'));$('langBtn').setAttribute('aria-label',t('language'));$('meBtn').setAttribute('aria-label',t('profile'));
+  const dark=document.documentElement.dataset.theme==='dark';{const m=$('themeColor');if(m)m.setAttribute('content',dark?'#000000':S.view==='login'?'#FFFFFF':'#F7F5F2')}$('themeBtn').setAttribute('aria-label',dark?t('lightMode'):t('darkMode'));$('langBtn').setAttribute('aria-label',t('language'));$('meBtn').setAttribute('aria-label',t('profile'));
   $('themeBtn').innerHTML=dark?`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>`
    :`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>`;
   $('meBtn').style.display=S.user?'':'none';$('findBtn').style.display=S.user&&S.role==='student'?'':'none';friendBadge();
   document.querySelector('header').classList.toggle('searching',S.view==='search'||S.view==='friends');{const i=$('sq');if(i){const fm=S.view==='friends',ph=fm?t('frSearchPh'):t('sPh'),val=fm?(S.fq||''):(S.sq||'');i.placeholder=ph;i.setAttribute('aria-label',ph);if(S.view==='search'&&document.activeElement!==i&&i.value!==val)i.value=val}const c=$('sqClr');if(c){c.style.visibility=(S.view==='friends'?S.fq:S.sq)?'visible':'hidden';c.setAttribute('aria-label',t('close'))}const hb=document.querySelector('.hs-back');if(hb)hb.setAttribute('aria-label',t('back'))}$('langBtn').style.display=$('themeBtn').style.display=S.user?'none':'';if(S.user)$('meBtn').innerHTML=avatar(S.user,30);renderMe();
+  {const ui=$('u');if(ui&&document.querySelector('.lg'))S.lgU=ui.value;const sn=$('sn');if(sn)S.lgN=sn.value}
+  {const lv=S.view==='login';document.querySelector('.app').classList.toggle('islogin',lv);document.documentElement.classList.toggle('lgv',lv)}
   const v={boot:()=>`<div class="big mu">${t('loading')}</div>`,login:vLogin,home:vHome,bab:vBab,admin:vAdmin,friends:vFriends,search:vSearch}[S.view];$('main').innerHTML=v();S.anim=false;renderNav();
   if(S.view==='bab'&&S.tab==='learn'&&S.mode==='quiz'&&S.quiz&&!S.quiz.done){const q=curQ();if(q.type==='listen'&&!q.played){q.played=true;setTimeout(()=>speak(q.w.kata,.85,document.querySelector('.lis .spk')),300)}}
 }
@@ -671,28 +785,53 @@ function emblem(){return `<svg class="emb" width="88" height="88" viewBox="0 0 8
   <circle class="emb-dot" cx="44" cy="3" r="3" fill="var(--ac)"/></g>
   <circle class="emb-core" cx="44" cy="44" r="31" fill="var(--card)" stroke="var(--line)"/>
   <path class="emb-z" pathLength="100" d="M32 32h24L32 56h24" fill="none" stroke="var(--ac)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`}
-function loginSwitch(){const s=S.loginTab==='student';
-  return `<div class="lsw" role="tablist"><button type="button" class="${s?'on':''}" onclick="setLoginTab('student')">${t('student')}</button><button type="button" class="${!s?'on':''}" onclick="setLoginTab('teacher')">${t('teacher')}</button></div>`}
-async function setLoginTab(x){if(S.loginTab===x)return;S.loginTab=x;S.err='';S.anim=true;
+const WOD_FALLBACK=[["sweep","menyapu","She sweeps the floor every morning.","Dia menyapu lantai setiap pagi."],["borrow","meminjam","Can I borrow your pen?","Boleh aku pinjam pulpenmu?"],["brave","berani","He is brave enough to speak first.","Dia cukup berani untuk bicara duluan."],["remember","mengingat","I remember your name.","Aku ingat namamu."],["kitchen","dapur","My mother is in the kitchen.","Ibuku ada di dapur."],["honest","jujur","Always be honest with your friends.","Selalu jujur pada teman-temanmu."],["wake up","bangun tidur","I wake up at five o'clock.","Aku bangun jam lima."],["share","berbagi","Let's share this cake.","Ayo kita berbagi kue ini."],["quiet","tenang, sepi","The library is very quiet.","Perpustakaannya sangat sepi."],["try","mencoba","Try again, you can do it!","Coba lagi, kamu pasti bisa!"],["grateful","bersyukur","I am grateful for my family.","Aku bersyukur atas keluargaku."],["neighbor","tetangga","Our neighbor is very kind.","Tetangga kami sangat baik."],["arrive","tiba","We arrive at school at seven.","Kami tiba di sekolah jam tujuh."],["clean","membersihkan","They clean the classroom together.","Mereka membersihkan kelas bersama."]];
+function wodFallback(){const d=Math.floor((Date.now()+7*36e5)/864e5),w=WOD_FALLBACK[d%WOD_FALLBACK.length];return{kata:w[0],arti:w[1],contoh:w[2],contoh_arti:w[3]}}
+async function loadWod(){try{const{data}=await sb.rpc('word_of_day');const w=Array.isArray(data)?data[0]:data;if(w&&w.kata)S.wod=w}catch(e){}}
+function wodFlip(){S.wodFlip=!S.wodFlip;const c=$('lgCard');if(c)c.classList.toggle('flipped',S.wodFlip)}
+function lgDate(){const d=new Date(),loc=lang==='en'?'en-GB':'id-ID';try{return d.toLocaleDateString(loc,{weekday:'long'})+' · '+d.toLocaleDateString(loc,{day:'numeric',month:'long'})}catch(e){return ''}}
+const lgIco={user:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+ lock:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>',
+ mail:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M4.5 7l7.5 6 7.5-6"/></svg>',
+ arrow:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+ flip:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>'};
+function lf(icn,id,attrs,ph,pw){return `<label class="lf">${lgIco[icn]}<input id="${id}" ${pw?'type="password"':''} ${attrs} placeholder="${esc(ph)}" aria-label="${esc(ph)}">${pw?`<button type="button" class="lf-eye" aria-label="${t('showPw')}" onclick="togglePw(this)">${eyeIcon(false)}</button>`:''}</label>`}
+async function setLoginTab(x){if(S.loginTab===x)return;S.loginTab=x;S.err='';S.segAnim=true;S.lgU='';{const u=$('u');if(u)u.value=''}
   try{history.replaceState(null,'',x==='teacher'?'#guru':location.pathname+location.search)}catch(e){}
   if(x==='teacher'){try{const{data}=await sb.rpc('teacher_exists');S.needSetup=data===false}catch(e){}}
   render()}
-function vLogin(){const s=S.loginTab==='student';
-  if(!s&&S.needSetup)return `<div class="lhead ${S.anim?'anim':''}" style="padding-top:20px;text-align:center">${emblem()}<h1 style="margin-top:18px">${t('setupTitle')}</h1><p class="mu" style="margin:0 0 14px">${t('setupSub')}</p>${loginSwitch()}</div>
-   <div ${enter('doSetup')}><div class="field"><label>${t('name')}</label><input id="sn" placeholder="Ustadz Rangga"></div>
-   <div class="field"><label>${t('email')}</label><input id="u" type="email" placeholder="nama@email.com"></div>
-   <div class="field"><label>${t('password')}</label>${pwField('p',t('pwMin'),false)}</div>
-   ${S.err?`<div class="err">${esc(S.err)}</div>`:''}<button class="btn" type="button" onclick="doSetup()">${t('create')}</button></div>`;
-  return `<div class="lhead ${S.anim?'anim':''}" style="padding-top:28px;text-align:center">${emblem()}
-  <h1 style="margin-top:18px">${t('loginTitle')}</h1><p class="mu" style="margin:0 0 14px">${s?t('loginSub'):t('teacherHi')}</p>${loginSwitch()}</div>
-  <div ${enter('doLogin')}>
-   <div class="field"><label>${s?t('username'):t('email')}</label><input id="u" ${s?'autocapitalize="off" autocomplete="username"':'type="email" autocomplete="email"'} placeholder="${s?'username':'nama@email.com'}"></div>
-   <div class="field"><label>${s?t('pin'):t('password')}</label>${pwField('p',s?'••••':'••••••••',s)}</div>
-   ${S.err?`<div class="err">${esc(S.err)}</div>`:''}
-   <button class="btn" type="button" onclick="doLogin()">${t('login')}</button></div>`}
+function vLogin(){const s=S.loginTab==='student',setup=!s&&S.needSetup,w=S.wod||wodFallback(),dark=document.documentElement.dataset.theme==='dark',mv=S.segAnim;S.segAnim=false;
+  const h1=t('lgH1').split('<br>').map((l,i)=>`<span class="hl"><span style="animation-delay:${(1.75+i*.28).toFixed(2)}s">${l}</span></span>`).join('');
+  const form=setup?`<div class="lg-sub"><b>${t('setupTitle')}</b>${t('setupSub')}</div>
+     ${lf('user','sn',`autocomplete="name" value="${esc(S.lgN||'')}"`,t('name'))}${lf('mail','u',`type="email" autocomplete="email" autocapitalize="off" value="${esc(S.lgU||'')}"`,t('email'))}${lf('lock','p','autocomplete="new-password"',t('pwMin'),true)}`
+   :`${lf(s?'user':'mail','u',(s?'autocapitalize="off" autocomplete="username" spellcheck="false"':'type="email" autocomplete="email" autocapitalize="off"')+` value="${esc(S.lgU||'')}"`,s?t('username'):t('email'))}
+     ${lf('lock','p',s?'inputmode="numeric" maxlength="6" autocomplete="current-password"':'autocomplete="current-password"',s?t('pin'):t('password'),true)}`;
+  return `<div class="lg ${S.anim?'go':''}">
+  <div class="lg-top">
+   <div class="lg-bar"><div class="lg-wm"><span class="lg-z"><svg width="16" height="16" viewBox="0 0 88 88" aria-hidden="true"><path d="M26 26h36L26 62h36" fill="none" stroke="${dark?'#C2733F':'#E9A57A'}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lg-lt" aria-label="Zetoro">${'ZETORO'.split('').map((c,i)=>`<span aria-hidden="true" style="animation-delay:${(.55+i*.16).toFixed(2)}s">${c}</span>`).join('')}</span></div>
+    <button class="lg-th" onclick="toggleTheme()" aria-label="${dark?t('lightMode'):t('darkMode')}">${ic(dark?'moon':'sun',16)}</button>
+    <button class="lg-pill" onclick="toggleLang()" aria-label="${t('language')}">${ic('globe',14)}${lang==='en'?'EN':'ID'}</button></div>
+   <div class="lg-kick">${esc(lgDate())}</div>
+   <h1>${h1}</h1>
+   <div class="lg-stack"><div class="lg-fc b2"></div><div class="lg-fc b1"></div>
+    <div class="lg-fc f ${S.wodFlip?'flipped':''}" id="lgCard" role="button" tabindex="0" aria-label="${t('wodTap')}" onclick="wodFlip()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();wodFlip()}"><div class="lg-flip">
+     <div class="lg-face fr"><div class="r"><small>${t('wod')}</small><button class="lg-spk" aria-label="${t('listen')}" onclick="event.stopPropagation();speak(S.wod?S.wod.kata:wodFallback().kata,.85,this)">${ic('spk',16)}</button></div>
+      <div class="lg-w">${esc(w.kata)}</div><div class="lg-tap">${lgIco.flip}${t('wodTap')}</div></div>
+     <div class="lg-face bk"><div class="r"><small>${t('wodMeaning')}</small></div><div class="lg-ar">${esc(w.arti)}</div>
+      <div class="lg-ex">${w.contoh?`"${esc(w.contoh)}"`:''}${w.contoh_arti?`<span>${esc(w.contoh_arti)}</span>`:''}</div></div>
+    </div></div></div>
+  </div>
+  <div class="lg-sheet ${mv?'lgsw':''}" ${enter(setup?'doSetup':'doLogin')}><div class="lg-handle"></div>
+   <div class="lg-seg ${s?'':'r'} ${mv?'mv':''}" role="tablist"><i></i><button type="button" role="tab" class="${s?'on':''}" onclick="setLoginTab('student')">${t('student')}</button><button type="button" role="tab" class="${!s?'on':''}" onclick="setLoginTab('teacher')">${t('teacher')}</button></div>
+   <div class="lg-fs">${form}</div>
+   ${S.err?`<div class="lg-err" role="alert">${ic('x',15)} ${esc(S.err)}</div>`:''}
+   <button class="lg-btn" type="button" onclick="${setup?'doSetup':'doLogin'}()">${setup?t('create'):t('login')} ${lgIco.arrow}</button>
+   ${canInstall()?`<button type="button" class="lg-inst" onclick="installApp()">${ic('dl',15)} ${t('instBtn')}</button>`:''}
+  </div></div>`}
+function lgBusy(){const b=document.querySelector('.lg-btn');if(b)b.classList.add('ld')}
 async function doLogin(){const u=$('u').value.trim().toLowerCase(),p=$('p').value.trim();
   if(!u||!p){S.err=t('fill');return render()}
-  const teacher=S.loginTab==='teacher'||u.includes('@');
+  const teacher=S.loginTab==='teacher'||u.includes('@');lgBusy();
   const ok=await run(async()=>{
     const{data,error}=teacher?await sb.auth.signInWithPassword({email:u,password:p}):await sb.auth.signInWithPassword({email:`${u}@${STUDENT_DOMAIN}`,password:pinToPw(u,p)});
     if(error){S.err=teacher?t('wrongT'):t('wrong');return}
@@ -701,11 +840,11 @@ async function doLogin(){const u=$('u').value.trim().toLowerCase(),p=$('p').valu
   },false);
   render()}
 async function doSetup(){const n=$('sn').value.trim(),e=$('u').value.trim().toLowerCase(),p=$('p').value;
-  if(!n||!e||!p){S.err=t('fill');return render()}if(p.length<8){S.err=t('pwMin');return render()}
+  if(!n||!e||!p){S.err=t('fill');return render()}if(p.length<8){S.err=t('pwMin');return render()}lgBusy();
   await run(async()=>{await invokeAdmin({action:'setup_teacher',nama:n,email:e,password:p});
     const{data,error}=await sb.auth.signInWithPassword({email:e,password:p});if(error)throw error;S.needSetup=false;await enterApp(data.session)});
   render()}
-async function doSignOut(){presStop();clearInterval(S.frIv);DB.friends=[];S.fRes=undefined;S.fq='';try{await sb.auth.signOut()}catch(e){}Object.assign(S,{user:null,role:null,view:'login'});DB.babs=[];DB.students=[]}
+async function doSignOut(){presStop();clearInterval(S.frIv);DB.friends=[];S.fRes=undefined;S.fq='';try{await sb.auth.signOut()}catch(e){}Object.assign(S,{user:null,role:null,view:'login',lgU:'',lgN:''});DB.babs=[];DB.students=[]}
 async function logout(){stopAudio();S.open={};S.mq='';await doSignOut();S.err='';S.anim=true;render()}
 
 /* ---------- student home ---------- */
@@ -1396,6 +1535,17 @@ function sInput(v){if(S.view==='friends'){frInput(v);const c=$('sqClr');if(c)c.s
 function sEnter(){if(S.view==='friends'){const i=$('sq');clearTimeout(S.frT);if(i){frLookup(i.value);i.blur()}return}const i=$('sq');if(i){S.sq=i.value;i.blur()}searchResults();const tp=S.sTop;recentAdd(S.sq);if(!tp)return;
   if(tp[0]==='word')goWord(tp[1]);else if(tp[0]==='gram')goGramS(tp[1]);else{S.fPrev=null;openBab(tp[1])}}
 function vSearch(){return `<div id="sRes">${searchResults()}</div>`}
+/* --- PWA: pasang sebagai aplikasi --- */
+const isStandalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const canInstall=()=>!isStandalone()&&(!!S.installEvt||isIOS());
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();S.installEvt=e;if(S.view==='login')render();renderMe()});
+addEventListener('appinstalled',()=>{S.installEvt=null;toast(t('instDone'),3000);renderMe();if(S.view==='login')render()});
+async function installApp(){S.me=false;renderMe();
+  if(S.installEvt){const e=S.installEvt;S.installEvt=null;try{await e.prompt();await e.userChoice}catch(x){}renderMe();if(S.view==='login')render();return}
+  if(isIOS())await ask(t('instTitle'),t('instIOS'),t('ok'),false,true).catch(()=>{});
+  else await ask(t('instTitle'),t('instOther'),t('ok'),false,true).catch(()=>{})}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').catch(e=>console.warn(e))});
 /* tanya via WA */
 function waNum(v){let d=String(v||'').replace(/\D/g,'');if(d.startsWith('0'))d='62'+d.slice(1);else if(d.startsWith('8'))d='62'+d;return d}
 function waHi(){const u=S.user||{},un=u.username?' (@'+u.username+')':'';return lang==='en'?`Hi, this is ${u.nama||''}${un} from Zetoro. `:`Halo kak, saya ${u.nama||''}${un} dari Zetoro. `}
@@ -1482,13 +1632,13 @@ function copyPrompt(){const L=PLVL[S.pLvl||1],m=!!S.pSense;
 /* ---------- boot ---------- */
 function readRole(){try{return location.hash==='#guru'?'teacher':'student'}catch(e){return 'student'}}
 window.addEventListener('hashchange',()=>{S.loginTab=readRole();S.err='';if(!S.user)boot()});
-async function boot(){S.loginTab=readRole();
+async function boot(){S.loginTab=readRole();const wp=loadWod();
   try{
     if(S.loginTab==='teacher'){const{data}=await sb.rpc('teacher_exists');S.needSetup=data===false}
     const{data:{session}}=await sb.auth.getSession();
     if(session){await enterApp(session);render();return}
   }catch(e){console.error(e);await doSignOut()}
-  S.view='login';S.anim=true;render()}
+  await Promise.race([wp,new Promise(r=>setTimeout(r,1200))]);S.view='login';S.anim=true;render()}
 render();boot();
 
 </script>
