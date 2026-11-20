@@ -380,21 +380,21 @@ header{padding-top:max(12px,env(safe-area-inset-top))}header.searching{padding-t
 .app.islogin header{display:none}.app.islogin main{padding:0;display:flex;flex-direction:column}
 html.lgv[data-theme=light],html.lgv[data-theme=light] body{background:#fff}
 .lg{--lgbg:var(--bg);--lgsh:#141210;--lgcard:#1C1916;--lgb1:#2A1E15;--lgb2:#3A2516;--lgfld:#0E0C0B;--lgfb:#2A2420;--lgseg:#221E1A;--lgind:#F1EBE4;--lgindt:#12100E;--lgac:var(--ac);--lghl:rgba(208,138,91,.28);--lgspk:var(--ac);
- flex:1;display:flex;flex-direction:column;min-height:100vh;min-height:100dvh;background:var(--lgbg);overflow:hidden}
+ flex:1;display:flex;flex-direction:column;height:100vh;height:100dvh;min-height:560px;background:var(--lgbg);overflow:hidden}
 [data-theme=light] .lg{--lgbg:#FFFFFF;--lgsh:#FAF7F3;--lgcard:#FFFFFF;--lgb1:#FBEEE3;--lgb2:#F6E3D3;--lgfld:#FFFFFF;--lgfb:#EDE5DC;--lgseg:#F0E9E1;--lgind:#FFFFFF;--lgindt:#17120E;--lgac:#C2733F;--lghl:#F8DFCB;--lgspk:#17120E}
-.lg-top{flex:1;padding:max(22px,calc(env(safe-area-inset-top) + 14px)) 24px 0}
+.lg-top{flex:1;min-height:0;display:flex;flex-direction:column;padding:max(18px,calc(env(safe-area-inset-top) + 12px)) 24px 0}
 .lg-bar{display:flex;align-items:center;gap:8px}
 .lg-wm{margin-right:auto;display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:5px;font-size:13px}
 .lg-z{width:28px;height:28px;border-radius:9px;background:var(--tx);display:grid;place-items:center}
 .lg-pill{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:20px;border:1.5px solid var(--tx);background:none;color:var(--tx);font-size:11.5px;font-weight:700;letter-spacing:.6px;cursor:pointer}
 .lg-th{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--lgfb);background:none;color:var(--tx);display:grid;place-items:center;cursor:pointer;padding:0}
 .lg-pill:active,.lg-th:active{transform:scale(.94)}
-.lg-kick{margin-top:30px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--lgac);font-weight:700;display:flex;align-items:center;gap:10px}
+.lg-kick{margin-top:24px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--lgac);font-weight:700;display:flex;align-items:center;gap:10px}
 .lg-kick:after{content:"";flex:1;height:1px;background:var(--lgfb);transform-origin:left}
 .lg h1{font-family:Georgia,"Times New Roman",serif;font-size:38px;line-height:1.06;font-weight:700;margin:10px 0 0;letter-spacing:-1.1px}
 .lg h1 .hl{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}.lg h1 .hl>span{display:inline-block}
 .lg h1 em{color:var(--lgac);font-style:italic;background:linear-gradient(var(--lghl),var(--lghl)) no-repeat 0 86%/100% .26em}
-.lg-stack{position:relative;height:140px;margin:26px 12px 30px;perspective:1100px}
+.lg-stack{position:relative;flex-shrink:0;height:128px;margin:auto 12px;max-height:128px;perspective:1100px}
 .lg-fc{position:absolute;inset:0;border-radius:22px}
 .lg-fc.b2{background:var(--lgb2);transform:rotate(-6deg) translate(-6px,8px)}
 .lg-fc.b1{background:var(--lgb1);transform:rotate(4deg) translate(8px,4px)}
@@ -415,8 +415,8 @@ html.lgv[data-theme=light],html.lgv[data-theme=light] body{background:#fff}
 .lg-spk .wave{display:none}.lg-spk:active{transform:scale(.92)}
 .lg-spk.talking:before,.lg-spk.talking:after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--lgac);animation:lgRing 1.4s ease-out infinite}
 .lg-spk.talking:after{animation-delay:.7s}
-.lg-sheet{background:var(--lgsh);border-radius:30px 30px 0 0;padding:12px 22px calc(20px + env(safe-area-inset-bottom));border-top:1px solid var(--lgfb)}
-.lg-handle{width:40px;height:4px;border-radius:2px;background:var(--lgfb);margin:0 auto 16px}
+.lg-sheet{flex-shrink:0;margin-top:16px;background:var(--lgsh);border-radius:28px 28px 0 0;padding:10px 22px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--lgfb)}
+.lg-handle{width:40px;height:4px;border-radius:2px;background:var(--lgfb);margin:0 auto 12px}
 .lg-seg{position:relative;display:flex;background:var(--lgseg);border-radius:14px;padding:4px}
 .lg-seg i{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:11px;background:var(--lgind);box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .lg-seg.r i{transform:translateX(100%)}
@@ -424,18 +424,18 @@ html.lgv[data-theme=light],html.lgv[data-theme=light] body{background:#fff}
 .lg-seg button{position:relative;z-index:1;flex:1;border:0;background:none;padding:9px;font-size:14px;font-weight:700;color:var(--mu);cursor:pointer;transition:color .3s}
 .lg-seg button.on{color:var(--lgindt)}
 .lg-sub{font-size:13px;color:var(--mu);margin:14px 2px 0}.lg-sub b{display:block;color:var(--tx);font-size:16px;margin-bottom:2px}
-.lf{display:flex;align-items:center;gap:10px;height:52px;border-radius:14px;background:var(--lgfld);border:1.5px solid var(--lgfb);padding:0 6px 0 14px;margin-top:12px;color:var(--mu);transition:border-color .25s,box-shadow .25s,color .25s;cursor:text}
+.lf{display:flex;align-items:center;gap:10px;height:50px;border-radius:14px;background:var(--lgfld);border:1.5px solid var(--lgfb);padding:0 6px 0 14px;margin-top:10px;color:var(--mu);transition:border-color .25s,box-shadow .25s,color .25s;cursor:text}
 .lf:focus-within{border-color:var(--lgac);color:var(--lgac);box-shadow:0 0 0 4px color-mix(in srgb,var(--lgac) 16%,transparent)}
 .lf svg{flex-shrink:0}
 .lf input{flex:1;min-width:0;width:auto;height:100%;border:0;background:none;padding:0 8px 0 0;font-size:15px;color:var(--tx);border-radius:0}
 .lf input:focus{border:0}
 .lf .lf-eye{border:0;background:none;color:var(--mu);padding:8px;display:flex;cursor:pointer}
 .lg-err{margin-top:12px;font-size:13.5px;color:var(--bad);display:flex;gap:8px;align-items:center;animation:lgShake .45s}
-.lg-btn{margin-top:16px;width:100%;height:54px;border:0;border-radius:16px;background:var(--lgac);color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 8px 20px color-mix(in srgb,var(--lgac) 32%,transparent);transition:transform .15s,box-shadow .2s;position:relative;overflow:hidden}
+.lg-btn{margin-top:14px;width:100%;height:52px;border:0;border-radius:16px;background:var(--lgac);color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 8px 20px color-mix(in srgb,var(--lgac) 32%,transparent);transition:transform .15s,box-shadow .2s;position:relative;overflow:hidden}
 .lg-btn svg{transition:transform .25s}.lg-btn:hover svg{transform:translateX(4px)}.lg-btn:active{transform:scale(.97)}
 .lg-btn:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);transform:translateX(-100%)}
 .lg-btn.ld{pointer-events:none}.lg-btn.ld:after{animation:lgShine 1s linear infinite}.lg-btn.ld svg{animation:lgNudge .6s ease-in-out infinite alternate}
-.lg-inst{margin:14px auto 0;display:flex;justify-content:center;gap:7px;align-items:center;color:var(--mu);font-size:13px;font-weight:600;background:none;border:0;cursor:pointer;padding:6px 10px}
+.lg-inst{margin:8px auto 0;display:flex;justify-content:center;gap:7px;align-items:center;color:var(--mu);font-size:13px;font-weight:600;background:none;border:0;cursor:pointer;padding:6px 10px}
 .lg-inst svg{color:var(--lgac)}.lg-inst:hover{color:var(--lgac)}
 /* entry animation */
 .lg-lt{display:inline-flex}.lg-lt span{display:inline-block}
@@ -473,6 +473,11 @@ html.lgv[data-theme=light],html.lgv[data-theme=light] body{background:#fff}
 @keyframes lgShake{0%,100%{transform:none}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
 @keyframes lgShine{to{transform:translateX(100%)}}
 @keyframes lgNudge{to{transform:translateX(5px)}}
+/* stack centered in the free space, never touching the headline or the sheet */
+
+.lg-top>h1{margin-bottom:18px}
+@media (max-height:760px){.lg h1{font-size:33px}.lg-kick{margin-top:16px}.lg-stack{height:112px;max-height:112px}.lg-face{padding:12px 16px 12px 18px}.lg-w{font-size:28px}.lg-ar{font-size:21px}.lg-spk{width:34px;height:34px}.lf{height:46px;margin-top:8px}.lg-btn{height:48px;margin-top:12px}.lg-handle{margin-bottom:10px}.lg-seg button{padding:7px}.lg-ex span{display:none}}
+@media (max-height:660px){.lg h1{font-size:29px;margin-top:6px}.lg-kick{margin-top:12px;font-size:10px}.lg-top>h1{margin-bottom:12px}.lg-stack{height:96px;max-height:96px}.lg-w{font-size:24px}.lg-tap{display:none}.lg-sheet{margin-top:10px}}
 @media (prefers-reduced-motion:reduce){.lg *,.lg *:before,.lg *:after{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -1538,7 +1543,7 @@ function vSearch(){return `<div id="sRes">${searchResults()}</div>`}
 /* --- PWA: pasang sebagai aplikasi --- */
 const isStandalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
 const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-const canInstall=()=>!isStandalone()&&(!!S.installEvt||isIOS());
+const canInstall=()=>!isStandalone();
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();S.installEvt=e;if(S.view==='login')render();renderMe()});
 addEventListener('appinstalled',()=>{S.installEvt=null;toast(t('instDone'),3000);renderMe();if(S.view==='login')render()});
 async function installApp(){S.me=false;renderMe();
