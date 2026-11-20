@@ -1,6 +1,6 @@
 /* Zetoro service worker: halaman utama selalu diambil dari jaringan dulu (supaya update langsung masuk),
    cadangan dari cache kalau offline. Permintaan ke Supabase tidak pernah di-cache. */
-const CACHE = 'zetoro-v2';
+const CACHE = 'zetoro-v3';
 // Semua path relatif terhadap folder service worker, jadi jalan di root (Netlify) maupun di subfolder (GitHub Pages /Zetoro/)
 const BASE = self.registration.scope;
 const u = p => new URL(p, BASE).href;

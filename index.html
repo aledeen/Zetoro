@@ -13,7 +13,7 @@
 <meta name="application-name" content="Zetoro">
 <meta name="description" content="Belajar vocabulary dan grammar bahasa Inggris bersama guru.">
 <title>Zetoro</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 88'%3E%3Ccircle cx='44' cy='44' r='42' fill='%23141210'/%3E%3Cpath d='M30 30h28L30 58h28' fill='none' stroke='%23D08A5B' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 88'%3E%3Ccircle cx='44' cy='44' r='42' fill='%23FFFFFF'/%3E%3Cpath d='M30 30h28L30 58h28' fill='none' stroke='%23C2733F' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 :root{--bg:#000000;--card:#111111;--card2:#1A1A1A;--line:#262626;--tx:#F1EDE8;--mu:#9A928A;--ac:#D08A5B;--acs:#3A2A1F;--on:#24130A;
 --ok:#6FB59A;--oks:#1D2E28;--warn:#D9B45A;--warns:#332A17;--bad:#D9705A}
@@ -378,17 +378,17 @@ header{padding-top:max(12px,env(safe-area-inset-top))}header.searching{padding-t
 .proto{font-size:11px;text-align:center;color:var(--mu);padding:6px;border-bottom:1px solid var(--line);background:var(--card)}
 /* ---------- login (editorial + flashcard) ---------- */
 .app.islogin{min-height:100vh;min-height:var(--apph,100svh)}.app.islogin header{display:none}
-html.lgv,html.lgv body{height:100%;overflow:hidden;overscroll-behavior:none}html.lgv .app.islogin{height:100%;min-height:0}html.lgv .lg{min-height:0;height:100%}
+html.lgv,html.lgv body{height:100%;overflow-x:hidden;overflow-y:auto;overscroll-behavior:none}html.lgv .app.islogin{height:auto;min-height:100%}html.lgv .lg{height:auto;min-height:100%}
 @media (max-height:540px){html.lgv,html.lgv body{height:auto;overflow:auto}html.lgv .app.islogin{height:auto}html.lgv .lg{height:auto;min-height:540px}}
 .app.islogin main{padding:0;display:flex;flex-direction:column}
 html.lgv[data-theme=light],html.lgv[data-theme=light] body{background:#fff}
 .lg{--lgbg:var(--bg);--lgsh:#141210;--lgcard:#1C1916;--lgb1:#2A1E15;--lgb2:#3A2516;--lgfld:#0E0C0B;--lgfb:#2A2420;--lgseg:#221E1A;--lgind:#F1EBE4;--lgindt:#12100E;--lgac:var(--ac);--lghl:rgba(208,138,91,.28);--lgspk:var(--ac);
  flex:1;display:flex;flex-direction:column;min-height:100vh;min-height:var(--apph,100svh);background:var(--lgbg);overflow:hidden}
 [data-theme=light] .lg{--lgbg:#FFFFFF;--lgsh:#FAF7F3;--lgcard:#FFFFFF;--lgb1:#FBEEE3;--lgb2:#F6E3D3;--lgfld:#FFFFFF;--lgfb:#EDE5DC;--lgseg:#F0E9E1;--lgind:#FFFFFF;--lgindt:#17120E;--lgac:#C2733F;--lghl:#F8DFCB;--lgspk:#17120E}
-.lg-top{flex:1;display:flex;flex-direction:column;padding:max(24px,calc(env(safe-area-inset-top) + 14px)) 26px 0}
+.lg-top{flex:1 0 auto;display:flex;flex-direction:column;padding:max(24px,calc(env(safe-area-inset-top) + 14px)) 26px 0}
 .lg-bar{display:flex;align-items:center;gap:8px}
 .lg-wm{margin-right:auto;display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:5px;font-size:13px}
-.lg-z{width:28px;height:28px;border-radius:9px;background:var(--tx);display:grid;place-items:center}
+.lg-z{width:28px;height:28px;border-radius:9px;background:#FFFFFF;display:grid;place-items:center}[data-theme=light] .lg-z{background:var(--tx)}
 .lg-pill{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:20px;border:1.5px solid var(--tx);background:none;color:var(--tx);font-size:11.5px;font-weight:700;letter-spacing:.6px;cursor:pointer}
 .lg-th{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--lgfb);background:none;color:var(--tx);display:grid;place-items:center;cursor:pointer;padding:0}
 .lg-pill:active,.lg-th:active{transform:scale(.94)}
@@ -481,6 +481,8 @@ html.lgv[data-theme=light],html.lgv[data-theme=light] body{background:#fff}
 .lg-top>h1{margin-bottom:0}
 @media (max-height:760px){.lg-sheet{min-height:0}.lg-top{padding-top:max(16px,calc(env(safe-area-inset-top) + 10px));padding-left:22px;padding-right:22px}.lg h1{font-size:34px}.lg-kick{margin-top:16px}.lg-stack{height:116px;max-height:116px;margin-top:18px}.lg-face{padding:13px 16px 12px 18px}.lg-w{font-size:28px}.lg-ar{font-size:21px}.lg-spk{width:34px;height:34px}.lg-ex span{display:none}.lg-sheet{padding:8px 20px max(16px,calc(env(safe-area-inset-bottom) + 10px))}.lg-handle{margin-bottom:10px}.lg-seg button{padding:8px}.lf{height:46px;margin-top:8px}.lg-btn{height:48px;margin-top:12px}.lg-inst{margin:4px auto -6px}}
 @media (max-height:650px){.lg h1{font-size:28px}.lg-kick{display:none}.lg-top>h1{margin-top:10px}.lg-stack{height:88px;max-height:88px;margin-top:12px}.lg-w{font-size:22px}.lg-tap{display:none}.lg-sheet{margin-top:12px}.lg-seg button{padding:6px}.lf{height:42px;margin-top:6px}.lg-btn{height:44px}}
+/* di browser (bukan aplikasi terpasang): tanggal, judul, dan kartu naik */
+@media (display-mode:browser){.lg-kick{margin-top:18px}.lg-top>h1{margin-top:8px}.lg-sheet{min-height:0}}
 @media (prefers-reduced-motion:reduce){.lg *,.lg *:before,.lg *:after{animation:none!important;transition:none!important}}
 </style>
 </head>
