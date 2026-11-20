@@ -148,6 +148,9 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .gm{color:var(--g);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px;cursor:pointer;font-weight:600;border-radius:3px}
 .gm:hover{background:color-mix(in srgb,var(--g) 15%,transparent)}
 .gdot{width:10px;height:10px;border-radius:50%;background:var(--g);display:inline-block;flex-shrink:0}
+.gtip{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}.gtip.dragging{cursor:grabbing;box-shadow:0 18px 44px rgba(0,0,0,.5);transition:none}
+.gt-grip{width:36px;height:4px;border-radius:2px;background:var(--line);margin:-4px auto 8px}
+.gt-x{margin-left:6px;width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--mu);display:grid;place-items:center;cursor:pointer;flex-shrink:0}.gt-x:hover{color:var(--tx);border-color:var(--tx)}.gt-x .svi{vertical-align:0}
 .gtip{position:fixed;z-index:70;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--g);border-radius:12px;padding:12px 14px;box-shadow:0 12px 34px rgba(0,0,0,.4);animation:fadeIn .15s;font-size:13.5px;text-align:left}
 .gtip p{margin:6px 0;line-height:1.5}.gt-h{display:flex;align-items:center;gap:8px}.gt-h b{flex:1}
 .lvb{font-size:10.5px;border:1px solid var(--line);border-radius:8px;padding:1px 7px;color:var(--mu);white-space:nowrap}
@@ -643,7 +646,7 @@ function glNotify(){const u=S.user,g=u.glevel||1;if(g>(u.glevel_seen||1)){setTim
   u.glevel_seen=g;sb.from('profiles').update({glevel_seen:g}).eq('id',u.id).then(()=>{},()=>{})}}
 
 /* ---------- render ---------- */
-function render(){closeTip();setTimeout(presTrack,0);
+function render(){{const d=$('gtip');if(d&&d.dataset.moved&&d.dataset.page!==pageKey())closeTip(true);else closeTip()}setTimeout(presTrack,0);
   document.documentElement.lang=lang;
   $('langBtn').innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg><span>${lang==='en'?'ENG':'IND'}</span>`;
   const dark=document.documentElement.dataset.theme==='dark';$('themeBtn').setAttribute('aria-label',dark?t('lightMode'):t('darkMode'));$('langBtn').setAttribute('aria-label',t('language'));$('meBtn').setAttribute('aria-label',t('profile'));
@@ -1100,12 +1103,19 @@ function markRanges(s,tanda){const r=[];(tanda||[]).forEach(m=>{if(!m||!m.t)retu
 function cs(w){const s=w.contoh||'',r=markRanges(s,w.tanda);if(!r.length)return esc(s);let o='',p=0;
   r.forEach(x=>{const g=GB[x.m.g];o+=esc(s.slice(p,x.a))+(g?`<span class="gm g-${g.grup}" onclick="gTip(event,'${x.m.g}')">${esc(s.slice(x.a,x.b))}</span>`:esc(s.slice(x.a,x.b)));p=x.b});return o+esc(s.slice(p))}
 function cleanMarks(c,marks){const r=markRanges(c,marks).map(x=>x.m);return r.length?r:null}
-function closeTip(){const d=$('gtip');if(d)d.remove()}
+const pageKey=()=>[S.view,S.tab,S.mode,S.bab,S.aTab].join('|');
+function closeTip(force){const d=$('gtip');if(!d)return;if(d.dataset.moved&&!force)return;if(d.querySelector('.talking'))stopAudio();d.remove()}
 function gTip(e,key){e.stopPropagation();const g=GB[key];if(!g)return;closeTip();const el=e.currentTarget,d=document.createElement('div');d.className='gtip g-'+g.grup;d.id='gtip';
   const ex=(g.contoh||'').split('\n').filter(Boolean)[0];d.onclick=ev=>ev.stopPropagation();
-  d.innerHTML=`<div class="gt-h"><i class="gdot"></i><b>${esc(g.judul)}</b><span class="lvb">${t('lv'+g.level)}</span></div><p>${esc(g.penjelasan)}</p>${g.rumus?`<div class="rumus">${esc(g.rumus)}</div>`:''}${ex?`<div class="sm mu">“${esc(ex)}”</div>`:''}<div style="margin-top:8px">${explBtn(key,1,'','sm3')}</div><button class="lnk2" onclick="closeTip();openGram('${key}')">${t('seeFull')} ›</button>`;
-  document.body.appendChild(d);tipY=scrollY;const vw=innerWidth,w=Math.min(320,vw-24);d.style.width=w+'px';const rc=el.getBoundingClientRect(),h=d.offsetHeight;
-  d.style.left=Math.max(12,Math.min(vw-w-12,rc.left+rc.width/2-w/2))+'px';d.style.top=(rc.bottom+8+h<innerHeight?rc.bottom+8:Math.max(12,rc.top-h-8))+'px'}
+  d.innerHTML=`<div class="gt-grip" aria-hidden="true"></div><div class="gt-h"><i class="gdot"></i><b>${esc(g.judul)}</b><span class="lvb">${t('lv'+g.level)}</span><button type="button" class="gt-x" aria-label="${t('close')}" onclick="event.stopPropagation();stopAudio();closeTip(true)">${ic('x',14)}</button></div><p>${esc(g.penjelasan)}</p>${g.rumus?`<div class="rumus">${esc(g.rumus)}</div>`:''}${ex?`<div class="sm mu">“${esc(ex)}”</div>`:''}<div style="margin-top:8px">${explBtn(key,1,'','sm3')}</div><button class="lnk2" onclick="stopAudio();closeTip(true);openGram('${key}')">${t('seeFull')} ›</button>`;
+  d.dataset.page=pageKey();document.body.appendChild(d);tipY=scrollY;const vw=innerWidth,w=Math.min(320,vw-24);d.style.width=w+'px';const rc=el.getBoundingClientRect(),h=d.offsetHeight;
+  d.style.left=Math.max(12,Math.min(vw-w-12,rc.left+rc.width/2-w/2))+'px';d.style.top=(rc.bottom+8+h<innerHeight?rc.bottom+8:Math.max(12,rc.top-h-8))+'px';tipDrag(d)}
+function tipDrag(d){let sx=0,sy=0,ox=0,oy=0,on=false,moved=false;
+  const clamp=(x,y)=>{const m=8,w=d.offsetWidth,h=d.offsetHeight;return[Math.max(m,Math.min(innerWidth-w-m,x)),Math.max(m,Math.min(innerHeight-h-m,y))]};
+  d.addEventListener('pointerdown',e=>{if(e.button>0||e.target.closest('button,a,input,select'))return;on=true;moved=false;sx=e.clientX;sy=e.clientY;ox=d.offsetLeft;oy=d.offsetTop;d.setPointerCapture(e.pointerId)});
+  d.addEventListener('pointermove',e=>{if(!on)return;const dx=e.clientX-sx,dy=e.clientY-sy;if(!moved&&Math.hypot(dx,dy)<5)return;moved=true;d.classList.add('dragging');d.dataset.moved='1';const[x,y]=clamp(ox+dx,oy+dy);d.style.left=x+'px';d.style.top=y+'px';e.preventDefault()});
+  const end=()=>{on=false;d.classList.remove('dragging')};d.addEventListener('pointerup',end);d.addEventListener('pointercancel',end);
+  addEventListener('resize',()=>{if(!d.isConnected)return;const[x,y]=clamp(d.offsetLeft,d.offsetTop);d.style.left=x+'px';d.style.top=y+'px'})}
 document.addEventListener('click',e=>{if(!e.target.closest('#gtip'))closeTip()});let tipY=0;addEventListener('scroll',()=>{if(Math.abs(scrollY-tipY)>40)closeTip()},{passive:true});
 function openGram(key){if(S.role==='teacher'){aTab('gram');S.gOpen=key;render()}else{const b=bab(S.bab);if(S.tab!=='learn'){S.gPrevTab=S.tab;S.tab='learn';S.gPrev='menu'}else if(S.mode!=='gram')S.gPrev=S.mode;S.mode='gram';S.gOpen=key;S.gAll=!b||!bGrams(b).some(g=>g.key===key);render()}
   setTimeout(()=>{const x=$('g_'+key);if(x)x.scrollIntoView({block:'center',behavior:'smooth'})},60)}
