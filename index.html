@@ -371,8 +371,8 @@ header.searching>*:not(.hsearch){display:none!important}header.searching .hsearc
     <button class="ib" onclick="toggleTheme()" id="themeBtn" aria-label="Tema"></button>
     <button class="ib frbtn" onclick="openSearch()" id="findBtn" aria-label="Cari" style="display:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg></button>
     <button class="avbtn" onclick="toggleMe(event)" id="meBtn" aria-label="Profil" style="display:none"></button>
-    <div class="hsearch" id="hsearch"><button class="hs-back" onclick="closeSearch()" aria-label="Kembali"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-     <label class="hs-box"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><input id="sq" type="search" autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search" oninput="sInput(this.value)" onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();sEnter()}else if(event.key==='Escape'){closeSearch()}"><button type="button" class="hs-clr" id="sqClr" aria-label="Hapus" onclick="const i=$('sq');i.value='';S.sUser=null;sInput('');i.focus()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></label></div>
+    <div class="hsearch" id="hsearch"><button class="hs-back" onclick="hBack()" aria-label="Kembali"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+     <label class="hs-box"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><input id="sq" type="search" autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search" oninput="sInput(this.value)" onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();sEnter()}else if(event.key==='Escape'){closeSearch()}"><button type="button" class="hs-clr" id="sqClr" aria-label="Hapus" onclick="const i=$('sq');i.value='';sInput('');i.focus()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></label></div>
     <input type="file" id="fotoIn" accept="image/*" style="display:none" onchange="fotoPicked(this)">
   </header>
   <div id="meMenu" class="memenu" style="display:none" onclick="event.stopPropagation()"></div>
@@ -650,7 +650,7 @@ function render(){closeTip();setTimeout(presTrack,0);
   $('themeBtn').innerHTML=dark?`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>`
    :`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>`;
   $('meBtn').style.display=S.user?'':'none';$('findBtn').style.display=S.user&&S.role==='student'?'':'none';friendBadge();
-  document.querySelector('header').classList.toggle('searching',S.view==='search');{const i=$('sq');if(i){i.placeholder=t('sPh');i.setAttribute('aria-label',t('sPh'));if(S.view==='search'&&document.activeElement!==i&&i.value!==(S.sq||''))i.value=S.sq||''}const c=$('sqClr');if(c){c.style.visibility=(S.sq||'')?'visible':'hidden';c.setAttribute('aria-label',t('close'))}const hb=document.querySelector('.hs-back');if(hb)hb.setAttribute('aria-label',t('back'))}$('langBtn').style.display=$('themeBtn').style.display=S.user?'none':'';if(S.user)$('meBtn').innerHTML=avatar(S.user,30);renderMe();
+  document.querySelector('header').classList.toggle('searching',S.view==='search'||S.view==='friends');{const i=$('sq');if(i){const fm=S.view==='friends',ph=fm?t('frSearchPh'):t('sPh'),val=fm?(S.fq||''):(S.sq||'');i.placeholder=ph;i.setAttribute('aria-label',ph);if(S.view==='search'&&document.activeElement!==i&&i.value!==val)i.value=val}const c=$('sqClr');if(c){c.style.visibility=(S.view==='friends'?S.fq:S.sq)?'visible':'hidden';c.setAttribute('aria-label',t('close'))}const hb=document.querySelector('.hs-back');if(hb)hb.setAttribute('aria-label',t('back'))}$('langBtn').style.display=$('themeBtn').style.display=S.user?'none':'';if(S.user)$('meBtn').innerHTML=avatar(S.user,30);renderMe();
   const v={boot:()=>`<div class="big mu">${t('loading')}</div>`,login:vLogin,home:vHome,bab:vBab,admin:vAdmin,friends:vFriends,search:vSearch}[S.view];$('main').innerHTML=v();S.anim=false;renderNav();
   if(S.view==='bab'&&S.tab==='learn'&&S.mode==='quiz'&&S.quiz&&!S.quiz.done){const q=curQ();if(q.type==='listen'&&!q.played){q.played=true;setTimeout(()=>speak(q.w.kata,.85,document.querySelector('.lis .spk')),300)}}
 }
@@ -1297,14 +1297,14 @@ const fr=r=>(DB.friends||[]).filter(f=>f.rel===r);
 async function loadFriends(){if(S.role!=='student')return;try{const{data,error}=await sb.rpc('my_friends');if(error)throw error;DB.friends=data||[];await signFotos()}catch(e){console.warn(e)}
   friendBadge();if(S.view==='friends')render()}
 function friendBadge(){const n=fr('received').length,m=$('meBtn');if(m)m.classList.toggle('dot',n>0);const f=$('findBtn');if(f)f.setAttribute('aria-label',t('search'))}
-function openFriends(){stopAudio();S.me=false;renderMe();if(!['friends','search'].includes(S.view))S.fPrev={view:S.view,tab:S.tab,mode:S.mode};S.view='friends';S.fOpen=null;render();scrollTo(0,0);loadFriends()}
+function openFriends(){stopAudio();S.me=false;renderMe();if(S.view!=='friends'){S.fq='';S.fRes=null}if(!['friends','search'].includes(S.view))S.fPrev={view:S.view,tab:S.tab,mode:S.mode};S.view='friends';S.fOpen=null;render();scrollTo(0,0);loadFriends()}
 function closeFriends(){const p=S.fPrev||{view:'home'};S.view=p.view;if(p.tab)S.tab=p.tab;if(p.mode)S.mode=p.mode;S.fPrev=null;render();scrollTo(0,0)}
 async function findUser(){const q=($('fq').value||'').trim().replace(/^@/,'');S.fq=q;if(!q){S.fRes=undefined;render();return}
   S.fBusy=true;render();try{const{data,error}=await sb.rpc('find_student',{p_username:q});if(error)throw error;S.fRes=(data&&data[0])||null}catch(e){console.warn(e);toast(t('offline'));S.fRes=undefined}
   S.fBusy=false;render();const i=$('fq');if(i)i.blur()}
 async function frAct(fn,args,msg){const ok=await run(async()=>{const{error}=await sb.rpc(fn,args);if(error)throw error});if(!ok)return;
   const R=S.fRes&&S.fRes.r;if(R&&args&&(args.p_to===R.id||args.p_from===R.id||args.p_other===R.id)){try{const{data}=await sb.rpc('find_student',{p_username:R.username});S.fRes.r=(data&&data[0])||null}catch(e){}}
-  await loadFriends();if(msg)toast(msg)}
+  await loadFriends();frShow();if(msg)toast(msg)}
 const addFriend=id=>frAct('friend_request',{p_to:id},t('frSent'));
 const acceptFriend=id=>frAct('friend_respond',{p_from:id,p_accept:true},t('frNowFriends'));
 const rejectFriend=id=>frAct('friend_respond',{p_from:id,p_accept:false},t('frRejected'));
@@ -1324,22 +1324,23 @@ function friendCard(f){const n=f.hafal||0,L=lvlOf(n),op=S.fOpen===f.id;const ak=
    ${op?`<div class="fc-b"><div class="sc-lbl">${t('frLearning')}</div>${ak.length?ak.map(a=>`<div class="frl"><span>${esc(a.bab)}</span><span class="mu">${t('paket')} ${a.paket}</span></div>`).join(''):`<div class="sm mu">—</div>`}
     <div class="sc-lbl" style="margin-top:12px">${t('frBest')}</div>${bs.length?bs.map(q=>`<div class="frl"><span>${esc(q.bab)} <span class="mu">· ${q.paket==='all'?t('allWords'):t('paket')+' '+esc(q.paket)}</span></span><b style="color:var(--ac)">${q.best}/10</b></div>`).join(''):`<div class="sm mu">${t('frNoQuiz')}</div>`}
     <button class="lnk3 bad" style="margin-top:12px" onclick="unFriend('${f.id}')">${ic('trash',15)} ${t('frRemove')}</button></div>`:''}</div>`}
-function frResult(){const q=(S.fq||'').trim().replace(/^@/,'');if(!q)return `<p class="sm mu" style="margin:6px 2px 4px">${t('frHint')}</p>`;
-  if(S.fBusy||!S.fRes||S.fRes.q!==norm(q))return `<p class="sm mu" style="margin:10px 2px">${t('loading')}</p>`;
-  const R=S.fRes.r;return R?`<div style="margin-top:10px">${frRow(R,R.rel==='received'?t('frWantsYou'):'')}</div>`:`<div class="s-empty" style="padding:18px 10px">${ic('search',24)}<p>${t('frNotFound')} <b>@${esc(q)}</b></p></div>`}
-function frShow(){const r=$('frRes');if(r)r.innerHTML=frResult()}
+function frResult(){const q=(S.fq||'').trim().replace(/^@/,'');
+  if(!q)return '';
+  if(S.fBusy||!S.fRes||S.fRes.q!==norm(q))return `<div class="s-empty"><p>${t('loading')}</p></div>`;
+  const R=S.fRes.r;return R?`<div class="slist"><div class="sr sr-user">${avatar({nama:R.nama},40)}<span class="sr-t"><b>${esc(R.nama)}</b><small>@${esc(R.username)}${R.rel==='received'?' · '+t('frWantsYou'):R.rel==='sent'?' · '+t('frWaiting'):''}</small></span>${frBtns(R)}</div></div>`
+    :`<div class="s-empty">${ic('search',28)}<p>${t('frNotFound')} <b>@${esc(q)}</b></p></div>`}
+function frShow(){if(S.view==='friends'){const r=$('frBody');if(r)r.innerHTML=frBody()}}
+function hBack(){if(S.view==='friends')closeFriends();else closeSearch()}
 function frInput(v){S.fq=v;clearTimeout(S.frT);const q=v.trim().replace(/^@/,'');if(!q){S.fRes=null;frShow();return}frShow();S.frT=setTimeout(()=>frLookup(v),450)}
 async function frLookup(v){const q=(v||'').trim().replace(/^@/,'');S.fq=v;if(!q){frShow();return}S.fBusy=true;frShow();
   try{const{data,error}=await sb.rpc('find_student',{p_username:q});if(error)throw error;S.fRes={q:norm(q),r:(data&&data[0])||null}}catch(e){console.warn(e);S.fRes={q:norm(q),r:null}}
   S.fBusy=false;if(norm((S.fq||'').trim().replace(/^@/,''))===norm(q))frShow()}
-function vFriends(){const fs=fr('friend'),rc=fr('received'),sn=fr('sent');
-  return `<button class="back" onclick="closeFriends()">${ic('chevl',16)}${t('back')}</button><h1>${t('friends')}</h1>
-  <label class="fsearch">${ic('search',18)}<input id="fq" type="search" value="${esc(S.fq||'')}" placeholder="${t('frSearchPh')}" aria-label="${t('frSearchPh')}" autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search" oninput="frInput(this.value)" onkeydown="if(event.key==='Enter'){clearTimeout(S.frT);frLookup(this.value);this.blur()}"></label>
-  <div id="frRes">${frResult()}</div>
-  ${rc.length?`<h2>${t('frRequests')} <span class="cnt">${rc.length}</span></h2>${rc.map(p=>frRow(p,t('frWantsYou'))).join('')}`:''}
-  <h2>${t('frMine')} <span class="mu sm" style="font-weight:400">· ${fs.length}</span></h2>
+function frBody(){if((S.fq||'').trim())return frResult();const fs=fr('friend'),rc=fr('received'),sn=fr('sent');
+  return `${rc.length?`<h2 style="margin-top:4px">${t('frRequests')} <span class="cnt">${rc.length}</span></h2>${rc.map(p=>frRow(p,t('frWantsYou'))).join('')}`:''}
+  <h2 ${rc.length?'':'style="margin-top:4px"'}>${t('frMine')} <span class="mu sm" style="font-weight:400">· ${fs.length}</span></h2>
   ${fs.length?fs.map(friendCard).join(''):`<div class="card mu sm" style="text-align:center;padding:20px">${t('frEmpty')}</div>`}
   ${sn.length?`<h2>${t('frSentH')}</h2>${sn.map(p=>frRow(p,t('frWaiting'))).join('')}`:''}`}
+function vFriends(){return `<div id="frBody">${frBody()}</div>`}
 /* --- pencarian umum: kata, grammar, bab, dan teman (username persis) --- */
 function sMatch(txt,q){return norm(txt||'').includes(q)}
 function sHi(txt,q){const s=String(txt||''),i=norm(s).indexOf(q);if(!q||i<0)return esc(s);return esc(s.slice(0,i))+'<mark>'+esc(s.slice(i,i+q.length))+'</mark>'+esc(s.slice(i+q.length))}
@@ -1381,8 +1382,8 @@ function searchResults(){const raw=(S.sq||'').trim(),q=norm(raw),f='all';
   S.sTop=bs.length?['bab',bs[0].id]:gs.length?['gram',gs[0].key]:ws.length?['word',ws[0].id]:null;
   if(!h)h=S.sBusy?`<div class="s-empty"><p>${t('loading')}</p></div>`:`<div class="s-empty">${ic('search',28)}<p>${t('sNone')} <b>“${esc(raw)}”</b></p></div>`;
   return chips+`<div class="slist">${h}</div>`}
-function sInput(v){S.sq=v;sRefresh()}
-function sEnter(){const i=$('sq');if(i){S.sq=i.value;i.blur()}searchResults();const tp=S.sTop;recentAdd(S.sq);if(!tp)return;
+function sInput(v){if(S.view==='friends'){frInput(v);const c=$('sqClr');if(c)c.style.visibility=v?'visible':'hidden';return}S.sq=v;sRefresh()}
+function sEnter(){if(S.view==='friends'){const i=$('sq');clearTimeout(S.frT);if(i){frLookup(i.value);i.blur()}return}const i=$('sq');if(i){S.sq=i.value;i.blur()}searchResults();const tp=S.sTop;recentAdd(S.sq);if(!tp)return;
   if(tp[0]==='word')goWord(tp[1]);else if(tp[0]==='gram')goGramS(tp[1]);else{S.fPrev=null;openBab(tp[1])}}
 function vSearch(){return `<div id="sRes">${searchResults()}</div>`}
 /* tanya via WA */
