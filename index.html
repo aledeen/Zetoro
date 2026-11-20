@@ -80,8 +80,8 @@ textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:
 .btn.mic{display:flex;align-items:center;justify-content:center;gap:8px}
 .btn.mic.on{animation:pulse 1.2s infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--acs)}50%{box-shadow:0 0 0 8px transparent}}
-.fb{display:flex;justify-content:center;margin:8px 0 10px}.fb span{display:inline-flex;align-items:center;gap:7px;padding:7px 18px;border-radius:20px;font-weight:700;font-size:15px;letter-spacing:.2px;animation:fbPop .22s ease-out}
-.fb .svi{vertical-align:0}.fb.g span{color:var(--ok);background:var(--oks);border:1px solid var(--ok)}.fb.r span{color:var(--bad);background:rgba(217,112,90,.12);border:1px solid var(--bad)}
+.fb{display:flex;justify-content:center;margin:8px 0 10px}.fb span{font-weight:700;font-size:20px;letter-spacing:.3px;animation:fbPop .22s ease-out}
+.fb.g span{color:var(--ok)}.fb.r span{color:var(--bad)}
 @keyframes fbPop{0%{transform:scale(.85);opacity:0}100%{transform:scale(1);opacity:1}}@media (prefers-reduced-motion:reduce){.fb span{animation:none}}
 .reveal{margin-top:10px;border-color:var(--ac)}
 .revh{display:flex;align-items:center;gap:6px;justify-content:center;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--ac);background:var(--acs);border-radius:8px;padding:6px;margin-bottom:10px}
@@ -367,11 +367,11 @@ Object.assign(T.en,{listenExpl:"Listen to explanation",shortExpl:"Short version"
 askWa:"Ask via WhatsApp",waNum:"WhatsApp",waNotSet:"Not set",waHint:"e.g. 0812 3456 7890",waSaved:"WhatsApp number saved",waCleared:"WhatsApp number removed",waBad:"Invalid WhatsApp number"});
 let lang='id';const t=k=>T[lang][k]||k;
 Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",qOrder:"Susun kalimat ini dalam bahasa Inggris",changePhoto:"Ganti foto",removePhoto:"Hapus foto",editName:"Ubah nama",photoSaved:"Foto disimpan",photoRemoved:"Foto dihapus",nameSaved:"Nama disimpan",photoErr:"File harus berupa gambar.",orderHint:"Ketuk kata di bawah sesuai urutan",check:"Cek",checkAns:"Cek jawaban",correctSent:"Kalimat yang benar",
-review:"Ulangi soal salah",wrongN:"Salah",toReview:"Ulangi soal yang salah",fixed:"soal sudah diperbaiki",correctAns:"Jawaban yang benar",mistakes:"Salah",right:"Correct!",wrongAns:"Wrong",
+review:"Ulangi soal salah",wrongN:"Salah",toReview:"Ulangi soal yang salah",fixed:"soal sudah diperbaiki",correctAns:"Jawaban yang benar",mistakes:"Salah",right:"Correct!",wrongAns:"Wrong!",
 micTap:"Tekan lalu bacakan",micListening:"Mendengarkan… bacakan sekarang",micHeard:"Terdengar",micNo:"Suara tidak terdengar. Coba lagi.",micErr:"Mikrofon tidak bisa dipakai di perangkat ini.",swapQ:"Ganti soal",
 searchWord:"Cari kata, arti, atau kalimat",found:"kata ditemukan",notFound:"Kata tidak ditemukan"});
 Object.assign(T.en,{qMatch:"Match each word with its meaning",qCloze:"Pick the right word for this sentence",qSent:"What does this sentence mean?",qRead:"Read this sentence out loud",qOrder:"Build this sentence in English",changePhoto:"Change photo",removePhoto:"Remove photo",editName:"Edit name",photoSaved:"Photo saved",photoRemoved:"Photo removed",nameSaved:"Name saved",photoErr:"The file must be an image.",orderHint:"Tap the words below in order",check:"Check",checkAns:"Check answer",correctSent:"Correct sentence",
-review:"Retry wrong answers",wrongN:"Wrong",toReview:"Retry wrong answers",fixed:"answers fixed",correctAns:"Correct answer",mistakes:"Mistakes",right:"Correct!",wrongAns:"Wrong",
+review:"Retry wrong answers",wrongN:"Wrong",toReview:"Retry wrong answers",fixed:"answers fixed",correctAns:"Correct answer",mistakes:"Mistakes",right:"Correct!",wrongAns:"Wrong!",
 micTap:"Tap, then read aloud",micListening:"Listening… read now",micHeard:"Heard",micNo:"Didn't catch that. Try again.",micErr:"The microphone can't be used on this device.",swapQ:"Swap question",
 searchWord:"Search word, meaning or sentence",found:"words found",notFound:"No words found"});
 /* ---------- extra i18n ---------- */
@@ -759,7 +759,7 @@ function gPick(i){const q=curQ();if(q.answered)return;q.gsel=i;render()}
 function gCheck(){const q=curQ();if(q.answered||q.gsel==null)return;q.gp=q.gsel;const ok=norm(q.gopts[q.gp])===norm(q.m.t);q.ok=ok;recGram(q.m.g,ok);answerQ(ok);render()}
 function pick(id){const q=curQ();if(q.answered)return;q.sel=id;render()}
 function qCheck(){const q=curQ();if(q.answered||q.sel==null)return;q.picked=q.sel;answerQ(q.picked===q.w.id);render()}
-const fbHTML=ok=>`<div class="fb ${ok?'g':'r'}" role="status"><span>${ic(ok?'check':'x',16)} ${ok?t('right'):t('wrongAns')}</span></div>`;
+const fbHTML=ok=>`<div class="fb ${ok?'g':'r'}" role="status"><span>${ok?t('right'):t('wrongAns')}</span></div>`;
 const checkBtn=(on,fn)=>`<button class="btn chk" ${on?'':'disabled'} onclick="${fn}()">${t('checkAns')}</button>`;
 function mLeft(id){const q=curQ();if(q.answered||q.matched.includes(id))return;q.sel=id;q.flash=null;render()}
 function mRight(id){const q=curQ();if(q.answered||q.matched.includes(id)||q.sel==null)return;
