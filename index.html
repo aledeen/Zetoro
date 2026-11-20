@@ -315,6 +315,17 @@ button.back .svi{vertical-align:0;color:var(--ac)}button.back:hover{border-color
 .vpt .st-p{display:none;color:var(--ac)}.vpill.talking .st-i{display:none}.vpill.talking .st-p{display:inline}
 .vb{display:inline-flex;gap:2.5px;align-items:center;height:18px;flex-shrink:0}.vb i{width:3px;border-radius:2px;background:var(--line)}
 [data-theme=light] .vb i{background:#D9D2CA}.vpill.talking .vb i{background:var(--ac);animation:vbar .8s ease-in-out infinite}
+.frbtn{width:34px;height:34px;padding:0;border-radius:50%;position:relative;margin-right:6px}.frbtn:hover{color:var(--ac);border-color:var(--ac)}
+.frbtn.dot::after{content:'';position:absolute;top:1px;right:1px;width:9px;height:9px;border-radius:50%;background:var(--bad);border:2px solid var(--bg)}
+.fsearch{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 6px 6px 12px;margin-top:12px}
+.fsearch:focus-within{border-color:var(--ac)}.fsearch .svi{color:var(--mu);vertical-align:0}.fsearch input{flex:1;min-width:0;border:0;background:none;padding:8px 0;font-size:16px;outline:none;box-shadow:none}
+.frow{display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px}.frow .btn{width:auto;flex-shrink:0}.frb{display:flex;gap:6px;flex-shrink:0}
+.frtag{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;color:var(--ok);font-weight:600;flex-shrink:0}.frtag .svi{vertical-align:0}
+.cnt{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--bad);color:#fff;font-size:12px;vertical-align:2px}
+.fcard{padding:0;margin-bottom:8px;overflow:hidden}.fc-h{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;background:none;border:0;color:var(--tx);font:inherit;text-align:left;cursor:pointer}
+.fcard .chev{transition:transform .2s}.fcard.op .chev{transform:rotate(90deg)}.fbio{font-style:italic;opacity:.85;margin-top:1px}
+.fl{display:flex;gap:10px;flex-wrap:wrap;margin-top:3px}.lvp{color:var(--ac);font-weight:600}
+.fc-b{padding:4px 14px 14px;border-top:1px solid var(--line)}.frl{display:flex;justify-content:space-between;gap:10px;padding:6px 0;font-size:14px}.frl+.frl{border-top:1px dashed var(--line)}
 .wabtn{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:20px;border:1px solid #2E9E5B;color:#2E9E5B;text-decoration:none;font-size:13px;font-weight:500;background:none}
 .wabtn:hover{background:rgba(46,158,91,.1)}.wabtn.full{display:flex;justify-content:center;margin-top:12px}
 .lis{display:flex;align-items:center;justify-content:center;gap:10px}
@@ -328,6 +339,7 @@ button.back .svi{vertical-align:0;color:var(--ac)}button.back:hover{border-color
     <div class="logo">ZETOR<span>O</span></div>
     <button class="ib ibl" onclick="toggleLang()" id="langBtn" aria-label="Bahasa">IND</button>
     <button class="ib" onclick="toggleTheme()" id="themeBtn" aria-label="Tema"></button>
+    <button class="ib frbtn" onclick="openFriends()" id="findBtn" aria-label="Teman" style="display:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg></button>
     <button class="avbtn" onclick="toggleMe(event)" id="meBtn" aria-label="Profil" style="display:none"></button>
     <input type="file" id="fotoIn" accept="image/*" style="display:none" onchange="fotoPicked(this)">
   </header>
@@ -366,9 +378,9 @@ wordList:"Word list",autoSplit:"Split into sets of 20 automatically",viewOnly:"O
 gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",total:"total words mastered",toNext:"more words to next level",maxLvl:"Top level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
-Object.assign(T.id,{listenExpl:"Dengarkan penjelasan",bioPh:"Tulis sesuatu…",bioLbl:"Bio",bioSaved:"Bio tersimpan",gramQuizScore:"Nilai grammar ini di quiz",shortExpl:"Versi singkat",nowPlaying:"Sedang diputar…",teacherVoiceSub:"Dijelaskan langsung oleh guru",autoVoiceSub:"Dibacakan otomatis",online:"Online",onlineNow:"Online sekarang",noneOnline:"Belum ada murid yang online.",lastActive:"Terakhir aktif",neverActive:"Belum pernah aktif",justNow:"baru saja",minAgo:"menit lalu",hourAgo:"jam lalu",yesterday:"kemarin",dayAgo:"hari lalu",actHome:"di beranda",actBab:"buka",actScore:"lihat penilaian",actFlash:"flashcard",actQuiz:"sedang quiz",actGram:"baca grammar",actGramList:"buka daftar grammar",actGlat:"latihan grammar",pause:"Jeda",vClose:"Matikan",teacherExpl:"Penjelasan guru",autoVoice:"Suara otomatis",recording:"Merekam…",recNotSaved:"Belum disimpan, dengar dulu sebelum menyimpan",recActive:"Rekaman ini yang didengar murid",teacherVoice:"Suara guru",audioPos:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Stop",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar ulang",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada, murid dengar suara otomatis",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
+Object.assign(T.id,{listenExpl:"Dengarkan penjelasan",friends:"Teman",frNew:"baru",frSearchPh:"Cari username teman",frSearch:"Cari",frHint:"Ketik username persis, misalnya budi. Huruf besar/kecil tidak masalah.",frNotFound:"Tidak ada murid dengan username",frAdd:"Tambah",frCancel:"Batalkan",frAccept:"Terima",frReject:"Tolak",frIsFriend:"Teman",frWantsYou:"ingin berteman",frWaiting:"menunggu",frRequests:"Permintaan pertemanan",frMine:"Teman kamu",frSentH:"Permintaan terkirim",frEmpty:"Belum ada teman. Cari username temanmu di atas.",frHafal:"kata hafal",frLearning:"Sedang belajar",frBest:"Nilai quiz tertinggi",frNoQuiz:"Belum pernah quiz",frRemove:"Hapus teman",frAskRemove:"Hapus teman?",frAskRemoveMsg:"tidak akan bisa melihat progresmu lagi, dan kamu juga tidak bisa melihat progresnya.",frSent:"Permintaan pertemanan terkirim",frNowFriends:"Sekarang kalian berteman",frRejected:"Permintaan ditolak",frCanceled:"Permintaan dibatalkan",frRemoved:"Teman dihapus",bioPh:"Tulis sesuatu…",bioLbl:"Bio",bioSaved:"Bio tersimpan",gramQuizScore:"Nilai grammar ini di quiz",shortExpl:"Versi singkat",nowPlaying:"Sedang diputar…",teacherVoiceSub:"Dijelaskan langsung oleh guru",autoVoiceSub:"Dibacakan otomatis",online:"Online",onlineNow:"Online sekarang",noneOnline:"Belum ada murid yang online.",lastActive:"Terakhir aktif",neverActive:"Belum pernah aktif",justNow:"baru saja",minAgo:"menit lalu",hourAgo:"jam lalu",yesterday:"kemarin",dayAgo:"hari lalu",actHome:"di beranda",actBab:"buka",actScore:"lihat penilaian",actFlash:"flashcard",actQuiz:"sedang quiz",actGram:"baca grammar",actGramList:"buka daftar grammar",actGlat:"latihan grammar",pause:"Jeda",vClose:"Matikan",teacherExpl:"Penjelasan guru",autoVoice:"Suara otomatis",recording:"Merekam…",recNotSaved:"Belum disimpan, dengar dulu sebelum menyimpan",recActive:"Rekaman ini yang didengar murid",teacherVoice:"Suara guru",audioPos:"Posisi audio",audioErr:"Audio tidak bisa diputar",recTitle:"Rekaman penjelasan (suara guru)",recStart:"Rekam penjelasan",recStop:"Stop",recAgain:"Rekam ulang",recDel:"Hapus rekaman",recSave:"Simpan rekaman",recReview:"Dengar ulang",recSaved:"Rekaman tersimpan",recDeleted:"Rekaman dihapus",askDelRec:"Hapus rekaman?",recMax:"Maks 3 menit",recNone:"Belum ada, murid dengar suara otomatis",recSaveFirst:"Simpan materi dulu, lalu buka lagi untuk merekam suara.",recNoMic:"Mikrofon tidak bisa dipakai di perangkat ini.",
 askWa:"Tanya via WA",waNum:"Nomor WA",waNotSet:"Belum diisi",waHint:"Contoh: 0812 3456 7890",waSaved:"Nomor WA tersimpan",waCleared:"Nomor WA dihapus",waBad:"Nomor WA tidak valid"});
-Object.assign(T.en,{listenExpl:"Listen to explanation",bioPh:"Write something…",bioLbl:"Bio",bioSaved:"Bio saved",gramQuizScore:"Your quiz score for this",shortExpl:"Short version",nowPlaying:"Playing…",teacherVoiceSub:"Explained by your teacher",autoVoiceSub:"Read aloud automatically",online:"Online",onlineNow:"Online now",noneOnline:"No students online.",lastActive:"Last active",neverActive:"Never active",justNow:"just now",minAgo:"min ago",hourAgo:"h ago",yesterday:"yesterday",dayAgo:"days ago",actHome:"on home",actBab:"opened",actScore:"viewing scores",actFlash:"flashcards",actQuiz:"taking a quiz",actGram:"reading grammar",actGramList:"browsing grammar",actGlat:"grammar practice",pause:"Pause",vClose:"Turn off",teacherExpl:"Explanation from teacher",autoVoice:"Automatic voice",recording:"Recording…",recNotSaved:"Not saved yet, listen before saving",recActive:"Students hear this recording",teacherVoice:"Teacher's voice",audioPos:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Play back",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"None yet, students hear the automatic voice",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
+Object.assign(T.en,{listenExpl:"Listen to explanation",friends:"Friends",frNew:"new",frSearchPh:"Search a friend's username",frSearch:"Search",frHint:"Type the exact username, e.g. budi. Upper/lower case doesn't matter.",frNotFound:"No student with username",frAdd:"Add",frCancel:"Cancel",frAccept:"Accept",frReject:"Decline",frIsFriend:"Friends",frWantsYou:"wants to be friends",frWaiting:"pending",frRequests:"Friend requests",frMine:"Your friends",frSentH:"Sent requests",frEmpty:"No friends yet. Search your friend's username above.",frHafal:"words mastered",frLearning:"Currently learning",frBest:"Best quiz scores",frNoQuiz:"No quiz yet",frRemove:"Remove friend",frAskRemove:"Remove friend?",frAskRemoveMsg:"won't be able to see your progress anymore, and you won't see theirs.",frSent:"Friend request sent",frNowFriends:"You're now friends",frRejected:"Request declined",frCanceled:"Request canceled",frRemoved:"Friend removed",bioPh:"Write something…",bioLbl:"Bio",bioSaved:"Bio saved",gramQuizScore:"Your quiz score for this",shortExpl:"Short version",nowPlaying:"Playing…",teacherVoiceSub:"Explained by your teacher",autoVoiceSub:"Read aloud automatically",online:"Online",onlineNow:"Online now",noneOnline:"No students online.",lastActive:"Last active",neverActive:"Never active",justNow:"just now",minAgo:"min ago",hourAgo:"h ago",yesterday:"yesterday",dayAgo:"days ago",actHome:"on home",actBab:"opened",actScore:"viewing scores",actFlash:"flashcards",actQuiz:"taking a quiz",actGram:"reading grammar",actGramList:"browsing grammar",actGlat:"grammar practice",pause:"Pause",vClose:"Turn off",teacherExpl:"Explanation from teacher",autoVoice:"Automatic voice",recording:"Recording…",recNotSaved:"Not saved yet, listen before saving",recActive:"Students hear this recording",teacherVoice:"Teacher's voice",audioPos:"Audio position",audioErr:"Audio can't be played",recTitle:"Recorded explanation (teacher's voice)",recStart:"Record explanation",recStop:"Stop",recAgain:"Record again",recDel:"Delete recording",recSave:"Save recording",recReview:"Play back",recSaved:"Recording saved",recDeleted:"Recording deleted",askDelRec:"Delete recording?",recMax:"Max 3 minutes",recNone:"None yet, students hear the automatic voice",recSaveFirst:"Save the material first, then open it again to record.",recNoMic:"The microphone can't be used on this device.",
 askWa:"Ask via WhatsApp",waNum:"WhatsApp",waNotSet:"Not set",waHint:"e.g. 0812 3456 7890",waSaved:"WhatsApp number saved",waCleared:"WhatsApp number removed",waBad:"Invalid WhatsApp number"});
 let lang='id';const t=k=>T[lang][k]||k;
 Object.assign(T.id,{qMatch:"Cocokkan kata dengan artinya",qCloze:"Pilih kata yang tepat untuk kalimat ini",qSent:"Apa arti kalimat ini?",qRead:"Bacakan kalimat ini dengan suara",qOrder:"Susun kalimat ini dalam bahasa Inggris",changePhoto:"Ganti foto",removePhoto:"Hapus foto",editName:"Ubah nama",photoSaved:"Foto disimpan",photoRemoved:"Foto dihapus",nameSaved:"Nama disimpan",photoErr:"File harus berupa gambar.",orderHint:"Ketuk kata di bawah sesuai urutan",check:"Cek",checkAns:"Cek jawaban",correctSent:"Kalimat yang benar",
@@ -430,7 +442,7 @@ const LEVELS=[[0,'Starter'],[20,'Foundation'],[50,'Elementary'],[100,'Intermedia
 function lvlOf(n){let i=0;LEVELS.forEach((l,j)=>{if(n>=l[0])i=j});const nx=LEVELS[i+1];
   return{i:i+1,name:LEVELS[i][1],pct:nx?(n-LEVELS[i][0])/(nx[0]-LEVELS[i][0]):1,left:nx?nx[0]-n:0}}
 const FOTO={};
-async function signFotos(){const ppl=[S.user,...DB.students].filter(p=>p&&p.foto&&!FOTO[p.foto]);const paths=[...new Set(ppl.map(p=>p.foto))];if(!paths.length)return;
+async function signFotos(){const ppl=[S.user,...DB.students,...(DB.friends||[])].filter(p=>p&&p.foto&&!FOTO[p.foto]);const paths=[...new Set(ppl.map(p=>p.foto))];if(!paths.length)return;
   try{const{data}=await sb.storage.from('avatars').createSignedUrls(paths,60*60*24);(data||[]).forEach(d=>{if(d.signedUrl)FOTO[d.path]=d.signedUrl})}catch(e){console.warn(e)}}
 function avatar(p,size=32){const url=p&&p.foto&&FOTO[p.foto];const ch=esc(((p&&p.nama)||'?').trim().charAt(0).toUpperCase());
   return url?`<img class="avi" src="${esc(url)}" alt="" width="${size}" height="${size}" style="width:${size}px;height:${size}px">`:`<span class="avi avt" style="width:${size}px;height:${size}px;font-size:${Math.round(size*.42)}px">${ch}</span>`}
@@ -442,7 +454,7 @@ function renderMe(){const m=$('meMenu');if(!S.user||!S.me){m.style.display='none
     :`<button type="button" class="bio" onclick="S.meBio=true;S.meEdit=false;S.meWa=false;renderMe();setTimeout(()=>{const i=$('myBio');if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length)}},30)">${u.bio?`<span class="bio-t">${esc(u.bio)}</span>`:`<span class="bio-t mu">${t('bioPh')}</span>`}${ic('pen',13)}</button>`}</div></div>
   ${S.meEdit?`<div class="me-ed" ${enter('saveMyName')}><input id="myName" value="${esc(u.nama)}" maxlength="60"><button class="btn sm2" onclick="saveMyName()">${t('save')}</button></div>`:''}
   <button class="me-it" onclick="toggleLang();renderMe()">${ic('globe',16)} <span class="grow">${t('language')}</span><span class="me-v">${lang==='id'?'IND':'ENG'}</span></button>
-  <button class="me-it" onclick="toggleTheme();renderMe()">${ic(document.documentElement.dataset.theme==='dark'?'sun':'moon',16)} <span class="grow">${document.documentElement.dataset.theme==='dark'?t('lightMode'):t('darkMode')}</span></button>
+  <button class="me-it" onclick="toggleTheme();renderMe()">${ic(document.documentElement.dataset.theme==='dark'?'moon':'sun',16)} <span class="grow">${document.documentElement.dataset.theme==='dark'?t('lightMode'):t('darkMode')}</span></button>
   <div class="me-sep"></div>
   <button class="me-it" onclick="pickFoto('${u.id}')">${ic('cam',16)} ${t('changePhoto')}</button>
   ${u.foto?`<button class="me-it" onclick="delFoto('${u.id}')">${ic('trash',16)} ${t('removePhoto')}</button>`:''}
@@ -454,7 +466,7 @@ function renderMe(){const m=$('meMenu');if(!S.user||!S.me){m.style.display='none
 async function setGL(id,v){const s=DB.students.find(x=>x.id===id),old=s.glevel||1;if(v===old)return;
   if(!await ask(t('glAsk'),`<b>${esc(s.nama)}</b>: ${t('lv'+old)} → <b>${t('lv'+v)}</b>. ${t('glAskMsg')}`,t('save')))return;
   const ok=await run(async()=>{const{error}=await sb.from('profiles').update({glevel:v}).eq('id',id);if(error)throw error;s.glevel=v});if(ok)toast(t('glSaved'));render()}
-function personById(id){return S.user&&S.user.id===id?S.user:DB.students.find(x=>x.id===id)}
+function personById(id){return S.user&&S.user.id===id?S.user:DB.students.find(x=>x.id===id)||(DB.friends||[]).find(x=>x.id===id&&x.rel==='friend')}
 function viewFoto(id){const p=personById(id);if(!p)return;S.me=false;renderMe();const has=p.foto&&FOTO[p.foto],ch=esc(((p.nama)||'?').trim().charAt(0).toUpperCase());
   const o=document.createElement('div');o.className='lbx';o.onclick=()=>{o.classList.add('out');setTimeout(()=>o.remove(),160)};
   o.innerHTML=`${has?`<img src="${esc(FOTO[p.foto])}" alt="">`:`<div class="lbx-av" aria-hidden="true">${ch}</div>`}<div class="lbx-n">${esc(p.nama)}</div>`;document.body.appendChild(o)}
@@ -537,6 +549,7 @@ stop:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" 
 chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20l1.2-4.2A8.5 8.5 0 1 1 20.5 11.5z"/><path d="M9.2 8.6c.2 3 2.6 5.7 6 6.2l.9-1.5-1.9-.9-.9.8a5 5 0 0 1-2.6-2.6l.8-.9-.9-1.9z"/></svg>',
 x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
 chevl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6l-6 6 6 6"/></svg>',
+plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
 cards:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="6" width="13" height="15" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/></svg>'};
 Object.assign(icon,{search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
 mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>',
@@ -590,6 +603,7 @@ async function enterApp(session){
   await loadData();
   if(S.role==='teacher'){S.view='admin';S.aTab='sum';S.gStudent=DB.students[0]?.id||null}else{S.view='home';glNotify()}
   presStart();
+  if(S.role==='student'){loadFriends();clearInterval(S.frIv);S.frIv=setInterval(()=>{if(document.visibilityState==='visible')loadFriends()},60000)}
 }
 function myGL(){return S.role==='teacher'?3:(S.user&&S.user.glevel)||1}
 function glNotify(){const u=S.user,g=u.glevel||1;if(g>(u.glevel_seen||1)){setTimeout(()=>ask(t('glUpTitle'),`${t('glUpMsg')} <b>${t('lv'+g)}</b>.`,t('ok'),false,true).catch(()=>{}),400);
@@ -600,10 +614,10 @@ function render(){closeTip();setTimeout(presTrack,0);
   document.documentElement.lang=lang;
   $('langBtn').innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg><span>${lang==='en'?'ENG':'IND'}</span>`;
   const dark=document.documentElement.dataset.theme==='dark';$('themeBtn').setAttribute('aria-label',dark?'Mode terang':'Mode gelap');
-  $('themeBtn').innerHTML=dark?`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>`
-   :`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>`;
-  $('meBtn').style.display=S.user?'':'none';$('langBtn').style.display=$('themeBtn').style.display=S.user?'none':'';if(S.user)$('meBtn').innerHTML=avatar(S.user,30);renderMe();
-  const v={boot:()=>`<div class="big mu">${t('loading')}</div>`,login:vLogin,home:vHome,bab:vBab,admin:vAdmin}[S.view];$('main').innerHTML=v();S.anim=false;renderNav();
+  $('themeBtn').innerHTML=dark?`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>`
+   :`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>`;
+  $('meBtn').style.display=S.user?'':'none';$('findBtn').style.display=S.user&&S.role==='student'?'':'none';friendBadge();$('langBtn').style.display=$('themeBtn').style.display=S.user?'none':'';if(S.user)$('meBtn').innerHTML=avatar(S.user,30);renderMe();
+  const v={boot:()=>`<div class="big mu">${t('loading')}</div>`,login:vLogin,home:vHome,bab:vBab,admin:vAdmin,friends:vFriends}[S.view];$('main').innerHTML=v();S.anim=false;renderNav();
   if(S.view==='bab'&&S.tab==='learn'&&S.mode==='quiz'&&S.quiz&&!S.quiz.done){const q=curQ();if(q.type==='listen'&&!q.played){q.played=true;setTimeout(()=>speak(q.w.kata,.85,document.querySelector('.lis .spk')),300)}}
 }
 function renderNav(){let items=[];
@@ -653,7 +667,7 @@ async function doSetup(){const n=$('sn').value.trim(),e=$('u').value.trim().toLo
   await run(async()=>{await invokeAdmin({action:'setup_teacher',nama:n,email:e,password:p});
     const{data,error}=await sb.auth.signInWithPassword({email:e,password:p});if(error)throw error;S.needSetup=false;await enterApp(data.session)});
   render()}
-async function doSignOut(){presStop();try{await sb.auth.signOut()}catch(e){}Object.assign(S,{user:null,role:null,view:'login'});DB.babs=[];DB.students=[]}
+async function doSignOut(){presStop();clearInterval(S.frIv);DB.friends=[];S.fRes=undefined;S.fq='';try{await sb.auth.signOut()}catch(e){}Object.assign(S,{user:null,role:null,view:'login'});DB.babs=[];DB.students=[]}
 async function logout(){stopAudio();S.open={};S.mq='';await doSignOut();S.err='';S.anim=true;render()}
 
 /* ---------- student home ---------- */
@@ -1239,6 +1253,48 @@ function presTrack(force){const ch=S.pres;if(!ch||S.role!=='student'||!S.presOk)
   const o=actObj(),k=JSON.stringify(o);if(!force&&k===S.presAct)return;S.presAct=k;clearTimeout(S.presT);S.presT=setTimeout(()=>{try{ch.track(o)}catch(e){}},force?0:600)}
 document.addEventListener('visibilitychange',()=>{if(S.role!=='student'||!S.pres)return;
   if(document.visibilityState==='visible'){presTrack(true);sb.rpc('touch_seen').then(()=>{},()=>{})}else{try{S.pres.untrack()}catch(e){}S.presAct=null;sb.rpc('touch_seen').then(()=>{},()=>{})}});
+/* --- teman: cari username persis, minta pertemanan, lihat progres teman --- */
+DB.friends=[];
+const fr=r=>(DB.friends||[]).filter(f=>f.rel===r);
+async function loadFriends(){if(S.role!=='student')return;try{const{data,error}=await sb.rpc('my_friends');if(error)throw error;DB.friends=data||[];await signFotos()}catch(e){console.warn(e)}
+  friendBadge();if(S.view==='friends')render()}
+function friendBadge(){const b=$('findBtn');if(!b)return;const n=fr('received').length;b.classList.toggle('dot',n>0);b.setAttribute('aria-label',n?`${t('friends')} (${n} ${t('frNew')})`:t('friends'))}
+function openFriends(){stopAudio();S.me=false;renderMe();if(S.view!=='friends')S.fPrev={view:S.view,tab:S.tab,mode:S.mode};S.view='friends';S.fOpen=null;render();scrollTo(0,0);loadFriends()}
+function closeFriends(){const p=S.fPrev||{view:'home'};S.view=p.view;if(p.tab)S.tab=p.tab;if(p.mode)S.mode=p.mode;S.fPrev=null;render();scrollTo(0,0)}
+async function findUser(){const q=($('fq').value||'').trim().replace(/^@/,'');S.fq=q;if(!q){S.fRes=undefined;render();return}
+  S.fBusy=true;render();try{const{data,error}=await sb.rpc('find_student',{p_username:q});if(error)throw error;S.fRes=(data&&data[0])||null}catch(e){console.warn(e);toast(t('offline'));S.fRes=undefined}
+  S.fBusy=false;render();const i=$('fq');if(i)i.blur()}
+async function frAct(fn,args,msg){const ok=await run(async()=>{const{error}=await sb.rpc(fn,args);if(error)throw error});if(!ok)return;
+  if(S.fRes&&args&&(args.p_to===S.fRes.id||args.p_from===S.fRes.id||args.p_other===S.fRes.id)){try{const{data}=await sb.rpc('find_student',{p_username:S.fRes.username});S.fRes=(data&&data[0])||null}catch(e){}}
+  await loadFriends();if(msg)toast(msg)}
+const addFriend=id=>frAct('friend_request',{p_to:id},t('frSent'));
+const acceptFriend=id=>frAct('friend_respond',{p_from:id,p_accept:true},t('frNowFriends'));
+const rejectFriend=id=>frAct('friend_respond',{p_from:id,p_accept:false},t('frRejected'));
+const cancelFriend=id=>frAct('friend_remove',{p_other:id},t('frCanceled'));
+async function unFriend(id){const f=DB.friends.find(x=>x.id===id);if(!f||!await ask(t('frAskRemove'),`<b>${esc(f.nama)}</b> ${t('frAskRemoveMsg')}`,t('del'),true))return;S.fOpen=null;frAct('friend_remove',{p_other:id},t('frRemoved'))}
+function frBtns(p){const r=p.rel;
+  if(r==='friend')return `<span class="frtag">${ic('check',13)} ${t('frIsFriend')}</span>`;
+  if(r==='sent')return `<button class="btn ghost sm2" onclick="cancelFriend('${p.id}')">${t('frCancel')}</button>`;
+  if(r==='received')return `<div class="frb"><button class="btn sm2" onclick="acceptFriend('${p.id}')">${t('frAccept')}</button><button class="btn ghost sm2" onclick="rejectFriend('${p.id}')">${t('frReject')}</button></div>`;
+  return `<button class="btn sm2" onclick="addFriend('${p.id}')">${ic('plus',14)} ${t('frAdd')}</button>`}
+function frRow(p,sub){return `<div class="card frow">${avatar({nama:p.nama},40)}<div class="grow"><b>${esc(p.nama)}</b><div class="sm mu">@${esc(p.username)}${sub?` · ${sub}`:''}</div></div>${frBtns(p)}</div>`}
+function friendCard(f){const n=f.hafal||0,L=lvlOf(n),op=S.fOpen===f.id;const ak=(f.aktif||[]),bs=(f.best||[]);
+  return `<div class="card fcard ${op?'op':''}"><button type="button" class="fc-h" onclick="S.fOpen=S.fOpen==='${f.id}'?null:'${f.id}';render()">
+   <span class="avbtn" onclick="event.stopPropagation();viewFoto('${f.id}')">${avatar(f,48)}</span>
+   <div class="grow"><b>${esc(f.nama)}</b>${f.bio?`<div class="sm fbio">${esc(f.bio)}</div>`:''}
+    <div class="sm fl"><span class="lvp">Lv ${L.i} · ${esc(L.name)}</span><span class="mu">${n} ${t('frHafal')}</span></div></div><span class="chev">›</span></button>
+   ${op?`<div class="fc-b"><div class="sc-lbl">${t('frLearning')}</div>${ak.length?ak.map(a=>`<div class="frl"><span>${esc(a.bab)}</span><span class="mu">${t('paket')} ${a.paket}</span></div>`).join(''):`<div class="sm mu">—</div>`}
+    <div class="sc-lbl" style="margin-top:12px">${t('frBest')}</div>${bs.length?bs.map(q=>`<div class="frl"><span>${esc(q.bab)} <span class="mu">· ${q.paket==='all'?t('allWords'):t('paket')+' '+esc(q.paket)}</span></span><b style="color:var(--ac)">${q.best}/10</b></div>`).join(''):`<div class="sm mu">${t('frNoQuiz')}</div>`}
+    <button class="lnk3 bad" style="margin-top:12px" onclick="unFriend('${f.id}')">${ic('trash',15)} ${t('frRemove')}</button></div>`:''}</div>`}
+function vFriends(){const fs=fr('friend'),rc=fr('received'),sn=fr('sent');const R=S.fRes;
+  return `<button class="back" onclick="closeFriends()">${ic('chevl',16)}${t('back')}</button><h1>${t('friends')}</h1>
+  <div class="fsearch" ${enter('findUser')}>${ic('search',18)}<input id="fq" value="${esc(S.fq||'')}" placeholder="${t('frSearchPh')}" autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="${t('frSearchPh')}"><button class="btn sm2" onclick="findUser()" ${S.fBusy?'disabled':''}>${t('frSearch')}</button></div>
+  <p class="sm mu" style="margin:6px 2px 14px">${t('frHint')}</p>
+  ${R===undefined?'':R?frRow(R,R.rel==='received'?t('frWantsYou'):''):`<div class="card mu sm" style="text-align:center">${t('frNotFound')} <b>@${esc(S.fq)}</b></div>`}
+  ${rc.length?`<h2>${t('frRequests')} <span class="cnt">${rc.length}</span></h2>${rc.map(p=>frRow(p,t('frWantsYou'))).join('')}`:''}
+  <h2>${t('frMine')} <span class="mu sm" style="font-weight:400">· ${fs.length}</span></h2>
+  ${fs.length?fs.map(friendCard).join(''):`<div class="card mu sm" style="text-align:center;padding:20px">${t('frEmpty')}</div>`}
+  ${sn.length?`<h2>${t('frSentH')}</h2>${sn.map(p=>frRow(p,t('frWaiting'))).join('')}`:''}`}
 /* tanya via WA */
 function waNum(v){let d=String(v||'').replace(/\D/g,'');if(d.startsWith('0'))d='62'+d.slice(1);else if(d.startsWith('8'))d='62'+d;return d}
 function waHi(){const u=S.user||{};return `Halo kak, saya ${u.nama||''}${u.username?' (@'+u.username+')':''} dari Zetoro. `}
