@@ -382,9 +382,9 @@ html.lgv,html.lgv body{height:100%;overflow-x:hidden;overflow-y:auto;overscroll-
 @media (max-height:540px){html.lgv,html.lgv body{height:auto;overflow:auto}html.lgv .app.islogin{height:auto}html.lgv .lg{height:auto;min-height:540px}}
 .app.islogin main{padding:0;display:flex;flex-direction:column}
 html.lgv[data-theme=light],html.lgv[data-theme=light] body{background:#fff}
-.lg{--lgbg:var(--bg);--lgsh:#141210;--lgcard:#1C1916;--lgb1:#2A1E15;--lgb2:#3A2516;--lgfld:#0E0C0B;--lgfb:#2A2420;--lgseg:#221E1A;--lgind:#F1EBE4;--lgindt:#12100E;--lgac:var(--ac);--lghl:rgba(208,138,91,.28);--lgspk:var(--ac);
+.lg{--lgbg:var(--bg);--lgsh:#111111;--lgcard:#171717;--lgb1:#2A1E15;--lgb2:#3A2516;--lgfld:#000000;--lgfb:#262626;--lgseg:#1E1E1E;--lgind:#F1EBE4;--lgindt:#12100E;--lgac:var(--ac);--lghl:rgba(208,138,91,.28);--lgspk:var(--ac);
  flex:1;display:flex;flex-direction:column;min-height:100vh;min-height:var(--apph,100svh);background:var(--lgbg);overflow:hidden}
-[data-theme=light] .lg{--lgbg:#FFFFFF;--lgsh:#FAF7F3;--lgcard:#FFFFFF;--lgb1:#FBEEE3;--lgb2:#F6E3D3;--lgfld:#FFFFFF;--lgfb:#EDE5DC;--lgseg:#F0E9E1;--lgind:#FFFFFF;--lgindt:#17120E;--lgac:#C2733F;--lghl:#F8DFCB;--lgspk:#17120E}
+[data-theme=light] .lg{--lgbg:#FFFFFF;--lgsh:#FFFFFF;--lgcard:#FFFFFF;--lgb1:#FBEEE3;--lgb2:#F6E3D3;--lgfld:#FFFFFF;--lgfb:#EDE5DC;--lgseg:#F0E9E1;--lgind:#FFFFFF;--lgindt:#17120E;--lgac:#C2733F;--lghl:#F8DFCB;--lgspk:#17120E}
 .lg-top{flex:1 0 auto;display:flex;flex-direction:column;padding:max(24px,calc(env(safe-area-inset-top) + 14px)) 26px 0}
 .lg-bar{display:flex;align-items:center;gap:8px}
 .lg-wm{margin-right:auto;display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:5px;font-size:13px}
@@ -419,6 +419,7 @@ html.lgv[data-theme=light],html.lgv[data-theme=light] body{background:#fff}
 .lg-spk.talking:before,.lg-spk.talking:after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--lgac);animation:lgRing 1.4s ease-out infinite}
 .lg-spk.talking:after{animation-delay:.7s}
 .lg-sheet{flex-shrink:0;margin-top:20px;box-sizing:border-box;min-height:calc(352px + env(safe-area-inset-bottom));background:var(--lgsh);border-radius:30px 30px 0 0;padding:12px 24px calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--lgfb)}
+.lg-sheet{box-shadow:0 -10px 30px rgba(0,0,0,.35)}[data-theme=light] .lg-sheet{box-shadow:0 -10px 34px rgba(60,40,20,.09)}
 .lg-handle{width:40px;height:4px;border-radius:2px;background:var(--lgfb);margin:0 auto 16px}
 .lg-seg{position:relative;display:flex;background:var(--lgseg);border-radius:14px;padding:4px}
 .lg-seg i{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:11px;background:var(--lgind);box-shadow:0 2px 8px rgba(0,0,0,.08)}
@@ -486,7 +487,9 @@ input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus
 /* sembunyikan scrollbar (halaman tetap bisa digeser) */
 html,body,*{scrollbar-width:none;-ms-overflow-style:none}html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{display:none;width:0;height:0}
 /* ---------- tampilan dalam v2 (rapi ala iOS, serasi dengan login) ---------- */
-[data-theme=light]{--bg:#F5F3F0}
+[data-theme=light]{--bg:#FFFFFF;--card2:#F2EFEB;--line:#ECE8E3}
+[data-theme=light] .card,[data-theme=light] .v2grp,[data-theme=light] .v2lv{border:1px solid var(--line);box-shadow:0 1px 2px rgba(40,25,10,.04)}
+[data-theme=light] .v2seg button.on{box-shadow:0 1px 3px rgba(0,0,0,.12)}
 header{border-bottom:0;padding:14px 16px 8px;background:var(--bg)}
 .logo{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:5px;font-size:13px}
 .lz{width:28px;height:28px;border-radius:9px;background:#fff;display:grid;place-items:center;flex-shrink:0}.lz path{stroke:#C2733F}
@@ -818,7 +821,7 @@ function glNotify(){const u=S.user,g=u.glevel||1;if(g>(u.glevel_seen||1)){setTim
 function render(){{const d=$('gtip');if(d&&d.dataset.moved&&d.dataset.page!==pageKey())closeTip(true);else closeTip()}setTimeout(presTrack,0);
   document.documentElement.lang=lang;
   $('langBtn').innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg><span>${lang==='en'?'ENG':'IND'}</span>`;
-  const dark=document.documentElement.dataset.theme==='dark';{const m=$('themeColor');if(m)m.setAttribute('content',dark?'#000000':S.view==='login'?'#FFFFFF':'#F7F5F2')}$('themeBtn').setAttribute('aria-label',dark?t('lightMode'):t('darkMode'));$('langBtn').setAttribute('aria-label',t('language'));$('meBtn').setAttribute('aria-label',t('profile'));
+  const dark=document.documentElement.dataset.theme==='dark';{const m=$('themeColor');if(m)m.setAttribute('content',dark?'#000000':'#FFFFFF')}$('themeBtn').setAttribute('aria-label',dark?t('lightMode'):t('darkMode'));$('langBtn').setAttribute('aria-label',t('language'));$('meBtn').setAttribute('aria-label',t('profile'));
   $('themeBtn').innerHTML=dark?`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>`
    :`<svg class="tico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>`;
   $('meBtn').style.display=S.user?'':'none';$('findBtn').style.display=S.user&&S.role==='student'?'':'none';friendBadge();
@@ -857,7 +860,10 @@ function emblem(){return `<svg class="emb" width="88" height="88" viewBox="0 0 8
   <path class="emb-z" pathLength="100" d="M32 32h24L32 56h24" fill="none" stroke="var(--ac)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`}
 const WOD_FALLBACK=[["sweep","menyapu","She sweeps the floor every morning.","Dia menyapu lantai setiap pagi."],["borrow","meminjam","Can I borrow your pen?","Boleh aku pinjam pulpenmu?"],["brave","berani","He is brave enough to speak first.","Dia cukup berani untuk bicara duluan."],["remember","mengingat","I remember your name.","Aku ingat namamu."],["kitchen","dapur","My mother is in the kitchen.","Ibuku ada di dapur."],["honest","jujur","Always be honest with your friends.","Selalu jujur pada teman-temanmu."],["wake up","bangun tidur","I wake up at five o'clock.","Aku bangun jam lima."],["share","berbagi","Let's share this cake.","Ayo kita berbagi kue ini."],["quiet","tenang, sepi","The library is very quiet.","Perpustakaannya sangat sepi."],["try","mencoba","Try again, you can do it!","Coba lagi, kamu pasti bisa!"],["grateful","bersyukur","I am grateful for my family.","Aku bersyukur atas keluargaku."],["neighbor","tetangga","Our neighbor is very kind.","Tetangga kami sangat baik."],["arrive","tiba","We arrive at school at seven.","Kami tiba di sekolah jam tujuh."],["clean","membersihkan","They clean the classroom together.","Mereka membersihkan kelas bersama."]];
 function wodFallback(){const d=Math.floor((Date.now()+7*36e5)/864e5),w=WOD_FALLBACK[d%WOD_FALLBACK.length];return{kata:w[0],arti:w[1],contoh:w[2],contoh_arti:w[3]}}
-async function loadWod(){try{const{data}=await sb.rpc('word_of_day');const w=Array.isArray(data)?data[0]:data;if(w&&w.kata)S.wod=w}catch(e){}}
+async function loadWod(){try{const{data}=await sb.rpc('word_of_day');const w=Array.isArray(data)?data[0]:data;if(w&&w.kata){S.wod=w;wodPaint()}}catch(e){}}
+function wodPaint(){const c=$('lgCard'),w=S.wod;if(!c||!w||(S.wodShown&&S.wodShown.kata===w.kata))return;S.wodShown=w;
+  const q=x=>c.querySelector(x);if(q('.lg-w'))q('.lg-w').textContent=w.kata;if(q('.lg-ar'))q('.lg-ar').textContent=w.arti||'';
+  const ex=q('.lg-ex');if(ex)ex.innerHTML=(w.contoh?`"${esc(w.contoh)}"`:'')+(w.contoh_arti?`<span>${esc(w.contoh_arti)}</span>`:'')}
 function wodFlip(){S.wodFlip=!S.wodFlip;const c=$('lgCard');if(c)c.classList.toggle('flipped',S.wodFlip)}
 function lgDate(){const d=new Date(),loc=lang==='en'?'en-GB':'id-ID';try{return d.toLocaleDateString(loc,{weekday:'long'})+' · '+d.toLocaleDateString(loc,{day:'numeric',month:'long'})}catch(e){return ''}}
 const lgIco={user:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
@@ -870,7 +876,7 @@ async function setLoginTab(x){if(S.loginTab===x)return;S.loginTab=x;S.err='';S.s
   try{history.replaceState(null,'',x==='teacher'?'#guru':location.pathname+location.search)}catch(e){}
   if(x==='teacher'){try{const{data}=await sb.rpc('teacher_exists');S.needSetup=data===false}catch(e){}}
   render()}
-function vLogin(){const s=S.loginTab==='student',setup=!s&&S.needSetup,w=S.wod||wodFallback(),dark=document.documentElement.dataset.theme==='dark',mv=S.segAnim;S.segAnim=false;
+function vLogin(){const s=S.loginTab==='student',setup=!s&&S.needSetup,w=S.wodShown=S.wod||wodFallback(),dark=document.documentElement.dataset.theme==='dark',mv=S.segAnim;S.segAnim=false;
   const h1=t('lgH1').split('<br>').map((l,i)=>`<span class="hl"><span style="animation-delay:${(1.75+i*.28).toFixed(2)}s">${l}</span></span>`).join('');
   const form=setup?`<div class="lg-sub"><b>${t('setupTitle')}</b>${t('setupSub')}</div>
      ${lf('user','sn',`autocomplete="name" value="${esc(S.lgN||'')}"`,t('name'))}${lf('mail','u',`type="email" autocomplete="email" autocapitalize="off" value="${esc(S.lgU||'')}"`,t('email'))}${lf('lock','p','autocomplete="new-password"',t('pwMin'),true)}`
@@ -885,7 +891,7 @@ function vLogin(){const s=S.loginTab==='student',setup=!s&&S.needSetup,w=S.wod||
    <h1>${h1}</h1>
    <div class="lg-stack"><div class="lg-fc b2"></div><div class="lg-fc b1"></div>
     <div class="lg-fc f ${S.wodFlip?'flipped':''}" id="lgCard" role="button" tabindex="0" aria-label="${t('wodTap')}" onclick="wodFlip()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();wodFlip()}"><div class="lg-flip">
-     <div class="lg-face fr"><div class="r"><small>${t('wod')}</small><button class="lg-spk" aria-label="${t('listen')}" onclick="event.stopPropagation();speak(S.wod?S.wod.kata:wodFallback().kata,.85,this)">${ic('spk',16)}</button></div>
+     <div class="lg-face fr"><div class="r"><small>${t('wod')}</small><button class="lg-spk" aria-label="${t('listen')}" onclick="event.stopPropagation();speak(S.wodShown?S.wodShown.kata:wodFallback().kata,.85,this)">${ic('spk',16)}</button></div>
       <div class="lg-w">${esc(w.kata)}</div><div class="lg-tap">${lgIco.flip}${t('wodTap')}</div></div>
      <div class="lg-face bk"><div class="r"><small>${t('wodMeaning')}</small></div><div class="lg-ar">${esc(w.arti)}</div>
       <div class="lg-ex">${w.contoh?`"${esc(w.contoh)}"`:''}${w.contoh_arti?`<span>${esc(w.contoh_arti)}</span>`:''}</div></div>
