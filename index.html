@@ -987,7 +987,7 @@ function goHome(){stopAudio();S.view='home';S.mode='menu';S.fPrev=null;render();
 function navBab(tab){if(S.view==='bab'){setTab(tab);return}const u=S.user.unlocked||{};
   const id=(S.bab&&u[S.bab]&&bab(S.bab)&&bab(S.bab).words.length)?S.bab:(DB.babs.find(b=>u[b.id]&&b.words.length)||{}).id;
   if(!id){toast(t('noBabOpen'),3000);return}stopAudio();S.fPrev=null;openBab(id,tab);scrollTo(0,0)}
-function openBab(id,tab){S.bab=id;S.paket=Math.min(S.user.unlocked[id],pakets(bab(id)));S.view='bab';S.tab=tab||'score';S.mode='menu';render();scrollTo(0,0)}
+function openBab(id,tab){S.bab=id;S.paket=Math.min(S.user.unlocked[id],pakets(bab(id)));S.view='bab';S.tab=tab||'learn';S.mode='menu';render();scrollTo(0,0)}
 function setTab(x){stopAudio();S.tab=x;S.mode='menu';render()}
 
 /* ---------- learn ---------- */
