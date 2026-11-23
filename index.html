@@ -1055,7 +1055,7 @@ function vBab(){const b=bab(S.bab),s=S.user;if(!b){S.view='home';return vHome()}
   <div class="v2lbl"><span>${t('v2practice')}</span></div>
   <div class="v2grp">
   <div class="v2row" onclick="startFlash()" role="button" tabindex="0"><div class="v2ic">${ic('cards',18)}</div><div class="grow"><b>${t('flash')}</b><div class="sm mu">${t('flashSub')}</div></div><span class="v2ch">${ic('chevr',16)}</span></div>
-  <div class="v2row" onclick="startQuiz()" role="button" tabindex="0"><div class="v2ic">${ic('check',18)}</div><div class="grow"><b>${t('quiz')}</b><div class="sm mu">${q?`${t('last')} ${q.last}/10 · ${t('best')} ${q.best}/10`:t('quizSub')}</div></div><span class="v2ch">${ic('chevr',16)}</span></div>
+  <div class="v2row" onclick="startQuiz()" role="button" tabindex="0"><div class="v2ic">${ic('check',18)}</div><div class="grow"><b>${t('quiz')}</b><div class="sm mu">${q?`${t('last')} ${q.last}/100 · ${t('best')} ${q.best}/100`:t('quizSub')}</div></div><span class="v2ch">${ic('chevr',16)}</span></div>
   ${DB.grammars.length?`<div class="v2row" onclick="S.gPrev='menu';S.mode='gram';S.gOpen=null;S.gAll=!bGrams(bab(S.bab)).length;render();scrollTo(0,0)" role="button" tabindex="0"><div class="v2ic">${ic('gram',18)}</div><div class="grow"><b>${t('grammar')}</b><div class="sm mu">${bGrams(b).length} ${t('gramInBab')}</div></div><span class="v2ch">${ic('chevr',16)}</span></div>`:''}
   </div>`}
 function startFlash(){if(!curWords(bab(S.bab)).length){toast(t('empty'));return}S.mode='flash';S.fi=0;S.flip=false;render()}
@@ -1166,7 +1166,7 @@ function vQuiz(b){const Q=S.quiz;
   if(Q.done){const r=Q.saved||S.user.quiz[qKey()]||{best:Q.final,tries:1};
     return `<div class="big"><div class="tag">${t('result')}</div><div class="score">${Q.score}/${Q.qs.length}</div>
     ${Q.review.length?`<p class="fixd">${ic('check',14)} ${Q.fixed}/${Q.review.length} ${t('fixed')}</p>`:''}
-    <p class="mu">${t('best')}: ${r.best}/10 · ${t('tries')}: ${r.tries}</p></div>
+    <p class="mu">${t('best')}: ${r.best}/100 · ${t('tries')}: ${r.tries}</p></div>
     <button class="btn" onclick="startQuiz()">${t('again')}</button><div style="height:10px"></div><button class="btn ghost" onclick="stopAudio();S.mode='menu';render()">${t('done')}</button>`}
   const q=curQ(),rev=Q.phase==='review';
   const tot=rev?Q.review.length:Q.qs.length,idx=rev?Q.ri:Q.i;
@@ -1206,7 +1206,7 @@ function vQuiz(b){const Q=S.quiz;
   ${q.answered?`<button class="btn" style="margin-top:8px" onclick="nextQ()">${btnLbl}</button>`:''}`}
 async function nextQ(){const Q=S.quiz;stopAudio();
   if(Q.phase==='main'){if(Q.i<Q.qs.length-1){Q.i++;render();scrollTo(0,0);return}
-    Q.final=Math.round(Q.score/Q.qs.length*10);submitQuiz();
+    Q.final=Math.round(Q.score/Q.qs.length*100);submitQuiz();
     if(Q.wrong.length){const b=bab(S.bab),ws=curWords(b);Q.review=Q.wrong.map(o=>makeQ(o.type==='read'&&!SRClass()?'en':o.type,o.w,ws,{distract:o.distract}));Q.phase='review';Q.ri=0;render();scrollTo(0,0);return}
     Q.done=true;render();return}
   if(Q.ri<Q.review.length-1){Q.ri++;render();scrollTo(0,0);return}
@@ -1223,13 +1223,13 @@ function vScore(s,b,edit){const maxOpen=maxOpenOf(s,b);
   let html=`<div class="stats"><div class="stat"><b style="color:var(--ok)">${h}</b><span>${t('hafal')}</span></div>
   <div class="stat"><b style="color:var(--warn)">${be}</b><span>${t('belum')}</span></div><div class="stat"><b>${all.length-h-be}</b><span>${t('baru')}</span></div></div>
   ${edit?'':`<p class="sm mu" style="margin:0 0 6px">${t('tapHint')} · ${t('viewOnly')}</p>`}`;
-  const qa=s.quiz[b.id+'-all'];if(qa)html+=`<p class="sm mu" style="margin:0 0 6px">${t('quiz')} ${t('allWords')}: ${qa.last}/10 (${t('best')} ${qa.best}, ${qa.tries}x)</p>`;
+  const qa=s.quiz[b.id+'-all'];if(qa)html+=`<p class="sm mu" style="margin:0 0 6px">${t('quiz')} ${t('allWords')}: ${qa.last}/100 (${t('best')} ${qa.best}, ${qa.tries}x)</p>`;
   for(let p=1;p<=maxOpen;p++){const ws=pkWords(b,p);if(!ws.length)continue;const ph=ws.filter(w=>st(s,w)==='hafal').length,q=s.quiz[b.id+'-'+p];
     const key=`${s.id}-${b.id}-${p}`,open=S.open[key]??(p===maxOpen),full=ph===ws.length;
     html+=`${p>1?'<div class="pksep"></div>':''}<button class="pkh ${open?'op':''}" onclick="togPk('${key}',${p===maxOpen})"><span class="chev">›</span><span class="pkt">${t('paket')} ${p}</span>
-      <span class="pks ${full?'full':''}">${ph}/${ws.length}${full?' '+ic('check',12):''} · ${q?`${t('quiz')} ${q.last}/10`:t('noQuiz')}</span></button>`;
+      <span class="pks ${full?'full':''}">${ph}/${ws.length}${full?' '+ic('check',12):''} · ${q?`${t('quiz')} ${q.last}/100`:t('noQuiz')}</span></button>`;
     if(!open)continue;
-    html+=`${q?`<p class="sm mu" style="margin:0 0 6px">${t('best')} ${q.best}/10 · ${q.tries}x</p>`:''}<div class="wl">`;
+    html+=`${q?`<p class="sm mu" style="margin:0 0 6px">${t('best')} ${q.best}/100 · ${q.tries}x</p>`:''}<div class="wl">`;
     ws.forEach((w,i)=>{const v=st(s,w);
       html+=`<div class="wi ${v}"><span class="no">${(p-1)*20+i+1}</span>${edit?`<div class="grow"><b>${kw(w)}</b> <span class="sm mu">· ${esc(w.arti)}</span><div class="sm mu ex">“${cs(w)}”</div>${w.contoh_arti?`<div class="sm" style="color:var(--ac)">${esc(w.contoh_arti)}</div>`:''}</div>
       <select onchange="setSt('${s.id}',${w.id},this.value,this)">${['baru','belum','hafal'].map(o=>`<option value="${o}" ${o===v?'selected':''}>${t(o)}</option>`).join('')}</select>`:
@@ -1652,7 +1652,7 @@ function friendCard(f){const n=f.hafal||0,L=lvlOf(n),op=S.fOpen===f.id;const ak=
    <div class="grow"><b>${esc(f.nama)}</b>${f.bio?`<div class="sm fbio">${esc(f.bio)}</div>`:''}
     <div class="sm fl"><span class="lvp">${t('level')} ${L.i} · ${esc(L.name)}</span><span class="mu">${n} ${t('frHafal')}</span></div></div><span class="chev">›</span></button>
    ${op?`<div class="fc-b"><div class="sc-lbl">${t('frLearning')}</div>${ak.length?ak.map(a=>`<div class="frl"><span>${esc(a.bab)}</span><span class="mu">${t('paket')} ${a.paket}</span></div>`).join(''):`<div class="sm mu">—</div>`}
-    <div class="sc-lbl" style="margin-top:12px">${t('frBest')}</div>${bs.length?bs.map(q=>`<div class="frl"><span>${esc(q.bab)} <span class="mu">· ${q.paket==='all'?t('allWords'):t('paket')+' '+esc(q.paket)}</span></span><b style="color:var(--ac)">${q.best}/10</b></div>`).join(''):`<div class="sm mu">${t('frNoQuiz')}</div>`}
+    <div class="sc-lbl" style="margin-top:12px">${t('frBest')}</div>${bs.length?bs.map(q=>`<div class="frl"><span>${esc(q.bab)} <span class="mu">· ${q.paket==='all'?t('allWords'):t('paket')+' '+esc(q.paket)}</span></span><b style="color:var(--ac)">${q.best}/100</b></div>`).join(''):`<div class="sm mu">${t('frNoQuiz')}</div>`}
     <button class="lnk3 bad" style="margin-top:12px" onclick="unFriend('${f.id}')">${ic('trash',15)} ${t('frRemove')}</button></div>`:''}</div>`}
 function frResult(){const q=(S.fq||'').trim().replace(/^@/,'');
   if(!q)return '';
