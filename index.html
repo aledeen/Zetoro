@@ -530,6 +530,7 @@ header{border-bottom:0;padding:14px 16px 8px;background:var(--bg)}
 .v2n{font-family:Georgia,"Times New Roman",serif;font-size:22px;font-weight:700;color:var(--ac);width:32px;text-align:center;flex-shrink:0}
 .v2ic{width:32px;height:32px;border-radius:9px;background:var(--acs);color:var(--ac);display:grid;place-items:center;flex-shrink:0}
 .v2ic .svi{display:block}
+.v2pct{font-family:Georgia,"Times New Roman",serif;font-size:26px;font-weight:700;color:var(--ac);line-height:1}
 .v2pc{font-size:14px;font-weight:600;color:var(--mu);flex-shrink:0}.v2pc.on{color:var(--ac)}
 .v2ch{color:var(--mu);opacity:.6;display:flex;flex-shrink:0}.v2ch .svi{display:block}
 .v2ttl{padding:2px 4px 0}.v2ttl h1{font-family:Georgia,"Times New Roman",serif;font-size:31px;font-weight:700;letter-spacing:-.8px;line-height:1.1;margin:4px 0 0}
@@ -986,7 +987,7 @@ function goHome(){stopAudio();S.view='home';S.mode='menu';S.fPrev=null;render();
 function navBab(tab){if(S.view==='bab'){setTab(tab);return}const u=S.user.unlocked||{};
   const id=(S.bab&&u[S.bab]&&bab(S.bab)&&bab(S.bab).words.length)?S.bab:(DB.babs.find(b=>u[b.id]&&b.words.length)||{}).id;
   if(!id){toast(t('noBabOpen'),3000);return}stopAudio();S.fPrev=null;openBab(id);if(tab!=='learn')setTab(tab);scrollTo(0,0)}
-function openBab(id){S.bab=id;S.paket=Math.min(S.user.unlocked[id],pakets(bab(id)));S.view='bab';S.tab='learn';S.mode='menu';render()}
+function openBab(id){S.bab=id;S.paket=Math.min(S.user.unlocked[id],pakets(bab(id)));S.view='bab';S.tab='score';S.mode='menu';render();scrollTo(0,0)}
 function setTab(x){stopAudio();S.tab=x;S.mode='menu';render()}
 
 /* ---------- learn ---------- */
@@ -1008,7 +1009,7 @@ function vBab(){const b=bab(S.bab),s=S.user;if(!b){S.view='home';return vHome()}
   if(S.mode==='glat'&&S.glat)return head+vGlat();
   const ws=curWords(b),h=ws.filter(w=>st(s,w)==='hafal').length,q=s.quiz[qKey()],pct=ws.length?h/ws.length*100:0;
   return `<div class="v2ttl"><div class="v2k o">${t('v2bab')} ${bi}</div><h1>${esc(b.nama)}</h1></div>${pkChips(b,maxOpen)}
-  <div class="v2grp v2pad"><div class="row"><div class="grow"><b>${t('progress')}</b></div><span class="sm mu">${h} / ${ws.length} ${t('mastered')}</span></div><div class="bar"><i style="width:${pct}%"></i></div></div>
+  <div class="v2grp v2pad"><div class="row" style="align-items:flex-end"><div class="grow"><b>${t('progress')}</b><div class="sm mu">${h} / ${ws.length} ${t('mastered')}</div></div><span class="v2pct">${Math.round(pct)}%</span></div><div class="bar"><i style="width:${pct}%"></i></div></div>
   <div class="v2lbl"><span>${t('v2practice')}</span></div>
   <div class="v2grp">
   <div class="v2row" onclick="startFlash()" role="button" tabindex="0"><div class="v2ic">${ic('cards',18)}</div><div class="grow"><b>${t('flash')}</b><div class="sm mu">${t('flashSub')}</div></div><span class="v2ch">${ic('chevr',16)}</span></div>
