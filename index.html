@@ -659,7 +659,7 @@ const pakets=b=>Math.max(1,Math.ceil(b.words.length/20));
 const pkWords=(b,p)=>b.words.slice((p-1)*20,p*20);
 const st=(s,w)=>s.status[w.id]||'baru';
 const hafalCount=s=>Object.values(s.status).filter(v=>v==='hafal').length;
-const LEVELS=[[0,'Starter'],[20,'Foundation'],[50,'Elementary'],[100,'Intermediate'],[200,'Upper'],[400,'Fluent']];
+const LEVELS=[[0,'Starter'],[20,'Foundation'],[60,'Elementary'],[100,'Intermediate'],[260,'Upper'],[400,'Fluent']];
 function lvlOf(n){let i=0;LEVELS.forEach((l,j)=>{if(n>=l[0])i=j});const nx=LEVELS[i+1];
   return{i:i+1,name:t('lvn'+(i+1)),pct:nx?(n-LEVELS[i][0])/(nx[0]-LEVELS[i][0]):1,left:nx?nx[0]-n:0}}
 const FOTO={};
@@ -978,16 +978,16 @@ function vHome(){const s=S.user,n=hafalCount(s),L=lvlOf(n);const list=DB.babs.fi
    <div class="bar"><i style="width:${Math.round(L.pct*100)}%"></i></div>
    <div class="v2r"><span>${n} ${t('v2hafal')}</span><span>${L.left?`${L.left} ${t('v2left')}`:t('maxLvl')}</span></div></div></div>
   <div class="v2lbl"><span>${t('yourBabs')}</span><span>${list.length} ${t('v2babs')}</span></div>
-  ${list.length?`<div class="v2grp">${list.map((b,i)=>{const open=s.unlocked[b.id];const tot=open?Math.min(b.words.length,open*20):b.words.length;
-    const h=open?b.words.slice(0,tot).filter(w=>st(s,w)==='hafal').length:0,pc=tot?Math.round(h/tot*100):0;
+  ${list.length?`<div class="v2grp">${list.map((b,i)=>{const open=s.unlocked[b.id];const tot=b.words.length;
+    const h=open?b.words.filter(w=>st(s,w)==='hafal').length:0,pc=tot?Math.round(h/tot*100):0;
     return `<div class="v2row ${open?'':'lk'}" ${open?`onclick="openBab(${b.id})" role="button" tabindex="0"`:''}><div class="v2n">${i+1}</div><div class="grow"><b>${esc(b.nama)}</b>
     <div class="sm mu">${open?`${t('paket')} ${Math.min(open,pakets(b))} ${t('of')} ${pakets(b)} · ${h}/${tot} ${t('mastered')}`:t('locked')}</div></div>
     ${open?`<span class="v2pc ${pc?'on':''}">${pc}%</span><span class="v2ch">${ic('chevr',16)}</span>`:`<span class="v2ch">${ic('lock',16)}</span>`}</div>`}).join('')}</div>`:`<div class="v2grp v2pad mu">${t('noBabs')}</div>`}`}
 function goHome(){stopAudio();S.view='home';S.mode='menu';S.fPrev=null;render();scrollTo(0,0)}
 function navBab(tab){if(S.view==='bab'){setTab(tab);return}const u=S.user.unlocked||{};
   const id=(S.bab&&u[S.bab]&&bab(S.bab)&&bab(S.bab).words.length)?S.bab:(DB.babs.find(b=>u[b.id]&&b.words.length)||{}).id;
-  if(!id){toast(t('noBabOpen'),3000);return}stopAudio();S.fPrev=null;openBab(id);if(tab!=='learn')setTab(tab);scrollTo(0,0)}
-function openBab(id){S.bab=id;S.paket=Math.min(S.user.unlocked[id],pakets(bab(id)));S.view='bab';S.tab='score';S.mode='menu';render();scrollTo(0,0)}
+  if(!id){toast(t('noBabOpen'),3000);return}stopAudio();S.fPrev=null;openBab(id,tab);scrollTo(0,0)}
+function openBab(id,tab){S.bab=id;S.paket=Math.min(S.user.unlocked[id],pakets(bab(id)));S.view='bab';S.tab=tab||'score';S.mode='menu';render();scrollTo(0,0)}
 function setTab(x){stopAudio();S.tab=x;S.mode='menu';render()}
 
 /* ---------- learn ---------- */
