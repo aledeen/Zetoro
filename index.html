@@ -162,7 +162,8 @@ header{position:sticky}.memenu{position:fixed;top:58px;right:max(12px,calc(50vw 
 .gtip{position:fixed;z-index:70;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--g);border-radius:12px;padding:12px 14px;box-shadow:0 12px 34px rgba(0,0,0,.4);animation:fadeIn .15s;font-size:13.5px;text-align:left}
 .gtip p{margin:6px 0;line-height:1.5}.gt-h{display:flex;align-items:center;gap:8px}.gt-h b{flex:1}
 .lvb{font-size:10.5px;border:1px solid var(--line);border-radius:8px;padding:1px 7px;color:var(--mu);white-space:nowrap}
-.rumus{background:var(--card2);border-radius:8px;padding:7px 10px;font-size:12.5px;margin:6px 0;font-family:ui-monospace,Menlo,monospace;line-height:1.5}
+.rumus{background:var(--card2);border-radius:8px;padding:7px 10px;font-size:12.5px;margin:6px 0;font-family:ui-monospace,Menlo,monospace;line-height:1.5;white-space:pre-line;overflow-wrap:anywhere}
+textarea.agrow{resize:none;overflow:hidden;min-height:44px;line-height:1.45}
 .lnk2{background:none;border:none;color:var(--ac);cursor:pointer;padding:4px 0 0;font-size:13px;font-weight:600}
 .legend{display:flex;flex-wrap:wrap;gap:6px 12px;margin:8px 0 4px}.legend span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--mu)}
 .gcard{padding:0;margin-bottom:8px;overflow:hidden}.gch{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;padding:13px 14px;cursor:pointer;text-align:left;font-size:14px}
@@ -834,7 +835,7 @@ function render(){{const d=$('gtip');if(d&&d.dataset.moved&&d.dataset.page!==pag
   {const ui=$('u');if(ui&&document.querySelector('.lg'))S.lgU=ui.value;const sn=$('sn');if(sn)S.lgN=sn.value}
   {const lg=$('logo');if(lg){if(!lg.dataset.html)lg.dataset.html=lg.innerHTML;const pt=S.role==='student'&&S.view==='bab'?(S.tab==='score'?t('score'):t('learn')):'';lg.classList.toggle('pt',!!pt);lg.innerHTML=pt?`<span class="v2pt">${pt}</span>`:lg.dataset.html}}
   {const lv=S.view==='login';if(lv&&!S.lgTimer)setTimeout(lgRotStart,0);if(!lv&&S.lgTimer){clearInterval(S.lgTimer);S.lgTimer=null}document.querySelector('.app').classList.toggle('islogin',lv);document.documentElement.classList.toggle('lgv',lv);if(lv&&scrollY)scrollTo(0,0)}
-  const v={boot:()=>`<div class="big mu">${t('loading')}</div>`,login:vLogin,home:vHome,bab:vBab,admin:vAdmin,friends:vFriends,search:vSearch}[S.view];$('main').innerHTML=v();S.anim=false;renderNav();
+  const v={boot:()=>`<div class="big mu">${t('loading')}</div>`,login:vLogin,home:vHome,bab:vBab,admin:vAdmin,friends:vFriends,search:vSearch}[S.view];$('main').innerHTML=v();agrowAll();S.anim=false;renderNav();
   if(S.view==='bab'&&S.tab==='learn'&&S.mode==='quiz'&&S.quiz&&!S.quiz.done){const q=curQ();if(q.type==='listen'&&!q.played){q.played=true;setTimeout(()=>speak(q.w.kata,.85,document.querySelector('.lis .spk')),300)}}
 }
 const NAVI=(()=>{const W=(b,f)=>`<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${b}</svg>`,
@@ -918,6 +919,8 @@ function lgRotStart(){clearInterval(S.lgTimer);if(lgHeads().length<2)return;
   S.lgTimer=setInterval(()=>{const h=$('lgH');if(!h||S.view!=='login'){clearInterval(S.lgTimer);S.lgTimer=null;return}
     if(document.hidden)return;h.classList.remove('in');h.classList.add('out');
     setTimeout(()=>{const h2=$('lgH');if(!h2)return;S.lgSlide=(S.lgSlide||0)+1;h2.classList.remove('out');h2.innerHTML=lgHead(S.lgSlide,0);void h2.offsetWidth;h2.classList.add('in')},480)},6500)}
+function agrow(el){el.style.height='auto';el.style.height=el.scrollHeight+2+'px'}
+function agrowAll(){document.querySelectorAll('textarea.agrow').forEach(agrow)}
 function lgBusy(){const b=document.querySelector('.lg-btn');if(b)b.classList.add('ld')}
 async function doLogin(){const u=$('u').value.trim().toLowerCase(),p=$('p').value.trim();
   if(!u||!p){S.err=t('fill');return render()}
@@ -1174,7 +1177,7 @@ function gForm(g){const p=g?'ge':'gf',v=k=>esc(g?g[k]:'');
   return `<div class="${g?'gbody':''}" style="${g?'padding-top:12px':''}"><div class="field"><label>${t('gTitle')}</label><input id="${p}_j" value="${v('judul')}" placeholder="Simple Present"></div>
   <div class="row" style="gap:8px"><div class="field grow"><label>${t('gLevel')}</label><select id="${p}_l">${[1,2,3].map(l=>`<option value="${l}" ${g&&g.level===l?'selected':''}>${t('lv'+l)}</option>`).join('')}</select></div>
   <div class="field grow"><label>${t('gGroup')}</label><select id="${p}_g">${GRP.map(x=>`<option value="${x}" ${g&&g.grup===x?'selected':''}>${t('grp_'+x)}</option>`).join('')}</select></div></div>
-  <div class="field"><label>${t('gFormula')}</label><input id="${p}_r" value="${v('rumus')}" placeholder="he/she/it + verb-s"></div>
+  <div class="field"><label>${t('gFormula')}</label><textarea id="${p}_r" rows="1" class="agrow" maxlength="600" placeholder="he/she/it + verb-s" oninput="agrow(this)">${v('rumus')}</textarea></div>
   <div class="field"><label>${t('gShort')}</label><textarea id="${p}_s" rows="2">${v('penjelasan')}</textarea></div>
   <div class="field"><label>${t('gLong')}</label><textarea id="${p}_d" rows="4">${v('detail')}</textarea></div>
   <div class="field"><label>${t('gEx')}</label><textarea id="${p}_c" rows="3">${v('contoh')}</textarea></div>
@@ -1189,7 +1192,7 @@ function aGram(){const todo=DB.babs.flatMap(b=>b.words).filter(w=>!(w.tanda&&w.t
     <textarea id="mkb" placeholder="${t('markPaste')}"></textarea><div style="height:10px"></div><button class="btn" type="button" onclick="pasteMarks()">${t('save')}</button>`:`<p class="sm mu" style="margin:0">${t('markOldNone')}</p>`)}
   ${legend()}<p class="sm mu" style="margin:6px 0 0">${t('warnHint')} <b>${t('lv'+topGL())}</b>.</p>${gramList(DB.grammars,null,true)}`}
 function slugKey(j){let k=j.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,34);if(k.length<2)k='g-'+k;let x=k,n=2;while(GB[x])x=k+'-'+n++;return x}
-function gRead(p){return{judul:$(p+'_j').value.trim().slice(0,80),level:+$(p+'_l').value,grup:$(p+'_g').value,rumus:$(p+'_r').value.trim().slice(0,200),penjelasan:$(p+'_s').value.trim().slice(0,400),detail:$(p+'_d').value.trim().slice(0,3000),contoh:$(p+'_c').value.trim().slice(0,1000)}}
+function gRead(p){return{judul:$(p+'_j').value.trim().slice(0,80),level:+$(p+'_l').value,grup:$(p+'_g').value,rumus:$(p+'_r').value.trim().slice(0,600),penjelasan:$(p+'_s').value.trim().slice(0,400),detail:$(p+'_d').value.trim().slice(0,3000),contoh:$(p+'_c').value.trim().slice(0,1000)}}
 const GCOLS='id,key,judul,level,grup,rumus,penjelasan,detail,contoh,audio_path,audio_dur';
 async function saveGram(key){const v=gRead(key?'ge':'gf');if(!v.judul||!v.penjelasan){toast(t('fill'));return}
   if(key){if(!await ask(t('askSave'),`<b>${esc(v.judul)}</b>. ${t('askSaveMsg')}`,t('save')))return;
@@ -1207,7 +1210,7 @@ async function pasteGrams(){const rows=parse($('gpb').value).filter(p=>p.length>
   const have=new Set(DB.grammars.map(g=>norm(g.judul)));let dup=0;const keys=new Set();
   const list=rows.filter(p=>{if(have.has(norm(p[0]))){dup++;return false}have.add(norm(p[0]));return true}).map(p=>{let k=slugKey(p[0]);while(keys.has(k))k+='-x';keys.add(k);
     const g=norm(p[2]);return{key:k,judul:p[0].slice(0,80),level:lvlOfTxt(p[1]),grup:GRP.includes(g)?g:(/to ?be/.test(g)?'tobe':/prep/.test(g)?'prep':/pronoun/.test(g)?'pronoun':/tense/.test(g)?'tense':'other'),
-      rumus:(p[3]||'').slice(0,200),penjelasan:(p[4]||'').slice(0,400),detail:(p[5]||'').slice(0,3000),contoh:(p.slice(6).join(' | ')).split(/\s*;\s*/).filter(Boolean).join('\n').slice(0,1000)}});
+      rumus:(p[3]||'').slice(0,600),penjelasan:(p[4]||'').slice(0,400),detail:(p[5]||'').slice(0,3000),contoh:(p.slice(6).join(' | ')).split(/\s*;\s*/).filter(Boolean).join('\n').slice(0,1000)}});
   if(!list.length){toast(`${dup} ${t('dupSkip')}`,3500);return}
   const ok=await run(async()=>{const{data,error}=await sb.from('grammars').insert(list).select(GCOLS);if(error)throw error;DB.grammars.push(...data);gIdx()});
   if(ok){$('gpb').value='';toast(`${list.length} ${t('gramAdded')}${dup?` · ${dup} ${t('dupSkip')}`:''}`,3500)}render()}
