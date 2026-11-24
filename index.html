@@ -596,6 +596,22 @@ button.back:hover{border:0;color:var(--ac);opacity:.75}button.back:active{transf
 .wl{margin-left:calc(-1*var(--px));margin-right:calc(-1*var(--px))}.wl .wi{padding-left:14px;padding-right:14px}
 .schips{margin-left:calc(-1*var(--px));margin-right:calc(-1*var(--px));padding-left:var(--px);padding-right:var(--px)}
 .slist{margin-left:calc(-1*var(--px));margin-right:calc(-1*var(--px))}.sr{padding-left:var(--px);padding-right:var(--px)}}
+
+/* welcome setelah login */
+.wel{position:fixed;inset:0;z-index:200;background:var(--bg);display:grid;place-items:center;text-align:center;transition:opacity .55s ease .15s,visibility .7s;cursor:pointer;overflow:hidden}
+.wel::before{content:"";position:absolute;left:50%;top:50%;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;background:radial-gradient(circle,var(--ac) 0%,transparent 62%);opacity:0;animation:welGlow 2.6s .2s ease-out both;pointer-events:none}
+.wel.out{opacity:0;visibility:hidden}
+.wel-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px;transition:transform .55s cubic-bezier(.4,0,.2,1),filter .55s,opacity .55s}
+.wel.out .wel-in{transform:translateY(-14px) scale(.97);filter:blur(6px);opacity:0}
+.wel-k{font-size:13px;font-weight:500;text-transform:uppercase;color:var(--mu);letter-spacing:.9em;margin-right:-.9em;opacity:0;filter:blur(4px);animation:welTrack 1s .15s cubic-bezier(.2,.7,.2,1) both}
+.wel-wm{display:flex;gap:.3em;font-weight:800;font-size:34px;letter-spacing:.05em;line-height:1.15}
+.wel-wm>span{display:inline-block;overflow:hidden;padding:0 .02em}
+.wel-wm>span>b{display:inline-block;font-weight:inherit;color:transparent;background:linear-gradient(100deg,var(--tx) 0 42%,var(--ac) 50%,var(--tx) 58% 100%);background-size:300% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;transform:translateY(110%);animation:welRise .7s cubic-bezier(.2,.9,.25,1.15) both,welShine 1s ease-in-out both}
+@keyframes welGlow{0%{opacity:0;transform:scale(.6)}45%{opacity:.16}100%{opacity:.07;transform:scale(1)}}
+@keyframes welTrack{to{opacity:1;filter:none;letter-spacing:.35em;margin-right:-.35em}}
+@keyframes welRise{to{transform:none}}
+@keyframes welShine{from{background-position:100% 0}to{background-position:0 0}}
+@media (prefers-reduced-motion:reduce){.wel *,.wel::before{animation-duration:.01s!important;animation-delay:0s!important}}
 </style>
 </head>
 <body>
@@ -628,7 +644,7 @@ summary:"Ringkasan",students:"Murid",material:"Materi",grade:"Nilai",activePkg:"
 opened:"Dibuka untuk",addStudent:"Tambah murid",name:"Nama",save:"Simpan",resetPin:"Reset PIN",newPin:"PIN baru",added:"Murid ditambahkan",pinReset:"PIN direset",
 babs:"Bab",newBab:"Bab baru",babName:"Nama bab",create:"Buat",addWord:"Tambah kata",word:"Kata (English)",meaning:"Arti",example:"Contoh kalimat",pasteTitle:"Paste dari AI",
 pasteHint:"Satu kata per baris: kata | arti | contoh | arti contoh (tab juga bisa)",copyPrompt:"Salin prompt",copied:"Prompt tersalin",wordsAdded:"kata ditambahkan",nothing:"Tidak ada baris yang terbaca.",
-wordList:"Daftar kata",ofQ:"dari",qRight:"soal benar",sessExpired:"Sesi login sudah habis. Muat ulang halaman lalu masuk lagi — teks yang kamu tempel tidak hilang.",autoSplit:"Otomatis dipotong per 20 kata",viewOnly:"Hanya guru yang bisa mengubah status",noQuiz:"Belum pernah quiz",needWords:"Butuh minimal 4 kata untuk quiz.",
+wordList:"Daftar kata",welTo:"Welcome to",ofQ:"dari",qRight:"soal benar",sessExpired:"Sesi login sudah habis. Muat ulang halaman lalu masuk lagi — teks yang kamu tempel tidak hilang.",autoSplit:"Otomatis dipotong per 20 kata",viewOnly:"Hanya guru yang bisa mengubah status",noQuiz:"Belum pernah quiz",needWords:"Butuh minimal 4 kata untuk quiz.",
 gradeOf:"Penilaian",chooseBab:"Pilih bab",empty:"Belum ada kata",level:"Level",total:"total kata hafal",toNext:"kata lagi ke level berikutnya",maxLvl:"Level tertinggi",
 teacherHi:"Panel guru",newMark:"Baru",theme:"Tema",of:"dari",paketLocked:"Paket ini belum dibuka guru",allWords:"Semua kata",tapShort:"ketuk untuk arti",tapHint:"Ketuk kata untuk melihat artinya",needSentence:"Contoh kalimat wajib diisi.",skipped:"baris dilewati karena belum ada contoh kalimat",sentence:"Kalimat"},
 en:{proto:"Prototype — sample data, resets on reload",student:"Student",teacher:"Teacher",username:"Username",pin:"PIN",email:"Email",password:"Password",login:"Sign in",logout:"Sign out",
@@ -641,7 +657,7 @@ summary:"Overview",students:"Students",material:"Material",grade:"Grade",activeP
 opened:"Unlocked for",addStudent:"Add student",name:"Name",save:"Save",resetPin:"Reset PIN",newPin:"New PIN",added:"Student added",pinReset:"PIN reset",
 babs:"Chapters",newBab:"New chapter",babName:"Chapter name",create:"Create",addWord:"Add word",word:"Word (English)",meaning:"Meaning",example:"Example sentence",pasteTitle:"Paste from AI",
 pasteHint:"One word per line: word | meaning | example | example meaning (tabs work too)",copyPrompt:"Copy prompt",copied:"Prompt copied",wordsAdded:"words added",nothing:"No readable lines.",
-wordList:"Word list",ofQ:"of",qRight:"correct",sessExpired:"Your login session has expired. Reload the page and sign in again — your pasted text is kept.",autoSplit:"Split into sets of 20 automatically",viewOnly:"Only the teacher can change status",noQuiz:"No quiz yet",needWords:"Needs at least 4 words for a quiz.",
+wordList:"Word list",welTo:"Welcome to",ofQ:"of",qRight:"correct",sessExpired:"Your login session has expired. Reload the page and sign in again — your pasted text is kept.",autoSplit:"Split into sets of 20 automatically",viewOnly:"Only the teacher can change status",noQuiz:"No quiz yet",needWords:"Needs at least 4 words for a quiz.",
 gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",total:"total words mastered",toNext:"more words to next level",maxLvl:"Top level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
@@ -1024,12 +1040,17 @@ async function doLogin(){const u=$('u').value.trim().toLowerCase(),p=$('p').valu
     await enterApp(data.session);
     if(S.role==='teacher'&&!teacher){await doSignOut();S.err=t('notTeacherUrl')}
   },false);
-  render()}
+  if(S.user)welcome();render()}
+function welcome(){const old=$('wel');if(old)old.remove();
+  const o=document.createElement('div');o.className='wel';o.id='wel';o.setAttribute('role','status');
+  o.innerHTML=`<div class="wel-in"><div class="wel-k">${t('welTo')}</div><div class="wel-wm" aria-label="Zetoro">${'ZETORO'.split('').map((c,i)=>`<span><b style="animation-delay:${.55+i*.075}s,${1.45+i*.07}s">${c}</b></span>`).join('')}</div></div>`;
+  document.body.appendChild(o);let done=false;const close=()=>{if(done)return;done=true;o.classList.add('out');setTimeout(()=>o.remove(),750)};
+  o.onclick=close;setTimeout(close,matchMedia('(prefers-reduced-motion: reduce)').matches?900:2900)}
 async function doSetup(){const n=$('sn').value.trim(),e=$('u').value.trim().toLowerCase(),p=$('p').value;
   if(!n||!e||!p){S.err=t('fill');return render()}if(p.length<8){S.err=t('pwMin');return render()}lgBusy();
   await run(async()=>{await invokeAdmin({action:'setup_teacher',nama:n,email:e,password:p});
     const{data,error}=await sb.auth.signInWithPassword({email:e,password:p});if(error)throw error;S.needSetup=false;await enterApp(data.session)});
-  render()}
+  if(S.user)welcome();render()}
 async function doSignOut(){presStop();clearInterval(S.frIv);DB.friends=[];S.fRes=undefined;S.fq='';try{await sb.auth.signOut()}catch(e){}Object.assign(S,{user:null,role:null,view:'login',lgU:'',lgN:''});DB.babs=[];DB.students=[]}
 async function logout(){stopAudio();S.open={};S.mq='';await doSignOut();S.err='';S.anim=true;render()}
 
