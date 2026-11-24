@@ -619,7 +619,7 @@ summary:"Ringkasan",students:"Murid",material:"Materi",grade:"Nilai",activePkg:"
 opened:"Dibuka untuk",addStudent:"Tambah murid",name:"Nama",save:"Simpan",resetPin:"Reset PIN",newPin:"PIN baru",added:"Murid ditambahkan",pinReset:"PIN direset",
 babs:"Bab",newBab:"Bab baru",babName:"Nama bab",create:"Buat",addWord:"Tambah kata",word:"Kata (English)",meaning:"Arti",example:"Contoh kalimat",pasteTitle:"Paste dari AI",
 pasteHint:"Satu kata per baris: kata | arti | contoh | arti contoh (tab juga bisa)",copyPrompt:"Salin prompt",copied:"Prompt tersalin",wordsAdded:"kata ditambahkan",nothing:"Tidak ada baris yang terbaca.",
-wordList:"Daftar kata",sessExpired:"Sesi login sudah habis. Muat ulang halaman lalu masuk lagi — teks yang kamu tempel tidak hilang.",autoSplit:"Otomatis dipotong per 20 kata",viewOnly:"Hanya guru yang bisa mengubah status",noQuiz:"Belum pernah quiz",needWords:"Butuh minimal 4 kata untuk quiz.",
+wordList:"Daftar kata",ofQ:"dari",qRight:"soal benar",sessExpired:"Sesi login sudah habis. Muat ulang halaman lalu masuk lagi — teks yang kamu tempel tidak hilang.",autoSplit:"Otomatis dipotong per 20 kata",viewOnly:"Hanya guru yang bisa mengubah status",noQuiz:"Belum pernah quiz",needWords:"Butuh minimal 4 kata untuk quiz.",
 gradeOf:"Penilaian",chooseBab:"Pilih bab",empty:"Belum ada kata",level:"Level",total:"total kata hafal",toNext:"kata lagi ke level berikutnya",maxLvl:"Level tertinggi",
 teacherHi:"Panel guru",newMark:"Baru",theme:"Tema",of:"dari",paketLocked:"Paket ini belum dibuka guru",allWords:"Semua kata",tapShort:"ketuk untuk arti",tapHint:"Ketuk kata untuk melihat artinya",needSentence:"Contoh kalimat wajib diisi.",skipped:"baris dilewati karena belum ada contoh kalimat",sentence:"Kalimat"},
 en:{proto:"Prototype — sample data, resets on reload",student:"Student",teacher:"Teacher",username:"Username",pin:"PIN",email:"Email",password:"Password",login:"Sign in",logout:"Sign out",
@@ -632,7 +632,7 @@ summary:"Overview",students:"Students",material:"Material",grade:"Grade",activeP
 opened:"Unlocked for",addStudent:"Add student",name:"Name",save:"Save",resetPin:"Reset PIN",newPin:"New PIN",added:"Student added",pinReset:"PIN reset",
 babs:"Chapters",newBab:"New chapter",babName:"Chapter name",create:"Create",addWord:"Add word",word:"Word (English)",meaning:"Meaning",example:"Example sentence",pasteTitle:"Paste from AI",
 pasteHint:"One word per line: word | meaning | example | example meaning (tabs work too)",copyPrompt:"Copy prompt",copied:"Prompt copied",wordsAdded:"words added",nothing:"No readable lines.",
-wordList:"Word list",sessExpired:"Your login session has expired. Reload the page and sign in again — your pasted text is kept.",autoSplit:"Split into sets of 20 automatically",viewOnly:"Only the teacher can change status",noQuiz:"No quiz yet",needWords:"Needs at least 4 words for a quiz.",
+wordList:"Word list",ofQ:"of",qRight:"correct",sessExpired:"Your login session has expired. Reload the page and sign in again — your pasted text is kept.",autoSplit:"Split into sets of 20 automatically",viewOnly:"Only the teacher can change status",noQuiz:"No quiz yet",needWords:"Needs at least 4 words for a quiz.",
 gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",total:"total words mastered",toNext:"more words to next level",maxLvl:"Top level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
@@ -1066,7 +1066,7 @@ function vBab(){const b=bab(S.bab),s=S.user;if(!b){S.view='home';return vHome()}
   <div class="v2lbl"><span>${t('v2practice')}</span></div>
   <div class="v2grp">
   <div class="v2row" onclick="startFlash()" role="button" tabindex="0"><div class="v2ic">${ic('cards',18)}</div><div class="grow"><b>${t('flash')}</b><div class="sm mu">${t('flashSub')}</div></div><span class="v2ch">${ic('chevr',16)}</span></div>
-  <div class="v2row" onclick="startQuiz()" role="button" tabindex="0"><div class="v2ic">${ic('check',18)}</div><div class="grow"><b>${t('quiz')}</b><div class="sm mu">${q?`${t('last')} ${q.last}/100 · ${t('best')} ${q.best}/100`:t('quizSub')}</div></div><span class="v2ch">${ic('chevr',16)}</span></div>
+  <div class="v2row" onclick="startQuiz()" role="button" tabindex="0"><div class="v2ic">${ic('check',18)}</div><div class="grow"><b>${t('quiz')}</b><div class="sm mu">${q?`${t('last')} ${q.last} · ${t('best')} ${q.best}`:t('quizSub')}</div></div><span class="v2ch">${ic('chevr',16)}</span></div>
   ${DB.grammars.length?`<div class="v2row" onclick="S.gPrev='menu';S.mode='gram';S.gOpen=null;S.gAll=!bGrams(bab(S.bab)).length;render();scrollTo(0,0)" role="button" tabindex="0"><div class="v2ic">${ic('gram',18)}</div><div class="grow"><b>${t('grammar')}</b><div class="sm mu">${bGrams(b).length} ${t('gramInBab')}</div></div><span class="v2ch">${ic('chevr',16)}</span></div>`:''}
   </div>`}
 function startFlash(){if(!curWords(bab(S.bab)).length){toast(t('empty'));return}S.mode='flash';S.fi=0;S.flip=false;render()}
@@ -1210,9 +1210,9 @@ function swapRead(){const Q=S.quiz,b=bab(S.bab),ws=curWords(b),q=curQ();const nq
 function qLabel(type){return{match:t('qMatch'),en:t('q2'),listen:t('q3'),cloze:t('qCloze'),sent:t('qSent'),read:t('qRead'),order:t('qOrder'),gram:t('qGram'),why:t('qWhy')}[type]}
 function vQuiz(b){const Q=S.quiz;
   if(Q.done){const r=Q.saved||S.user.quiz[qKey()]||{best:Q.final,tries:1};
-    return `<div class="big"><div class="tag">${t('result')}</div><div class="score">${Q.score}/${Q.qs.length}</div>
+    return `<div class="big"><div class="tag">${t('result')}</div><div class="score">${Q.final}</div><p class="mu" style="margin:-4px 0 8px">${Q.score} ${t('ofQ')} ${Q.qs.length} ${t('qRight')}</p>
     ${Q.review.length?`<p class="fixd">${ic('check',14)} ${Q.fixed}/${Q.review.length} ${t('fixed')}</p>`:''}
-    <p class="mu">${t('best')}: ${r.best}/100 · ${t('tries')}: ${r.tries}</p></div>
+    <p class="mu">${t('best')}: ${r.best} · ${t('tries')}: ${r.tries}</p></div>
     <button class="btn" onclick="startQuiz()">${t('again')}</button><div style="height:10px"></div><button class="btn ghost" onclick="stopAudio();S.mode='menu';render()">${t('done')}</button>`}
   const q=curQ(),rev=Q.phase==='review';
   const tot=rev?Q.review.length:Q.qs.length,idx=rev?Q.ri:Q.i;
@@ -1269,14 +1269,13 @@ function vScore(s,b,edit){const maxOpen=maxOpenOf(s,b);
   const all=b.words.slice(0,maxOpen*20),h=all.filter(w=>st(s,w)==='hafal').length,be=all.filter(w=>st(s,w)==='belum').length;
   let html=`<div class="stats"><div class="stat"><b style="color:var(--ok)">${h}</b><span>${t('hafal')}</span></div>
   <div class="stat"><b style="color:var(--warn)">${be}</b><span>${t('belum')}</span></div><div class="stat"><b>${all.length-h-be}</b><span>${t('baru')}</span></div></div>
-  ${edit?'':`<p class="sm mu" style="margin:0 0 6px">${t('tapHint')} · ${t('viewOnly')}</p>`}`;
-  const qa=s.quiz[b.id+'-all'];if(qa)html+=`<p class="sm mu" style="margin:0 0 6px">${t('quiz')} ${t('allWords')}: ${qa.last}/100 (${t('best')} ${qa.best}, ${qa.tries}x)</p>`;
+`;
   for(let p=1;p<=maxOpen;p++){const ws=pkWords(b,p);if(!ws.length)continue;const ph=ws.filter(w=>st(s,w)==='hafal').length,q=s.quiz[b.id+'-'+p];
     const key=`${s.id}-${b.id}-${p}`,open=S.open[key]??(p===maxOpen),full=ph===ws.length;
     html+=`${p>1?'<div class="pksep"></div>':''}<button class="pkh ${open?'op':''}" onclick="togPk('${key}',${p===maxOpen})"><span class="chev">›</span><span class="pkt">${t('paket')} ${p}</span>
-      <span class="pks ${full?'full':''}">${ph}/${ws.length}${full?' '+ic('check',12):''} · ${q?`${t('quiz')} ${q.last}/100`:t('noQuiz')}</span></button>`;
+      <span class="pks ${full?'full':''}">${ph}/${ws.length}${full?' '+ic('check',12):''} · ${q?`${t('quiz')} ${q.last}`:t('noQuiz')}</span></button>`;
     if(!open)continue;
-    html+=`${q?`<p class="sm mu" style="margin:0 0 6px">${t('best')} ${q.best}/100 · ${q.tries}x</p>`:''}<div class="wl${edit?'':' scw'}">`;
+    html+=`${q?`<p class="sm mu" style="margin:0 0 6px">${t('best')} ${q.best} · ${q.tries}x</p>`:''}<div class="wl${edit?'':' scw'}">`;
     ws.forEach((w,i)=>{const v=st(s,w);
       html+=`<div class="wi ${v}"><span class="no">${(p-1)*20+i+1}</span>${edit?`<div class="grow"><b>${kw(w)}</b> <span class="sm mu">· ${esc(w.arti)}</span><div class="sm mu ex">“${cs(w)}”</div>${w.contoh_arti?`<div class="sm" style="color:var(--ac)">${esc(w.contoh_arti)}</div>`:''}</div>
       <select onchange="setSt('${s.id}',${w.id},this.value,this)">${['baru','belum','hafal'].map(o=>`<option value="${o}" ${o===v?'selected':''}>${t(o)}</option>`).join('')}</select>`:
@@ -1700,7 +1699,7 @@ function friendCard(f){const n=f.hafal||0,L=lvlOf(n),op=S.fOpen===f.id;const ak=
    <div class="grow"><b>${esc(f.nama)}</b>${f.bio?`<div class="sm fbio">${esc(f.bio)}</div>`:''}
     <div class="sm fl"><span class="lvp">${t('level')} ${L.i} · ${esc(L.name)}</span><span class="mu">${n} ${t('frHafal')}</span></div></div><span class="chev">›</span></button>
    ${op?`<div class="fc-b"><div class="sc-lbl">${t('frLearning')}</div>${ak.length?ak.map(a=>`<div class="frl"><span>${esc(a.bab)}</span><span class="mu">${t('paket')} ${a.paket}</span></div>`).join(''):`<div class="sm mu">—</div>`}
-    <div class="sc-lbl" style="margin-top:12px">${t('frBest')}</div>${bs.length?bs.map(q=>`<div class="frl"><span>${esc(q.bab)} <span class="mu">· ${q.paket==='all'?t('allWords'):t('paket')+' '+esc(q.paket)}</span></span><b style="color:var(--ac)">${q.best}/100</b></div>`).join(''):`<div class="sm mu">${t('frNoQuiz')}</div>`}
+    <div class="sc-lbl" style="margin-top:12px">${t('frBest')}</div>${bs.length?bs.map(q=>`<div class="frl"><span>${esc(q.bab)} <span class="mu">· ${q.paket==='all'?t('allWords'):t('paket')+' '+esc(q.paket)}</span></span><b style="color:var(--ac)">${q.best}</b></div>`).join(''):`<div class="sm mu">${t('frNoQuiz')}</div>`}
     <button class="lnk3 bad" style="margin-top:12px" onclick="unFriend('${f.id}')">${ic('trash',15)} ${t('frRemove')}</button></div>`:''}</div>`}
 function frResult(){const q=(S.fq||'').trim().replace(/^@/,'');
   if(!q)return '';
