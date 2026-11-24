@@ -238,7 +238,7 @@ textarea.agrow{resize:none;overflow:hidden;min-height:44px;line-height:1.45}
 .btn.chk{margin-top:6px}.btn.chk:disabled{opacity:.45;cursor:default}
 .qhead{display:flex;justify-content:space-between;font-size:12px;color:var(--mu);margin-bottom:8px}
 .qq{font-size:22px;font-weight:600;margin:10px 0 18px;text-align:center}
-.wl{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.wl{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg)}
 .wi{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line)}
 .wi:last-child{border-bottom:none}
 .wi .no{width:22px;font-size:12px;color:var(--mu)}
@@ -249,7 +249,7 @@ textarea.agrow{resize:none;overflow:hidden;min-height:44px;line-height:1.45}
 .wi.hafal{background:var(--oks)}.wi.belum{background:var(--warns)}
 .scw .wi{position:relative;padding-right:46px}.scw .wi .mini{position:absolute;top:8px;right:8px;width:30px;height:30px}.scw .wi .mini svg{width:14px;height:14px}
 .pk{font-size:12px;letter-spacing:1px;color:var(--ac);text-transform:uppercase;margin:16px 0 6px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.pksep{border-top:3px solid var(--tx);margin:14px 0 0}
+.pksep{border-top:1px solid var(--line);margin:14px 0 0}
 .wi select{width:auto;padding:5px 8px;font-size:12.5px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center}
@@ -1055,7 +1055,7 @@ function selPk(p){S.paket=p;S.mode='menu';S.fi=0;S.flip=false;render()}
 function vBab(){const b=bab(S.bab),s=S.user;if(!b){S.view='home';return vHome()}const maxOpen=maxOpenOf(s,b);
   const head=`<div class="tag">${esc(b.nama)}</div>`;
   const bi=DB.babs.filter(x=>x.words.length).indexOf(b)+1,ttl=`<div class="v2ttl" style="margin-bottom:16px"><div class="v2k o">${t('v2bab')} ${bi}</div><h1>${esc(b.nama)}</h1></div>`;
-  if(S.tab==='score')return ttl+vScore(s,b,false);
+  if(S.tab==='score')return ttl+vScore(s,b,false,S.paket);
   if(S.mode==='flash')return head+vFlash(b);
   if(S.mode==='quiz')return head+vQuiz(b);
   if(S.mode==='gram')return head+vGram(b);
@@ -1264,15 +1264,16 @@ async function submitQuiz(){const Q=S.quiz,key=qKey(),pk=S.paket===0?'all':Strin
   if(Q.done)render()}
 
 /* ---------- score (shared) ---------- */
-function vScore(s,b,edit){const maxOpen=maxOpenOf(s,b);
+function vScore(s,b,edit,only){const maxOpen=maxOpenOf(s,b);
   if(!maxOpen)return `<div class="card mu">${t('locked')}</div>`;
-  const all=b.words.slice(0,maxOpen*20),h=all.filter(w=>st(s,w)==='hafal').length,be=all.filter(w=>st(s,w)==='belum').length;
+  const one=only>0&&only<=maxOpen?only:0;
+  const all=one?pkWords(b,one):b.words.slice(0,maxOpen*20),h=all.filter(w=>st(s,w)==='hafal').length,be=all.filter(w=>st(s,w)==='belum').length;
   let html=`<div class="stats"><div class="stat"><b style="color:var(--ok)">${h}</b><span>${t('hafal')}</span></div>
   <div class="stat"><b style="color:var(--warn)">${be}</b><span>${t('belum')}</span></div><div class="stat"><b>${all.length-h-be}</b><span>${t('baru')}</span></div></div>
 `;
-  for(let p=1;p<=maxOpen;p++){const ws=pkWords(b,p);if(!ws.length)continue;const ph=ws.filter(w=>st(s,w)==='hafal').length,q=s.quiz[b.id+'-'+p];
-    const key=`${s.id}-${b.id}-${p}`,open=S.open[key]??(p===maxOpen),full=ph===ws.length;
-    html+=`${p>1?'<div class="pksep"></div>':''}<button class="pkh ${open?'op':''}" onclick="togPk('${key}',${p===maxOpen})"><span class="chev">›</span><span class="pkt">${t('paket')} ${p}</span>
+  for(let p=one||1;p<=(one||maxOpen);p++){const ws=pkWords(b,p);if(!ws.length)continue;const ph=ws.filter(w=>st(s,w)==='hafal').length,q=s.quiz[b.id+'-'+p];
+    const key=`${s.id}-${b.id}-${p}`,open=one?true:S.open[key]??(p===maxOpen),full=ph===ws.length;
+    html+=`${p>1&&!one?'<div class="pksep"></div>':''}<button class="pkh ${open?'op':''}" onclick="togPk('${key}',${p===maxOpen})"><span class="chev">›</span><span class="pkt">${t('paket')} ${p}</span>
       <span class="pks ${full?'full':''}">${ph}/${ws.length}${full?' '+ic('check',12):''} · ${q?`${t('quiz')} ${q.last}`:t('noQuiz')}</span></button>`;
     if(!open)continue;
     html+=`${q?`<p class="sm mu" style="margin:0 0 6px">${t('best')} ${q.best} · ${q.tries}x</p>`:''}<div class="wl${edit?'':' scw'}">`;
