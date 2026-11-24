@@ -598,15 +598,15 @@ button.back:hover{border:0;color:var(--ac);opacity:.75}button.back:active{transf
 .slist{margin-left:calc(-1*var(--px));margin-right:calc(-1*var(--px))}.sr{padding-left:var(--px);padding-right:var(--px)}}
 
 /* welcome setelah login */
-.wel{position:fixed;inset:0;z-index:200;background:var(--bg);display:grid;place-items:center;text-align:center;transition:opacity .55s ease .15s,visibility .7s;cursor:pointer;overflow:hidden}
-.wel::before{content:"";position:absolute;left:50%;top:50%;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;background:radial-gradient(circle,var(--ac) 0%,transparent 62%);opacity:0;animation:welGlow 2.6s .2s ease-out both;pointer-events:none}
+.wel{position:fixed;inset:0;z-index:200;background:var(--bg);display:grid;place-items:center;text-align:center;transition:opacity .7s ease .2s,visibility .9s;cursor:pointer;overflow:hidden}
+.wel::before{content:"";position:absolute;left:50%;top:50%;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;background:radial-gradient(circle,var(--ac) 0%,transparent 62%);opacity:0;animation:welGlow 4s .2s ease-out both;pointer-events:none}
 .wel.out{opacity:0;visibility:hidden}
 .wel-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px;transition:transform .55s cubic-bezier(.4,0,.2,1),filter .55s,opacity .55s}
-.wel.out .wel-in{transform:translateY(-14px) scale(.97);filter:blur(6px);opacity:0}
-.wel-k{font-size:13px;font-weight:500;text-transform:uppercase;color:var(--mu);letter-spacing:.9em;margin-right:-.9em;opacity:0;filter:blur(4px);animation:welTrack 1s .15s cubic-bezier(.2,.7,.2,1) both}
+.wel.out .wel-in{transform:translateY(-14px) scale(.97);filter:blur(6px);opacity:0;transition-duration:.7s}
+.wel-k{font-size:13px;font-weight:500;text-transform:uppercase;color:var(--mu);letter-spacing:.9em;margin-right:-.9em;opacity:0;filter:blur(4px);animation:welTrack 1.5s .2s cubic-bezier(.2,.7,.2,1) both}
 .wel-wm{display:flex;gap:.3em;font-weight:800;font-size:34px;letter-spacing:.05em;line-height:1.15}
 .wel-wm>span{display:inline-block;overflow:hidden;padding:0 .02em}
-.wel-wm>span>b{display:inline-block;font-weight:inherit;color:transparent;background:linear-gradient(100deg,var(--tx) 0 42%,var(--ac) 50%,var(--tx) 58% 100%);background-size:300% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;transform:translateY(110%);animation:welRise .7s cubic-bezier(.2,.9,.25,1.15) both,welShine 1s ease-in-out both}
+.wel-wm>span>b{display:inline-block;font-weight:inherit;color:transparent;background:linear-gradient(100deg,var(--tx) 0 42%,var(--ac) 50%,var(--tx) 58% 100%);background-size:300% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;transform:translateY(110%);animation:welRise .95s cubic-bezier(.2,.9,.25,1.15) both,welShine 1.5s ease-in-out both}
 .wel-wm>span>b.z{background-image:linear-gradient(100deg,var(--ac) 0 42%,#F6C9A6 50%,var(--ac) 58% 100%)}
 @keyframes welGlow{0%{opacity:0;transform:scale(.6)}45%{opacity:.16}100%{opacity:.07;transform:scale(1)}}
 @keyframes welTrack{to{opacity:1;filter:none;letter-spacing:.35em;margin-right:-.35em}}
@@ -1044,9 +1044,9 @@ async function doLogin(){const u=$('u').value.trim().toLowerCase(),p=$('p').valu
   if(S.user)welcome();render()}
 function welcome(){const old=$('wel');if(old)old.remove();
   const o=document.createElement('div');o.className='wel';o.id='wel';o.setAttribute('role','status');
-  o.innerHTML=`<div class="wel-in"><div class="wel-k">${t('welTo')}</div><div class="wel-wm" aria-label="Zetoro">${'ZETORO'.split('').map((c,i)=>`<span><b${i?'':' class="z"'} style="animation-delay:${.55+i*.075}s,${1.45+i*.07}s">${c}</b></span>`).join('')}</div></div>`;
-  document.body.appendChild(o);let done=false;const close=()=>{if(done)return;done=true;o.classList.add('out');setTimeout(()=>o.remove(),750)};
-  o.onclick=close;setTimeout(close,matchMedia('(prefers-reduced-motion: reduce)').matches?900:2900)}
+  o.innerHTML=`<div class="wel-in"><div class="wel-k">${t('welTo')}</div><div class="wel-wm" aria-label="Zetoro">${'ZETORO'.split('').map((c,i)=>`<span><b${i?'':' class="z"'} style="animation-delay:${.9+i*.13}s,${2.3+i*.1}s">${c}</b></span>`).join('')}</div></div>`;
+  document.body.appendChild(o);let done=false;const close=()=>{if(done)return;done=true;o.classList.add('out');setTimeout(()=>o.remove(),950)};
+  o.onclick=close;setTimeout(close,matchMedia('(prefers-reduced-motion: reduce)').matches?1200:4800)}
 async function doSetup(){const n=$('sn').value.trim(),e=$('u').value.trim().toLowerCase(),p=$('p').value;
   if(!n||!e||!p){S.err=t('fill');return render()}if(p.length<8){S.err=t('pwMin');return render()}lgBusy();
   await run(async()=>{await invokeAdmin({action:'setup_teacher',nama:n,email:e,password:p});
