@@ -1302,7 +1302,7 @@ function vScore(s,b,edit,only){const maxOpen=maxOpenOf(s,b);
   const all=one?pkWords(b,one):b.words.slice(0,maxOpen*20),h=all.filter(w=>st(s,w)==='hafal').length,be=all.filter(w=>st(s,w)==='belum').length;
   let html=`<div class="stats"><div class="stat"><b style="color:var(--ok)">${h}</b><span>${t('hafal')}</span></div>
   <div class="stat"><b style="color:var(--warn)">${be}</b><span>${t('belum')}</span></div><div class="stat"><b>${all.length-h-be}</b><span>${t('baru')}</span></div></div>
-${edit?'':`<div class="trbar"><label class="sw"><input type="checkbox" ${trGet()?'checked':''} onchange="trSet(this.checked)"><span></span>${t('showTr')}</label></div>`}
+${edit?'':`<div class="trbar"><label class="sw" aria-label="${t('showTr')}" title="${t('showTr')}"><input type="checkbox" ${trGet()?'checked':''} onchange="trSet(this.checked)"><span></span></label></div>`}
 `;
   for(let p=one||1;p<=(one||maxOpen);p++){const ws=pkWords(b,p);if(!ws.length)continue;const ph=ws.filter(w=>st(s,w)==='hafal').length,q=s.quiz[b.id+'-'+p];
     const key=`${s.id}-${b.id}-${p}`,open=one?true:S.open[key]??(p===maxOpen),full=ph===ws.length;
