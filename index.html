@@ -247,6 +247,7 @@ textarea.agrow{resize:none;overflow:hidden;min-height:44px;line-height:1.45}
 .st.hafal{color:var(--ok);border-color:var(--ok);background:var(--oks)}
 .st.belum{color:var(--warn);border-color:var(--warn);background:var(--warns)}
 .wi.hafal{background:var(--oks)}.wi.belum{background:var(--warns)}
+.scw .wi{position:relative;padding-right:46px}.scw .wi .mini{position:absolute;top:8px;right:8px;width:30px;height:30px}.scw .wi .mini svg{width:14px;height:14px}
 .pk{font-size:12px;letter-spacing:1px;color:var(--ac);text-transform:uppercase;margin:16px 0 6px;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .pksep{border-top:3px solid var(--tx);margin:14px 0 0}
 .wi select{width:auto;padding:5px 8px;font-size:12.5px}
@@ -618,7 +619,7 @@ summary:"Ringkasan",students:"Murid",material:"Materi",grade:"Nilai",activePkg:"
 opened:"Dibuka untuk",addStudent:"Tambah murid",name:"Nama",save:"Simpan",resetPin:"Reset PIN",newPin:"PIN baru",added:"Murid ditambahkan",pinReset:"PIN direset",
 babs:"Bab",newBab:"Bab baru",babName:"Nama bab",create:"Buat",addWord:"Tambah kata",word:"Kata (English)",meaning:"Arti",example:"Contoh kalimat",pasteTitle:"Paste dari AI",
 pasteHint:"Satu kata per baris: kata | arti | contoh | arti contoh (tab juga bisa)",copyPrompt:"Salin prompt",copied:"Prompt tersalin",wordsAdded:"kata ditambahkan",nothing:"Tidak ada baris yang terbaca.",
-wordList:"Daftar kata",autoSplit:"Otomatis dipotong per 20 kata",viewOnly:"Hanya guru yang bisa mengubah status",noQuiz:"Belum pernah quiz",needWords:"Butuh minimal 4 kata untuk quiz.",
+wordList:"Daftar kata",sessExpired:"Sesi login sudah habis. Muat ulang halaman lalu masuk lagi — teks yang kamu tempel tidak hilang.",autoSplit:"Otomatis dipotong per 20 kata",viewOnly:"Hanya guru yang bisa mengubah status",noQuiz:"Belum pernah quiz",needWords:"Butuh minimal 4 kata untuk quiz.",
 gradeOf:"Penilaian",chooseBab:"Pilih bab",empty:"Belum ada kata",level:"Level",total:"total kata hafal",toNext:"kata lagi ke level berikutnya",maxLvl:"Level tertinggi",
 teacherHi:"Panel guru",newMark:"Baru",theme:"Tema",of:"dari",paketLocked:"Paket ini belum dibuka guru",allWords:"Semua kata",tapShort:"ketuk untuk arti",tapHint:"Ketuk kata untuk melihat artinya",needSentence:"Contoh kalimat wajib diisi.",skipped:"baris dilewati karena belum ada contoh kalimat",sentence:"Kalimat"},
 en:{proto:"Prototype — sample data, resets on reload",student:"Student",teacher:"Teacher",username:"Username",pin:"PIN",email:"Email",password:"Password",login:"Sign in",logout:"Sign out",
@@ -631,7 +632,7 @@ summary:"Overview",students:"Students",material:"Material",grade:"Grade",activeP
 opened:"Unlocked for",addStudent:"Add student",name:"Name",save:"Save",resetPin:"Reset PIN",newPin:"New PIN",added:"Student added",pinReset:"PIN reset",
 babs:"Chapters",newBab:"New chapter",babName:"Chapter name",create:"Create",addWord:"Add word",word:"Word (English)",meaning:"Meaning",example:"Example sentence",pasteTitle:"Paste from AI",
 pasteHint:"One word per line: word | meaning | example | example meaning (tabs work too)",copyPrompt:"Copy prompt",copied:"Prompt copied",wordsAdded:"words added",nothing:"No readable lines.",
-wordList:"Word list",autoSplit:"Split into sets of 20 automatically",viewOnly:"Only the teacher can change status",noQuiz:"No quiz yet",needWords:"Needs at least 4 words for a quiz.",
+wordList:"Word list",sessExpired:"Your login session has expired. Reload the page and sign in again — your pasted text is kept.",autoSplit:"Split into sets of 20 automatically",viewOnly:"Only the teacher can change status",noQuiz:"No quiz yet",needWords:"Needs at least 4 words for a quiz.",
 gradeOf:"Grading",chooseBab:"Choose chapter",empty:"No words yet",level:"Level",total:"total words mastered",toNext:"more words to next level",maxLvl:"Top level",
 teacherHi:"Teacher panel",newMark:"New",theme:"Theme",of:"of",paketLocked:"This set isn't unlocked yet",allWords:"All words",tapShort:"tap for meaning",tapHint:"Tap a word to see its meaning",needSentence:"An example sentence is required.",skipped:"lines skipped because they have no example sentence",sentence:"Sentence"}
 };
@@ -798,9 +799,17 @@ function clearTalk(){const el=S.talkEl;if(el){el.classList.remove('talking');con
 function stopAudio(){if(S.tts&&S.tts.playing)ttsPause();try{speechSynthesis.cancel()}catch(e){}clearTalk();if(S.aud){try{S.aud.pause()}catch(e){}}try{if(S.rec)S.rec.abort()}catch(e){}S.rec=null}
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const isNew=w=>Date.now()-new Date(w.created_at).getTime()<3*864e5;
+async function freshSession(force){try{const{data}=await sb.auth.getSession();const ss=data&&data.session;
+    if(ss&&!force&&(ss.expires_at||0)*1000-Date.now()>60e3)return true;
+    const{data:r,error}=await sb.auth.refreshSession();return !error&&!!(r&&r.session)}catch(e){return false}}
+const authErr=e=>/row-level security|jwt|401|not authenticated|invalid claim/i.test(String(e&&(e.message||e.code)||''));
 async function run(fn,savingMsg=true){if(S.busy)return;S.busy=true;if(savingMsg)toast(t('saving'),60000);
-  try{await fn()}catch(e){console.error(e);toast(/fetch|network/i.test(String(e.message))?t('offline'):(e.message||t('errGeneric')),3500);S.busy=false;return false}
+  const fail=e=>{console.error(e);toast(authErr(e)?t('sessExpired'):/fetch|network/i.test(String(e.message))?t('offline'):(e.message||t('errGeneric')),authErr(e)?6000:3500);S.busy=false;return false};
+  if(S.user&&!await freshSession()){return fail({message:'JWT expired'})}
+  try{await fn()}catch(e){if(!authErr(e)||!S.user)return fail(e);
+    if(!await freshSession(true))return fail(e);try{await fn()}catch(e2){return fail(e2)}}
   S.busy=false;return true}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&S.user)freshSession()});
 const icon={book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/></svg>',
 chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
 home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7v9H3z"/></svg>',
@@ -1267,12 +1276,12 @@ function vScore(s,b,edit){const maxOpen=maxOpenOf(s,b);
     html+=`${p>1?'<div class="pksep"></div>':''}<button class="pkh ${open?'op':''}" onclick="togPk('${key}',${p===maxOpen})"><span class="chev">›</span><span class="pkt">${t('paket')} ${p}</span>
       <span class="pks ${full?'full':''}">${ph}/${ws.length}${full?' '+ic('check',12):''} · ${q?`${t('quiz')} ${q.last}/100`:t('noQuiz')}</span></button>`;
     if(!open)continue;
-    html+=`${q?`<p class="sm mu" style="margin:0 0 6px">${t('best')} ${q.best}/100 · ${q.tries}x</p>`:''}<div class="wl">`;
+    html+=`${q?`<p class="sm mu" style="margin:0 0 6px">${t('best')} ${q.best}/100 · ${q.tries}x</p>`:''}<div class="wl${edit?'':' scw'}">`;
     ws.forEach((w,i)=>{const v=st(s,w);
       html+=`<div class="wi ${v}"><span class="no">${(p-1)*20+i+1}</span>${edit?`<div class="grow"><b>${kw(w)}</b> <span class="sm mu">· ${esc(w.arti)}</span><div class="sm mu ex">“${cs(w)}”</div>${w.contoh_arti?`<div class="sm" style="color:var(--ac)">${esc(w.contoh_arti)}</div>`:''}</div>
       <select onchange="setSt('${s.id}',${w.id},this.value,this)">${['baru','belum','hafal'].map(o=>`<option value="${o}" ${o===v?'selected':''}>${t(o)}</option>`).join('')}</select>`:
       `<div class="grow wcard" data-wid="${w.id}" onclick="this.classList.toggle('open')"><b>${kw(w)}</b> <span class="sm hid">· ${t('tapShort')}</span><span class="sm ar">· ${esc(w.arti)}</span><div class="sm mu ex">“${cs(w)}”</div>${w.contoh_arti?`<div class="sm ar2">${esc(w.contoh_arti)}</div>`:''}</div>
-      <button class="mini" aria-label="${t('listen')}" onclick="speak('${jsq(w.kata+'. '+w.contoh)}',.85,this)">${ic('spk',15)}</button><span class="st ${v}">${t(v)}</span>`}</div>`});
+      <button class="mini" aria-label="${t('listen')}" onclick="speak('${jsq(w.kata+'. '+w.contoh)}',.85,this)">${ic('spk',15)}</button>`}</div>`});
     html+='</div>'}
   return html}
 async function togPk(k,def){S.open[k]=!(S.open[k]??def);render()}
@@ -1417,7 +1426,7 @@ function aMat(){const b=bab(S.mBab)||DB.babs[0];
   <label class="sw"><input type="checkbox" ${S.pSense?'checked':''} onchange="S.pSense=this.checked"><span></span>${t('allowSense')}</label></div>
   <div class="sc-lbl" style="margin-top:4px">${t('focusGram')}</div><div id="pfoc" class="pfoc">${focusChips()}</div>
   <button class="btn ghost sm2" style="margin-bottom:10px" onclick="copyPrompt()">${t('copyPrompt')}</button>
-  <textarea id="pb" placeholder="sweep | menyapu | I sweep the floor. | Aku menyapu lantai."></textarea><div style="height:10px"></div>
+  <textarea id="pb" placeholder="sweep | menyapu | I sweep the floor. | Aku menyapu lantai." oninput="pbSet(this.value)">${esc(pbGet())}</textarea><div style="height:10px"></div>
   <button class="btn" type="button" onclick="pasteWords()">${t('save')}</button>`)}
   <h2>${t('wordList')} <span class="sm mu" style="font-weight:400">· ${t('autoSplit')}</span></h2><p class="sm mu" style="margin:-4px 0 8px">${t('tapEdit')}</p>
   ${b.words.length?`<div class="msearch">${ic('search',16)}<input id="mq" type="search" placeholder="${t('searchWord')}" value="${esc(S.mq||'')}" oninput="S.mq=this.value;$('mlist').innerHTML=matList(bab(S.mBab))"></div><div id="mlist">${matList(b)}</div>`:`<div class="card mu">${t('empty')}</div>`}`:''}`}
@@ -1806,14 +1815,16 @@ function others(w,ws,n,extra=()=>true){const usedK=new Set([norm(w.kata)]),usedA
 function splitBar(l){const out=[];let cur='',d=0;for(const ch of l){if(ch==='[')d++;else if(ch===']')d=Math.max(0,d-1);if(ch==='|'&&!d){out.push(cur);cur=''}else cur+=ch}out.push(cur);return out}
 function parse(txt){return txt.split(/\r?\n/).map(l=>l.trim()).filter(l=>l&&!/^\|?\s*:?-{2,}/.test(l)).map(l=>{l=l.replace(/^\|/,'').replace(/\|$/,'');
   let p=(l.includes('\t')?l.split('\t'):splitBar(l)).map(x=>x.trim().replace(/^\*\*|\*\*$/g,''));if(/^\d+\.?$/.test(p[0])&&p.length>=4)p.shift();return p}).filter(p=>p.length>=2&&p[0]&&!/^(kata|word|no)$/i.test(p[0]))}
-async function pasteWords(){const rows=parse($('pb').value);if(!rows.length){toast(t('nothing'));return}
+function pbSet(v){S.pbKeep=v;try{v?localStorage.setItem('zt-pb',v.slice(0,20000)):localStorage.removeItem('zt-pb')}catch(e){}}
+function pbGet(){if(S.pbKeep==null){try{S.pbKeep=localStorage.getItem('zt-pb')||''}catch(e){S.pbKeep=''}}return S.pbKeep}
+async function pasteWords(){pbSet($('pb').value);const rows=parse(S.pbKeep);if(!rows.length){toast(t('nothing'));return}
   const valid=rows.filter(p=>(p[2]||'').trim()&&p[1]),skip=rows.length-valid.length,seen=new Set(),fresh=[],exist=[];let inDup=0;
   valid.forEach(p=>{const k=norm(p[0]);if(seen.has(k)){inDup++;return}seen.add(k);const d=dupsOf(p[0]);(d.length?exist:fresh).push(d.length?{p,d}:p)});
   const toRow=p=>{const pm=parseMarks(p[2]);return{bab_id:S.mBab,kata:p[0].slice(0,120),arti:p[1].slice(0,200),contoh:pm.plain.slice(0,400),contoh_arti:p.slice(3).join(' | ').trim().slice(0,400),tanda:cleanMarks(pm.plain,pm.marks)}};
   const ins=async list=>{if(!list.length)return true;return await run(async()=>{const{data,error}=await sb.from('words').insert(list.map(toRow)).select('id,bab_id,kata,arti,contoh,contoh_arti,tanda,created_at');if(error)throw error;
     data.sort((x,y)=>x.id-y.id).forEach(w=>bab(S.mBab).words.push(w))})};
   if(!fresh.length&&!exist.length){toast(`${skip} ${t('skipped')}`,3500);return}
-  let added=0;if(fresh.length){if(!await ins(fresh)){render();return}added=fresh.length;$('pb').value=''}
+  let added=0;if(fresh.length){if(!await ins(fresh)){render();return}added=fresh.length;pbSet('');const pb=$('pb');if(pb)pb.value=''}
   let extra=0,left=exist.length;
   if(exist.length){render();$('toast').classList.remove('show');const picked=await askPick(exist);if(picked.length&&await ins(picked.map(i=>exist[i].p))){extra=picked.length;left-=picked.length}}
   const parts=[];if(added+extra)parts.push(`${added+extra} ${t('wordsAdded')}`);if(extra)parts.push(`${extra} ${t('asNewSense')}`);
