@@ -607,6 +607,7 @@ button.back:hover{border:0;color:var(--ac);opacity:.75}button.back:active{transf
 .wel-wm{display:flex;gap:.3em;font-weight:800;font-size:34px;letter-spacing:.05em;line-height:1.15}
 .wel-wm>span{display:inline-block;overflow:hidden;padding:0 .02em}
 .wel-wm>span>b{display:inline-block;font-weight:inherit;color:transparent;background:linear-gradient(100deg,var(--tx) 0 42%,var(--ac) 50%,var(--tx) 58% 100%);background-size:300% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;transform:translateY(110%);animation:welRise .7s cubic-bezier(.2,.9,.25,1.15) both,welShine 1s ease-in-out both}
+.wel-wm>span>b.z{background-image:linear-gradient(100deg,var(--ac) 0 42%,#F6C9A6 50%,var(--ac) 58% 100%)}
 @keyframes welGlow{0%{opacity:0;transform:scale(.6)}45%{opacity:.16}100%{opacity:.07;transform:scale(1)}}
 @keyframes welTrack{to{opacity:1;filter:none;letter-spacing:.35em;margin-right:-.35em}}
 @keyframes welRise{to{transform:none}}
@@ -1043,7 +1044,7 @@ async function doLogin(){const u=$('u').value.trim().toLowerCase(),p=$('p').valu
   if(S.user)welcome();render()}
 function welcome(){const old=$('wel');if(old)old.remove();
   const o=document.createElement('div');o.className='wel';o.id='wel';o.setAttribute('role','status');
-  o.innerHTML=`<div class="wel-in"><div class="wel-k">${t('welTo')}</div><div class="wel-wm" aria-label="Zetoro">${'ZETORO'.split('').map((c,i)=>`<span><b style="animation-delay:${.55+i*.075}s,${1.45+i*.07}s">${c}</b></span>`).join('')}</div></div>`;
+  o.innerHTML=`<div class="wel-in"><div class="wel-k">${t('welTo')}</div><div class="wel-wm" aria-label="Zetoro">${'ZETORO'.split('').map((c,i)=>`<span><b${i?'':' class="z"'} style="animation-delay:${.55+i*.075}s,${1.45+i*.07}s">${c}</b></span>`).join('')}</div></div>`;
   document.body.appendChild(o);let done=false;const close=()=>{if(done)return;done=true;o.classList.add('out');setTimeout(()=>o.remove(),750)};
   o.onclick=close;setTimeout(close,matchMedia('(prefers-reduced-motion: reduce)').matches?900:2900)}
 async function doSetup(){const n=$('sn').value.trim(),e=$('u').value.trim().toLowerCase(),p=$('p').value;
