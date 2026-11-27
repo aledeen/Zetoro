@@ -10,7 +10,7 @@ const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
 
 const STUDENT_DOMAIN = "murid.zetoro.app";
-const pinToPw = (u: string, pin: string) => `zt:${u}:${pin}`;
+const hpToPw = (u: string, hp: string) => `zt:${u}:${hp}`;
 const USER_RE = /^[a-z0-9_.]{3,20}$/;
 const HP_RE = /^0\d{8,14}$/;
 // nomor HP dinormalkan: hanya angka, +62/62 -> 0, 8xx -> 08xx
@@ -68,7 +68,7 @@ Deno.serve(async (req) => {
       const { data: dupHp } = await admin.from("profiles").select("nama").eq("no_hp", hp).maybeSingle();
       if (dupHp) return json({ error: `Nomor HP ini sudah dipakai ${dupHp.nama}. Satu nomor untuk satu murid.` }, 409);
       const { data, error } = await admin.auth.admin.createUser({
-        email: `${username}@${STUDENT_DOMAIN}`, password: pinToPw(username, hp), email_confirm: true,
+        email: `${username}@${STUDENT_DOMAIN}`, password: hpToPw(username, hp), email_confirm: true,
       });
       if (error) return json({ error: error.message }, 400);
       const { error: e2 } = await admin.from("profiles").insert({ id: data.user.id, role: "student", nama, username, no_hp: hp });
@@ -78,16 +78,16 @@ Deno.serve(async (req) => {
       return json({ ok: true, id: data.user.id });
     }
 
-    if (action === "reset_pin") {
+    if (action === "reset_phone" || action === "reset_pin") {
       const id = String(body.student_id || "");
       const { data: p } = await admin.from("profiles").select("username,role").eq("id", id).maybeSingle();
       if (!p || p.role !== "student") return json({ error: "Murid tidak ditemukan." }, 404);
-      // PIN baru = nomor HP murid (satu nomor untuk satu murid)
+      // nomor HP baru = kata sandi masuk murid (satu nomor untuk satu murid)
       const hp = normHp(body.no_hp);
       if (!HP_RE.test(hp)) return json({ error: "Nomor HP tidak valid. Contoh: 081234567890." }, 400);
       const { data: dupHp } = await admin.from("profiles").select("id,nama").eq("no_hp", hp).neq("id", id).maybeSingle();
       if (dupHp) return json({ error: `Nomor HP ini sudah dipakai ${dupHp.nama}. Satu nomor untuk satu murid.` }, 409);
-      const { error } = await admin.auth.admin.updateUserById(id, { password: pinToPw(p.username, hp) });
+      const { error } = await admin.auth.admin.updateUserById(id, { password: hpToPw(p.username, hp) });
       if (error) return json({ error: error.message }, 400);
       const { error: e2 } = await admin.from("profiles").update({ no_hp: hp }).eq("id", id);
       if (e2) return json({ error: e2.message }, 400);
